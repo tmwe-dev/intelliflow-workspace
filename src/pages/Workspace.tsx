@@ -155,7 +155,7 @@ const Workspace = () => {
 
       <div className="flex flex-1 overflow-hidden">
         {/* ─── LEFT: THE MIND ─── */}
-        <div className="w-[380px] min-w-[340px] border-r border-border flex flex-col bg-card/20">
+        <div className="w-[320px] min-w-[280px] border-r border-border flex flex-col bg-card/20">
           {/* Chat header */}
           <div className="px-4 py-3 border-b border-border/50">
             <div className="section-label">LA MENTE · CHAT & VOCE</div>
