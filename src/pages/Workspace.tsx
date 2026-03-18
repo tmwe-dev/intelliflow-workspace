@@ -610,7 +610,7 @@ const Workspace = () => {
               transition={{ duration: 0.3, ease }}
               className="border-l border-border overflow-hidden flex-shrink-0 bg-card/20"
             >
-              <div className="w-[300px] h-full flex flex-col">
+              <div className="w-[260px] h-full flex flex-col">
                 <div className="px-4 py-3 border-b border-border/50">
                   <div className="section-label">AGENTI · ATTIVITÀ IN TEMPO REALE</div>
                 </div>
