@@ -43,7 +43,7 @@ const FloatingDock = () => {
                 }`}
               >
                 <item.icon className="w-4 h-4 flex-shrink-0" strokeWidth={1.5} />
-                <span className="text-[11px] font-medium hidden lg:inline whitespace-nowrap">
+                <span className="text-[11px] font-medium hidden xl:inline whitespace-nowrap">
                   {item.label}
                 </span>
               </div>
