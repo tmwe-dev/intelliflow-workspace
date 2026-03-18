@@ -13,23 +13,28 @@ import {
   Eye,
   Clock,
   Tag,
+  Mail,
+  Shield,
+  Zap,
+  Users,
+  Building2,
 } from "lucide-react";
 
 const ease = [0.2, 0.8, 0.2, 1] as const;
 
 const templates = [
-  { id: 1, name: "Analisi Clienti Inattivi", category: "Analisi", icon: Table, starred: true, uses: 23, lastUsed: "2h fa", version: "v2.1", tags: ["CRM", "Churn", "Report"], preview: "Tabella + KPI + Insight AI" },
-  { id: 2, name: "Report Vendite Executive", category: "Report", icon: FileText, starred: true, uses: 45, lastUsed: "1g fa", version: "v3.0", tags: ["Vendite", "Executive", "PDF"], preview: "Report navigabile con grafici" },
-  { id: 3, name: "Pipeline Kanban Dinamica", category: "Vista", icon: Kanban, starred: false, uses: 18, lastUsed: "3g fa", version: "v1.4", tags: ["Pipeline", "Kanban", "Deals"], preview: "Board con drag & drop" },
-  { id: 4, name: "Dashboard KPI Real-time", category: "Dashboard", icon: BarChart3, starred: true, uses: 67, lastUsed: "1h fa", version: "v4.2", tags: ["KPI", "Dashboard", "Live"], preview: "4 widget + grafico trend" },
-  { id: 5, name: "Timeline Progetto", category: "Vista", icon: Calendar, starred: false, uses: 12, lastUsed: "5g fa", version: "v1.0", tags: ["Progetto", "Timeline", "Gantt"], preview: "Gantt interattivo" },
-  { id: 6, name: "Segmentazione Lead Scoring", category: "Analisi", icon: Table, starred: false, uses: 34, lastUsed: "2g fa", version: "v2.0", tags: ["Lead", "Segmenti", "Scoring"], preview: "Tabella filtri + distribuzioni" },
-  { id: 7, name: "Confronto Trimestrale Q/Q", category: "Report", icon: BarChart3, starred: false, uses: 29, lastUsed: "4g fa", version: "v1.8", tags: ["Confronto", "Trimestrale"], preview: "Dual chart + delta" },
-  { id: 8, name: "Onboarding Clienti Flow", category: "Automazione", icon: Kanban, starred: true, uses: 15, lastUsed: "6g fa", version: "v1.2", tags: ["Onboarding", "Flow", "Auto"], preview: "Flow step-by-step" },
-  { id: 9, name: "Campagna Email Builder", category: "Automazione", icon: FileText, starred: false, uses: 41, lastUsed: "1g fa", version: "v2.5", tags: ["Email", "Campagna", "Template"], preview: "Preview email + audience" },
+  { id: 1, name: "Analisi Churn Clienti", category: "Analisi", icon: Table, starred: true, uses: 23, lastUsed: "2h fa", version: "v2.1", tags: ["companies", "churn", "scoring"], preview: "Tabella companies + KPI + Insight AI", entities: ["contacts", "companies", "activities"], agents: ["🏢", "📊", "🎨"] },
+  { id: 2, name: "Report Executive Vendite", category: "Report", icon: FileText, starred: true, uses: 45, lastUsed: "1g fa", version: "v3.0", tags: ["vendite", "executive", "partner"], preview: "Report navigabile con grafici trend", entities: ["companies", "partners"], agents: ["🏢", "📊", "🎨"] },
+  { id: 3, name: "Pipeline Kanban Dinamica", category: "Vista", icon: Kanban, starred: false, uses: 18, lastUsed: "3g fa", version: "v1.4", tags: ["pipeline", "prospects", "deals"], preview: "Board con drag & drop per prospect", entities: ["prospects", "activities"], agents: ["🏢", "🎨"] },
+  { id: 4, name: "Dashboard KPI Real-time", category: "Dashboard", icon: BarChart3, starred: true, uses: 67, lastUsed: "1h fa", version: "v4.2", tags: ["KPI", "live", "monitoring"], preview: "4 widget + grafico trend + insight", entities: ["companies", "activities"], agents: ["📊", "🎨"] },
+  { id: 5, name: "Timeline Attività Partner", category: "Vista", icon: Calendar, starred: false, uses: 12, lastUsed: "5g fa", version: "v1.0", tags: ["partners", "timeline", "attività"], preview: "Timeline interattiva attività partner", entities: ["partners", "activities"], agents: ["🏢", "🎨"] },
+  { id: 6, name: "Lead Scoring Segmentation", category: "Analisi", icon: Table, starred: false, uses: 34, lastUsed: "2g fa", version: "v2.0", tags: ["prospects", "segmenti", "scoring"], preview: "Tabella filtri + distribuzione score", entities: ["prospects", "activities"], agents: ["🏢", "📊", "🎨"] },
+  { id: 7, name: "Campagna Email Builder", category: "Automazione", icon: Mail, starred: true, uses: 41, lastUsed: "1g fa", version: "v2.5", tags: ["email", "contacts", "campagna"], preview: "Preview email + audience + invio", entities: ["contacts", "email_drafts", "campaigns"], agents: ["📧", "⚡", "🛡️"] },
+  { id: 8, name: "Confronto Trimestrale Q/Q", category: "Report", icon: BarChart3, starred: false, uses: 29, lastUsed: "4g fa", version: "v1.8", tags: ["confronto", "trimestrale", "trend"], preview: "Dual chart + delta + insight", entities: ["companies", "activities"], agents: ["📊", "🎨"] },
+  { id: 9, name: "Audit Compliance Report", category: "Governance", icon: Shield, starred: false, uses: 8, lastUsed: "6g fa", version: "v1.1", tags: ["audit", "GDPR", "compliance"], preview: "Report compliance + policy check", entities: ["contacts", "documents", "audit_trail"], agents: ["🛡️", "🏢"] },
 ];
 
-const categories = ["Tutti", "Analisi", "Report", "Vista", "Dashboard", "Automazione"];
+const categories = ["Tutti", "Analisi", "Report", "Vista", "Dashboard", "Automazione", "Governance"];
 
 const Templates = () => {
   return (
@@ -44,7 +49,7 @@ const Templates = () => {
               <h1 className="text-2xl font-bold tracking-tight">Template Library</h1>
             </div>
             <p className="text-sm text-muted-foreground ml-12">
-              Viste, report e flussi salvati per riuso intelligente
+              Viste, report, flussi e configurazioni salvate per riuso intelligente. Ogni template ricorda agenti ed entità usate.
             </p>
           </div>
           <div className="flex items-center gap-3 text-sm text-muted-foreground">
@@ -56,12 +61,12 @@ const Templates = () => {
       </motion.div>
 
       {/* Filters */}
-      <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.1 }} className="flex items-center gap-3 mb-8">
+      <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.1 }} className="flex items-center gap-3 mb-8 flex-wrap">
         <div className="flex items-center gap-2 glass-panel px-4 py-2.5 flex-1 max-w-md rounded-xl">
           <Search className="w-4 h-4 text-muted-foreground" />
           <input type="text" placeholder="Cerca template..." className="bg-transparent text-sm outline-none flex-1 placeholder:text-muted-foreground" />
         </div>
-        <div className="flex items-center gap-1">
+        <div className="flex items-center gap-1 flex-wrap">
           {categories.map((cat) => (
             <button
               key={cat}
@@ -104,6 +109,23 @@ const Templates = () => {
                 <Eye className="w-3 h-3 text-primary/50" />
                 {tmpl.preview}
               </div>
+            </div>
+
+            {/* Agents used */}
+            <div className="flex items-center gap-2 mb-2">
+              <span className="text-[9px] text-muted-foreground font-mono">Agenti:</span>
+              <div className="flex -space-x-1">
+                {tmpl.agents.map((emoji, j) => (
+                  <span key={j} className="text-xs bg-card rounded-full w-5 h-5 flex items-center justify-center border border-border">{emoji}</span>
+                ))}
+              </div>
+            </div>
+
+            {/* Entities */}
+            <div className="flex gap-1 flex-wrap mb-3">
+              {tmpl.entities.map((e) => (
+                <span key={e} className="text-[8px] px-1.5 py-0.5 rounded bg-secondary text-muted-foreground font-mono">{e}</span>
+              ))}
             </div>
 
             <div className="flex items-center gap-1.5 flex-wrap mb-3">

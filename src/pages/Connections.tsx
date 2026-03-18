@@ -5,9 +5,7 @@ import {
   Mail,
   MessageSquare,
   FileText,
-  ShoppingCart,
   CheckCircle2,
-  AlertCircle,
   RefreshCw,
   Plus,
   ExternalLink,
@@ -16,21 +14,27 @@ import {
   Server,
   HardDrive,
   Webhook,
+  Phone,
+  FolderOpen,
+  Search,
 } from "lucide-react";
 
 const ease = [0.2, 0.8, 0.2, 1] as const;
 
 const connections = [
-  { name: "PostgreSQL — CRM Principale", type: "Database SQL", icon: Database, status: "connected", lastSync: "2m fa", records: "124.5k", caps: ["Read", "Write", "Search"] },
-  { name: "MySQL — Ordini & Fatturazione", type: "Database SQL", icon: Database, status: "connected", lastSync: "5m fa", records: "89.2k", caps: ["Read", "Write", "Search", "Export"] },
-  { name: "Salesforce — Sales Cloud", type: "CRM", icon: Cloud, status: "connected", lastSync: "12m fa", records: "45.3k", caps: ["Read", "Write", "Search", "Create"] },
-  { name: "SAP Business One — ERP", type: "ERP", icon: Server, status: "connected", lastSync: "1h fa", records: "234k", caps: ["Read", "Search", "Export"] },
-  { name: "Google Workspace — Gmail & Drive", type: "Produttività", icon: Mail, status: "connected", lastSync: "3m fa", records: "12.8k", caps: ["Read", "Send", "Search"] },
-  { name: "Slack — Notifiche Team", type: "Messaggistica", icon: MessageSquare, status: "connected", lastSync: "1m fa", records: "—", caps: ["Send", "Read"] },
-  { name: "MongoDB — Analytics Events", type: "Database NoSQL", icon: HardDrive, status: "connected", lastSync: "30s fa", records: "1.2M", caps: ["Read", "Search"] },
-  { name: "Stripe — Pagamenti & Billing", type: "Finanza", icon: FileText, status: "warning", lastSync: "3h fa", records: "67.1k", caps: ["Read", "Search", "Export"] },
-  { name: "HubSpot — Marketing Hub", type: "Marketing", icon: Cloud, status: "disconnected", lastSync: "—", records: "—", caps: [] },
-  { name: "Webhook — CRM Events", type: "Webhook", icon: Webhook, status: "connected", lastSync: "real-time", records: "—", caps: ["Read"] },
+  { name: "PostgreSQL — CRM Core Database", type: "Database SQL", icon: Database, status: "connected", lastSync: "2m fa", records: "124.5k", caps: ["Read", "Write", "Search", "Create", "Update"], description: "contacts, companies, partners, prospects, activities" },
+  { name: "MySQL — Ordini & Fatturazione", type: "Database SQL", icon: Database, status: "connected", lastSync: "5m fa", records: "89.2k", caps: ["Read", "Write", "Search", "Export"], description: "ordini, fatture, pagamenti, prodotti" },
+  { name: "Salesforce — Sales Cloud", type: "CRM", icon: Cloud, status: "connected", lastSync: "12m fa", records: "45.3k", caps: ["Read", "Write", "Search", "Create"], description: "leads, opportunities, accounts" },
+  { name: "SAP Business One — ERP", type: "ERP", icon: Server, status: "connected", lastSync: "1h fa", records: "234k", caps: ["Read", "Search", "Export"], description: "inventario, produzione, logistica" },
+  { name: "Google Workspace — Gmail & Drive", type: "Email + Storage", icon: Mail, status: "connected", lastSync: "3m fa", records: "12.8k", caps: ["Read", "Send", "Search", "Export"], description: "email, documenti, fogli, drive" },
+  { name: "Slack — Notifiche & Canali", type: "Messaging", icon: MessageSquare, status: "connected", lastSync: "1m fa", records: "—", caps: ["Send", "Read"], description: "canali team, notifiche agenti" },
+  { name: "MongoDB — Analytics & Events", type: "Database NoSQL", icon: HardDrive, status: "connected", lastSync: "30s fa", records: "1.2M", caps: ["Read", "Search"], description: "eventi tracking, analytics, log" },
+  { name: "Stripe — Pagamenti & Billing", type: "Finanza", icon: FileText, status: "warning", lastSync: "3h fa", records: "67.1k", caps: ["Read", "Search", "Export"], description: "transazioni, subscription, invoice" },
+  { name: "ElevenLabs — Voice AI", type: "Voice Provider", icon: Phone, status: "connected", lastSync: "real-time", records: "—", caps: ["Send"], description: "TTS, STT, voice synthesis" },
+  { name: "REST API — Custom Endpoints", type: "API", icon: Globe, status: "connected", lastSync: "5m fa", records: "—", caps: ["Read", "Write", "Create", "Update"], description: "microservizi interni, webhook custom" },
+  { name: "Webhook — CRM Events", type: "Webhook", icon: Webhook, status: "connected", lastSync: "real-time", records: "—", caps: ["Read"], description: "eventi real-time dal CRM core" },
+  { name: "AWS S3 — File Repository", type: "File Storage", icon: FolderOpen, status: "connected", lastSync: "10m fa", records: "34k", caps: ["Read", "Write", "Export"], description: "documenti, allegati, report generati" },
+  { name: "HubSpot — Marketing Hub", type: "Marketing", icon: Cloud, status: "disconnected", lastSync: "—", records: "—", caps: [], description: "non configurato" },
 ];
 
 const capColors: Record<string, string> = {
@@ -39,6 +43,7 @@ const capColors: Record<string, string> = {
   Search: "text-info",
   Export: "text-warning",
   Create: "text-accent",
+  Update: "text-secondary-foreground",
   Send: "text-primary",
 };
 
@@ -52,10 +57,10 @@ const Connections = () => {
               <div className="w-9 h-9 rounded-xl bg-primary/15 flex items-center justify-center glow-primary">
                 <Plug className="w-4 h-4 text-primary" strokeWidth={1.5} />
               </div>
-              <h1 className="text-2xl font-bold tracking-tight">Connessioni</h1>
+              <h1 className="text-2xl font-bold tracking-tight">Connessioni & Integrazioni</h1>
             </div>
             <p className="text-sm text-muted-foreground ml-12">
-              Il layer universale che collega Adaptive AI ai tuoi sistemi
+              Layer universale: database, CRM, ERP, API, email, voice, file, webhook. Capability mapping automatico.
             </p>
           </div>
           <button className="flex items-center gap-2 px-4 py-2.5 rounded-xl bg-primary text-primary-foreground text-sm font-semibold hover:bg-primary/90 transition-colors glow-primary">
@@ -64,26 +69,16 @@ const Connections = () => {
         </div>
       </motion.div>
 
-      {/* Stats bar */}
-      <motion.div
-        initial={{ opacity: 0, y: 10 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ delay: 0.1 }}
-        className="grid grid-cols-4 gap-3 mb-8"
-      >
+      {/* Stats */}
+      <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.1 }} className="grid grid-cols-2 lg:grid-cols-5 gap-3 mb-8">
         {[
-          { label: "Connessioni attive", value: "8", icon: CheckCircle2, color: "text-success" },
+          { label: "Connessioni attive", value: "11", icon: CheckCircle2, color: "text-success" },
           { label: "Record totali", value: "1.8M", icon: Database, color: "text-primary" },
-          { label: "Capability mappate", value: "24", icon: Globe, color: "text-info" },
-          { label: "Ultima sincronizzazione", value: "30s fa", icon: RefreshCw, color: "text-muted-foreground" },
+          { label: "Capability mappate", value: "32", icon: Globe, color: "text-info" },
+          { label: "Tipi sorgente", value: "8", icon: Server, color: "text-accent" },
+          { label: "Ultima sync", value: "30s fa", icon: RefreshCw, color: "text-muted-foreground" },
         ].map((s, i) => (
-          <motion.div
-            key={s.label}
-            initial={{ opacity: 0, y: 8 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.15 + i * 0.04, ease }}
-            className="glass-panel p-4"
-          >
+          <motion.div key={s.label} initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.15 + i * 0.04, ease }} className="glass-panel p-4">
             <s.icon className={`w-4 h-4 ${s.color} mb-2`} strokeWidth={1.5} />
             <div className="text-2xl font-bold tracking-tight">{s.value}</div>
             <div className="text-[11px] text-muted-foreground mt-0.5">{s.label}</div>
@@ -92,13 +87,8 @@ const Connections = () => {
       </motion.div>
 
       {/* Capability legend */}
-      <motion.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ delay: 0.2 }}
-        className="flex items-center gap-4 mb-6 px-1"
-      >
-        <span className="section-label">Capability:</span>
+      <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.2 }} className="flex items-center gap-4 mb-6 px-1 flex-wrap">
+        <span className="section-label">CAPABILITY MAPPING:</span>
         {Object.entries(capColors).map(([cap, color]) => (
           <span key={cap} className={`text-[10px] font-mono ${color} flex items-center gap-1`}>
             <span className="w-1.5 h-1.5 rounded-full bg-current" />
@@ -139,16 +129,17 @@ const Connections = () => {
                     <div className="status-dot-error" style={{ width: 5, height: 5 }} />
                   )}
                   <span className="text-[11px] text-muted-foreground">
-                    {conn.status === "connected" ? `Sincronizzato ${conn.lastSync}` : conn.status === "warning" ? `Ultimo sync ${conn.lastSync}` : "Disconnesso"}
+                    {conn.status === "connected" ? `Sync ${conn.lastSync}` : conn.status === "warning" ? `Ultimo sync ${conn.lastSync}` : "Disconnesso"}
                   </span>
                 </div>
                 {conn.records !== "—" && (
                   <span className="text-[11px] text-muted-foreground font-mono">{conn.records} record</span>
                 )}
+                <span className="text-[10px] text-muted-foreground/60 truncate hidden lg:inline">{conn.description}</span>
               </div>
             </div>
             <div className="flex items-center gap-3">
-              <div className="flex gap-1">
+              <div className="flex gap-1 flex-wrap max-w-[200px]">
                 {conn.caps.map((cap) => (
                   <span key={cap} className={`text-[9px] px-1.5 py-0.5 rounded-md glass-panel-subtle font-mono ${capColors[cap] || "text-muted-foreground"}`}>
                     {cap}

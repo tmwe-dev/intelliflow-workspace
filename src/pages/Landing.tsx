@@ -22,6 +22,16 @@ import {
   Globe,
   Lock,
   TrendingUp,
+  Server,
+  Cpu,
+  Building2,
+  Contact,
+  Briefcase,
+  Target,
+  Calendar,
+  FileSearch,
+  Send,
+  LayoutDashboard,
 } from "lucide-react";
 
 const ease = [0.2, 0.8, 0.2, 1] as const;
@@ -56,22 +66,24 @@ const Landing = () => {
             <Sparkles className="w-4 h-4 text-primary" strokeWidth={1.5} />
           </div>
           <span className="text-base font-semibold tracking-tight">Adaptive AI</span>
+          <span className="text-[9px] font-mono text-muted-foreground ml-1 px-1.5 py-0.5 rounded bg-secondary">WORKSPACE</span>
         </div>
         <div className="hidden md:flex items-center gap-8 text-sm text-muted-foreground">
-          <a href="#features" className="hover:text-foreground transition-colors">Prodotto</a>
-          <a href="#usecases" className="hover:text-foreground transition-colors">Use Case</a>
           <a href="#architecture" className="hover:text-foreground transition-colors">Architettura</a>
+          <a href="#usecases" className="hover:text-foreground transition-colors">Use Case</a>
+          <a href="#agents" className="hover:text-foreground transition-colors">Agenti</a>
+          <a href="#features" className="hover:text-foreground transition-colors">Capability</a>
         </div>
         <button
           onClick={() => navigate("/dashboard")}
           className="text-sm text-primary hover:text-primary/80 transition-colors font-medium"
         >
-          Accedi →
+          Entra nel Workspace →
         </button>
       </motion.nav>
 
       {/* ─── HERO ─── */}
-      <section className="relative z-10 flex flex-col items-center pt-20 pb-32 px-6">
+      <section className="relative z-10 flex flex-col items-center pt-20 pb-28 px-6">
         <motion.div
           initial={{ opacity: 0, y: 40 }}
           animate={{ opacity: 1, y: 0 }}
@@ -85,24 +97,28 @@ const Landing = () => {
             className="pill-badge mb-8"
           >
             <span className="status-dot-active" />
-            Un layer AI sopra ogni software che usi
+            Il layer AI che rende obsolete le interfacce rigide
           </motion.div>
 
           <h1 className="text-5xl sm:text-6xl md:text-7xl lg:text-[5.5rem] font-bold leading-[0.92] mb-8">
-            <span className="text-gradient-hero">Parla al tuo business.</span>
+            <span className="text-gradient-hero">Non un altro software.</span>
             <br />
-            <span className="text-gradient-primary">Lui risponde.</span>
+            <span className="text-gradient-primary">Un cervello operativo.</span>
           </h1>
 
           <motion.p
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 0.5 }}
-            className="text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto mb-12 leading-relaxed"
+            className="text-lg md:text-xl text-muted-foreground max-w-3xl mx-auto mb-12 leading-relaxed"
           >
-            Adaptive AI si collega ai tuoi database, CRM, ERP e API.
-            Capisce cosa vuoi fare e genera l'interfaccia, i report
-            e le azioni in tempo reale. Nessun form. Nessuna maschera.
+            Adaptive AI si posiziona sopra il tuo CRM, ERP, database e API.
+            Interpreta i tuoi obiettivi, orchestra agenti specializzati e
+            genera l'interfaccia giusta — in tempo reale.
+            <br />
+            <span className="text-secondary-foreground font-medium">
+              Nessun form. Nessuna maschera. Solo il risultato che vuoi.
+            </span>
           </motion.p>
 
           {/* CTA */}
@@ -126,7 +142,7 @@ const Landing = () => {
                   onClick={() => navigate("/dashboard")}
                   className="flex items-center gap-2 bg-primary text-primary-foreground px-6 py-4 text-sm font-semibold hover:bg-primary/90 transition-colors whitespace-nowrap"
                 >
-                  Inizia ora
+                  Attiva il Workspace
                   <ArrowRight className="w-4 h-4" />
                 </button>
               </div>
@@ -138,7 +154,7 @@ const Landing = () => {
             transition={{ delay: 0.9 }}
             className="text-xs text-muted-foreground"
           >
-            Setup in 2 minuti · Nessuna carta di credito · Connetti qualsiasi fonte dati
+            Setup in 2 minuti · Nessuna carta di credito · Connetti qualsiasi sistema
           </motion.p>
         </motion.div>
 
@@ -152,12 +168,12 @@ const Landing = () => {
           <p className="text-xs text-muted-foreground text-center mb-4 font-mono uppercase tracking-widest">Prova a chiedere</p>
           <div className="flex flex-wrap justify-center gap-2">
             {[
-              "Mostrami i clienti inattivi da 90 giorni",
-              "Genera report vendite executive",
-              "Prepara campagna email per questi lead",
-              "Confronta performance Q3 vs Q4",
-              "Crea dashboard KPI in tempo reale",
-              "Esporta dati GDPR per 3 utenti",
+              "Mostrami i lead inattivi da 90 giorni",
+              "Prepara una campagna email per questi 50 contatti",
+              "Genera un report executive elegante sui partner Asia",
+              "Fammi vedere cosa sta facendo il sistema in tempo reale",
+              "Salva questa configurazione come template riutilizzabile",
+              "Confronta performance Q3 vs Q4 per settore",
             ].map((prompt) => (
               <button
                 key={prompt}
@@ -170,7 +186,7 @@ const Landing = () => {
           </div>
         </motion.div>
 
-        {/* Hero preview */}
+        {/* ─── HERO PREVIEW: WORKSPACE SIMULATION ─── */}
         <motion.div
           initial={{ opacity: 0, y: 80 }}
           animate={{ opacity: 1, y: 0 }}
@@ -195,27 +211,33 @@ const Landing = () => {
                   </div>
                 </div>
                 {/* Split workspace preview */}
-                <div className="flex h-[420px]">
+                <div className="flex h-[440px]">
                   {/* Mind panel */}
-                  <div className="w-[38%] border-r border-border p-5 flex flex-col">
-                    <div className="section-label mb-4">LA MENTE · CHAT + VOCE</div>
+                  <div className="w-[36%] border-r border-border p-5 flex flex-col">
+                    <div className="section-label mb-4">CONVERSAZIONE NATURALE</div>
                     <div className="space-y-3 flex-1">
                       <div className="glass-panel-subtle p-3.5 rounded-xl">
-                        <p className="text-[13px] leading-relaxed">"Mostrami i clienti con fatturato {'>'} 100k che non ordinano da 90 giorni. Calcola il rischio churn."</p>
+                        <p className="text-[13px] leading-relaxed">"Mostrami i clienti con fatturato {'>'} 100k che non ordinano da 90 giorni. Calcola il rischio churn e suggerisci azioni."</p>
                       </div>
                       <div className="flex items-center gap-2">
                         <div className="status-dot-active animate-pulse-glow" />
-                        <span className="text-xs text-primary font-mono">3 agenti in esecuzione...</span>
+                        <span className="text-xs text-primary font-mono">4 agenti coordinati dall'Orchestratore...</span>
                       </div>
                       <div className="glass-panel-subtle p-3.5 rounded-xl border-primary/10">
-                        <div className="text-[10px] font-mono text-primary mb-1.5">AGENTE ANALISTA</div>
+                        <div className="text-[10px] font-mono text-primary mb-1.5">● ORCHESTRATORE</div>
                         <p className="text-[13px] text-secondary-foreground leading-relaxed">
-                          Trovati <strong className="text-foreground">34 clienti</strong> a rischio. Ho generato una vista con scoring churn, trend e raccomandazioni.
+                          Piano operativo: <strong className="text-foreground">CRM Core</strong> estrae clienti e fatturato,{" "}
+                          <strong className="text-foreground">Data Analyst</strong> calcola churn scoring,{" "}
+                          <strong className="text-foreground">Canvas</strong> genera la vista dinamica.
                         </p>
                       </div>
                       <div className="glass-panel-subtle p-3 rounded-lg">
-                        <div className="text-[10px] font-mono text-accent mb-1">AGENTE DESIGNER</div>
-                        <p className="text-xs text-muted-foreground">Canvas pronto: tabella + KPI + grafico trend.</p>
+                        <div className="text-[10px] font-mono text-accent mb-1">● CRM CORE AGENT</div>
+                        <p className="text-xs text-muted-foreground">Query su contacts, companies e activities — 34 risultati da 3 sorgenti.</p>
+                      </div>
+                      <div className="glass-panel-subtle p-3 rounded-lg">
+                        <div className="text-[10px] font-mono text-success mb-1">● DATA ANALYST</div>
+                        <p className="text-xs text-muted-foreground">Churn scoring completato. Score medio: 76/100.</p>
                       </div>
                     </div>
                     {/* Voice wave */}
@@ -232,7 +254,7 @@ const Landing = () => {
                   </div>
                   {/* Matter panel */}
                   <div className="flex-1 p-5 flex flex-col">
-                    <div className="section-label mb-4">LA MATERIA · CANVAS DINAMICO</div>
+                    <div className="section-label mb-4">CANVAS DINAMICO · GENERATO DALL'AI</div>
                     <div className="grid grid-cols-4 gap-2 mb-4">
                       {[
                         { label: "Clienti a rischio", value: "34", change: "+12 vs Q3", negative: true },
@@ -282,14 +304,16 @@ const Landing = () => {
                   </div>
                   {/* Agent stream */}
                   <div className="w-[200px] border-l border-border p-3 flex flex-col">
-                    <div className="section-label mb-3">AGENTI</div>
+                    <div className="section-label mb-3">AGENTI ATTIVI</div>
                     <div className="space-y-2 flex-1">
                       {[
                         { name: "Orchestratore", status: "completato", icon: "🧠" },
+                        { name: "CRM Core", status: "completato", icon: "🏢" },
                         { name: "Data Analyst", status: "completato", icon: "📊" },
                         { name: "Canvas Agent", status: "in esecuz.", icon: "🎨" },
                         { name: "Comm. Agent", status: "in attesa", icon: "📧" },
                         { name: "Automation", status: "in attesa", icon: "⚡" },
+                        { name: "Governance", status: "monitoraggio", icon: "🛡️" },
                       ].map((agent) => (
                         <div key={agent.name} className="flex items-center gap-2 p-2 rounded-md glass-panel-subtle">
                           <span className="text-sm">{agent.icon}</span>
@@ -298,6 +322,7 @@ const Landing = () => {
                             <div className={`text-[9px] font-mono ${
                               agent.status === "completato" ? "text-success"
                               : agent.status === "in esecuz." ? "text-primary"
+                              : agent.status === "monitoraggio" ? "text-info"
                               : "text-muted-foreground"
                             }`}>
                               {agent.status === "in esecuz." && "● "}{agent.status}
@@ -305,6 +330,17 @@ const Landing = () => {
                           </div>
                         </div>
                       ))}
+                    </div>
+                    {/* State flow */}
+                    <div className="pt-2 border-t border-border/30 mt-2">
+                      <div className="text-[9px] font-mono text-muted-foreground mb-1.5">STATO SESSIONE</div>
+                      <div className="flex items-center gap-1">
+                        {["proposta", "anteprima", "approvazione", "esecuzione"].map((s, i) => (
+                          <div key={s} className={`text-[8px] px-1.5 py-0.5 rounded font-mono ${
+                            i <= 1 ? "bg-primary/15 text-primary" : "bg-secondary text-muted-foreground"
+                          }`}>{s}</div>
+                        ))}
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -321,73 +357,342 @@ const Landing = () => {
             Si collega a qualsiasi sistema tu stia usando
           </p>
           <div className="flex items-center justify-center gap-10 md:gap-16 flex-wrap opacity-30">
-            {["PostgreSQL", "Salesforce", "SAP", "HubSpot", "Stripe", "Slack", "Google Workspace", "MongoDB"].map((name) => (
+            {["PostgreSQL", "Salesforce", "SAP", "HubSpot", "Stripe", "Slack", "Google Workspace", "MongoDB", "Microsoft 365"].map((name) => (
               <span key={name} className="text-sm font-medium text-foreground whitespace-nowrap">{name}</span>
             ))}
           </div>
         </div>
       </section>
 
-      {/* ─── WHAT IT IS ─── */}
-      <section id="features" className="relative z-10 py-28 px-6">
+      {/* ─── 3-LAYER ARCHITECTURE ─── */}
+      <section id="architecture" className="relative z-10 py-28 px-6 border-t border-border/50">
         <div className="max-w-6xl mx-auto">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.6, ease }}
-            className="text-center mb-20"
+            className="text-center mb-16"
           >
-            <div className="pill-badge mb-6 mx-auto">Come funziona</div>
+            <div className="pill-badge mb-6 mx-auto">Architettura a 3 Layer</div>
             <h2 className="text-3xl md:text-5xl font-bold tracking-tight mb-5">
-              <span className="text-gradient-hero">Non un altro software.</span>
+              <span className="text-gradient-hero">Il CRM potente resta invisibile.</span>
               <br />
-              <span className="text-gradient-primary">Un sistema operativo AI.</span>
+              <span className="text-gradient-primary">L'AI orchestra. Tu comandi.</span>
             </h2>
             <p className="text-muted-foreground max-w-2xl mx-auto text-base leading-relaxed">
-              Adaptive AI non sostituisce i tuoi strumenti. Si posiziona sopra di essi,
-              creando un unico punto di controllo intelligente per ogni operazione.
+              Sotto il cofano: un core CRM completo con contacts, companies, campaigns, activities e documents.
+              Sopra: un layer AI che interpreta, coordina ed esegue. Davanti a te: un workspace dinamico e semplice.
             </p>
+          </motion.div>
+
+          {/* 3 Layers visual */}
+          <div className="max-w-4xl mx-auto space-y-4">
+            {[
+              {
+                layer: "LAYER 3 · DYNAMIC WORKSPACE",
+                desc: "L'interfaccia che vedi. Si adatta in tempo reale al tuo obiettivo.",
+                items: ["Chat + Voce", "Canvas dinamico", "Report generati", "Template", "Approvazioni"],
+                color: "primary",
+                glow: true,
+              },
+              {
+                layer: "LAYER 2 · AI ORCHESTRATION",
+                desc: "7 agenti specializzati coordinati da un orchestratore centrale.",
+                items: ["Orchestratore", "CRM Core", "Data Analyst", "Communication", "Canvas", "Automation", "Governance"],
+                color: "accent",
+                glow: false,
+              },
+              {
+                layer: "LAYER 1 · CORE ENGINE (INVISIBILE)",
+                desc: "Il motore operativo completo — mai esposto direttamente all'utente.",
+                items: ["Contacts", "Companies", "Partners", "Prospects", "Activities", "Campaigns", "Documents", "Email Drafts", "Reminders", "Execution Jobs", "Audit Trail"],
+                color: "muted-foreground",
+                glow: false,
+              },
+            ].map((layer, i) => (
+              <motion.div
+                key={layer.layer}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: i * 0.15, duration: 0.5, ease }}
+                className={`glass-panel p-6 ${layer.glow ? "glow-primary" : ""}`}
+              >
+                <div className="flex items-start gap-6">
+                  <div className="flex-shrink-0">
+                    <div className={`text-[10px] font-mono font-bold tracking-widest text-${layer.color} mb-1`}>
+                      {layer.layer}
+                    </div>
+                    <p className="text-xs text-muted-foreground max-w-xs">{layer.desc}</p>
+                  </div>
+                  <div className="flex-1 flex items-center gap-2 flex-wrap">
+                    {layer.items.map((item) => (
+                      <span key={item} className={`text-[11px] px-2.5 py-1 rounded-md ${
+                        layer.color === "primary" ? "bg-primary/10 text-primary border border-primary/15"
+                        : layer.color === "accent" ? "bg-accent/10 text-accent border border-accent/15"
+                        : "bg-secondary text-muted-foreground"
+                      }`}>
+                        {item}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+                {i < 2 && (
+                  <div className="flex justify-center mt-3">
+                    <div className="text-muted-foreground/30 text-xs">▼ ▼ ▼</div>
+                  </div>
+                )}
+              </motion.div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ─── CORE CRM ENTITIES ─── */}
+      <section className="relative z-10 py-24 px-6 border-t border-border/50">
+        <div className="max-w-6xl mx-auto">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="text-center mb-14"
+          >
+            <div className="pill-badge-accent mb-6 mx-auto">Core Engine</div>
+            <h2 className="text-3xl md:text-4xl font-bold tracking-tight mb-4">
+              Un CRM enterprise completo,<br />
+              <span className="text-gradient-accent">che non vedrai mai.</span>
+            </h2>
+            <p className="text-muted-foreground max-w-xl mx-auto text-sm">
+              Il motore invisibile gestisce tutto. L'AI lo interroga per te.
+            </p>
+          </motion.div>
+
+          <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-3">
+            {[
+              { icon: Contact, label: "Contacts", count: "24.5k" },
+              { icon: Building2, label: "Companies", count: "3.2k" },
+              { icon: Briefcase, label: "Partners", count: "148" },
+              { icon: Target, label: "Prospects", count: "8.7k" },
+              { icon: Calendar, label: "Activities", count: "45k" },
+              { icon: Mail, label: "Campaigns", count: "234" },
+              { icon: FileText, label: "Documents", count: "12k" },
+              { icon: Send, label: "Email Drafts", count: "890" },
+              { icon: Zap, label: "Exec. Jobs", count: "1.2k" },
+              { icon: Shield, label: "Audit Trail", count: "156k" },
+              { icon: LayoutDashboard, label: "Templates", count: "89" },
+              { icon: FileSearch, label: "Reminders", count: "340" },
+            ].map((entity, i) => (
+              <motion.div
+                key={entity.label}
+                initial={{ opacity: 0, scale: 0.95 }}
+                whileInView={{ opacity: 1, scale: 1 }}
+                viewport={{ once: true }}
+                transition={{ delay: i * 0.04 }}
+                className="glass-panel-subtle p-4 text-center group hover:border-accent/15 transition-all"
+              >
+                <entity.icon className="w-5 h-5 text-muted-foreground mx-auto mb-2 group-hover:text-accent transition-colors" strokeWidth={1.5} />
+                <div className="text-[11px] font-medium">{entity.label}</div>
+                <div className="text-[10px] text-muted-foreground font-mono mt-1">{entity.count}</div>
+              </motion.div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ─── MULTI-AGENT SYSTEM ─── */}
+      <section id="agents" className="relative z-10 py-28 px-6 border-t border-border/50">
+        <div className="max-w-6xl mx-auto">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="text-center mb-16"
+          >
+            <div className="pill-badge mb-6 mx-auto">Multi-Agent System</div>
+            <h2 className="text-3xl md:text-5xl font-bold tracking-tight mb-5">
+              <span className="text-gradient-hero">7 agenti specializzati.</span>
+              <br />
+              <span className="text-gradient-primary">Un orchestratore centrale.</span>
+            </h2>
+          </motion.div>
+
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4 max-w-5xl mx-auto">
+            {[
+              { emoji: "🧠", name: "Orchestratore", role: "Interpreta l'intento, costruisce il piano operativo, coordina gli agenti e gestisce il contesto della sessione.", status: "Sempre attivo" },
+              { emoji: "🏢", name: "CRM Core Agent", role: "Accesso diretto a contacts, companies, partners, prospects, activities. Query cross-entity e aggregazioni.", status: "On-demand" },
+              { emoji: "📊", name: "Data Analyst", role: "Scoring, analytics, confronti, trend analysis. Elabora dati da qualsiasi sorgente connessa.", status: "On-demand" },
+              { emoji: "📧", name: "Communication Agent", role: "Email generation, template personalization, campaign management, invio massivo con tracking.", status: "On-demand" },
+              { emoji: "🎨", name: "Canvas Agent", role: "Genera tabelle, grafici, report, card, timeline, kanban. Compone viste ibride dinamiche.", status: "On-demand" },
+              { emoji: "⚡", name: "Automation Agent", role: "Esecuzioni massive, job scheduling, bulk operations, sincronizzazione dati, retry automatici.", status: "On-demand" },
+              { emoji: "🛡️", name: "Governance Agent", role: "Audit logging, policy enforcement, permission checking, GDPR compliance, tracciabilità azioni.", status: "Sempre attivo" },
+            ].map((agent, i) => (
+              <motion.div
+                key={agent.name}
+                initial={{ opacity: 0, y: 15 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: i * 0.07, ease }}
+                className="glass-panel p-5 group"
+              >
+                <div className="flex items-center gap-3 mb-3">
+                  <span className="text-2xl">{agent.emoji}</span>
+                  <div>
+                    <h3 className="text-sm font-semibold">{agent.name}</h3>
+                    <span className="text-[9px] font-mono text-primary">{agent.status}</span>
+                  </div>
+                </div>
+                <p className="text-[12px] text-muted-foreground leading-relaxed">{agent.role}</p>
+              </motion.div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ─── DYNAMIC UI BLOCKS ─── */}
+      <section className="relative z-10 py-24 px-6 border-t border-border/50">
+        <div className="max-w-6xl mx-auto">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="text-center mb-14"
+          >
+            <div className="pill-badge mb-6 mx-auto">Dynamic UI</div>
+            <h2 className="text-3xl md:text-4xl font-bold tracking-tight mb-4">
+              L'interfaccia non è predefinita.<br />
+              <span className="text-gradient-primary">È generata dall'AI.</span>
+            </h2>
+            <p className="text-muted-foreground max-w-xl mx-auto text-sm">
+              A seconda del tuo obiettivo, il canvas compone blocchi diversi.
+            </p>
+          </motion.div>
+
+          <div className="flex flex-wrap justify-center gap-3">
+            {[
+              "Tabella contatti", "Company card", "Partner insight", "Timeline attività",
+              "Campagna email", "Approvazione bulk", "Report executive", "Preview template",
+              "Execution log", "Audit trail", "Kanban pipeline", "Grafico trend",
+              "Segment builder", "Document viewer", "KPI dashboard",
+            ].map((block, i) => (
+              <motion.div
+                key={block}
+                initial={{ opacity: 0, scale: 0.9 }}
+                whileInView={{ opacity: 1, scale: 1 }}
+                viewport={{ once: true }}
+                transition={{ delay: i * 0.03 }}
+                className="glass-panel-subtle px-4 py-2.5 text-[12px] text-secondary-foreground hover:text-primary hover:border-primary/15 transition-all cursor-default"
+              >
+                {block}
+              </motion.div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ─── USE CASES ─── */}
+      <section id="usecases" className="relative z-10 py-28 px-6 border-t border-border/50">
+        <div className="max-w-6xl mx-auto">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="text-center mb-16"
+          >
+            <div className="pill-badge-accent mb-6 mx-auto">Use Case Reali</div>
+            <h2 className="text-3xl md:text-5xl font-bold tracking-tight mb-5">
+              Dimmi cosa vuoi.<br />
+              <span className="text-gradient-accent">Il sistema fa il resto.</span>
+            </h2>
+          </motion.div>
+
+          <div className="grid md:grid-cols-2 gap-5">
+            {[
+              {
+                prompt: '"Mostrami i lead inattivi da 90 giorni"',
+                plan: "Orchestratore → CRM Core Agent (query prospects + activities) → Data Analyst (churn scoring) → Canvas Agent (tabella + KPI)",
+                result: "Vista generata con 34 lead, scoring, trend e 3 raccomandazioni operative.",
+                tags: ["Prospects", "Scoring", "Canvas dinamico"],
+                icon: Users,
+              },
+              {
+                prompt: '"Prepara una campagna email per questi 50 contatti"',
+                plan: "Orchestratore → CRM Core (segmento contatti) → Communication Agent (template + personalizzazione) → Governance (approvazione)",
+                result: "Campagna pronta con preview, personalizzazione per destinatario e richiesta approvazione prima dell'invio.",
+                tags: ["Contacts", "Email", "Approvazione"],
+                icon: Mail,
+              },
+              {
+                prompt: '"Genera un report executive elegante sui partner Asia"',
+                plan: "Orchestratore → CRM Core (partners filtro area=Asia) → Data Analyst (aggregazione) → Canvas Agent (report navigabile)",
+                result: "Report executive con sintesi, grafici, evidenze e raccomandazioni. Esportabile in PDF, salvabile come template.",
+                tags: ["Partners", "Report", "Template"],
+                icon: FileText,
+              },
+              {
+                prompt: '"Fammi vedere in tempo reale cosa sta facendo il sistema"',
+                plan: "Orchestratore → Activity Stream → tutti gli agenti espongono stato e task correnti",
+                result: "Dashboard live con stato di ogni agente, task in parallelo, durata, errori e completamenti.",
+                tags: ["Monitoraggio", "Agenti", "Real-time"],
+                icon: Eye,
+              },
+            ].map((uc, i) => (
+              <motion.div
+                key={i}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: i * 0.1, duration: 0.5, ease }}
+                className="glass-panel p-6"
+              >
+                <div className="flex items-start gap-4 mb-3">
+                  <div className="w-10 h-10 rounded-xl bg-primary/10 flex items-center justify-center flex-shrink-0">
+                    <uc.icon className="w-4 h-4 text-primary" strokeWidth={1.5} />
+                  </div>
+                  <div className="flex-1">
+                    <p className="text-[13px] text-primary font-medium italic mb-2">{uc.prompt}</p>
+                    <div className="glass-panel-subtle p-2.5 rounded-lg mb-2">
+                      <div className="text-[9px] font-mono text-accent mb-1">PIANO AGENTI</div>
+                      <p className="text-[11px] text-muted-foreground leading-relaxed">{uc.plan}</p>
+                    </div>
+                    <p className="text-[12px] text-secondary-foreground leading-relaxed">{uc.result}</p>
+                  </div>
+                </div>
+                <div className="flex gap-1.5 ml-14">
+                  {uc.tags.map((tag) => (
+                    <span key={tag} className="text-[10px] px-2 py-0.5 rounded-full bg-secondary text-muted-foreground">{tag}</span>
+                  ))}
+                </div>
+              </motion.div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ─── FEATURES GRID ─── */}
+      <section id="features" className="relative z-10 py-28 px-6 border-t border-border/50">
+        <div className="max-w-6xl mx-auto">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="text-center mb-16"
+          >
+            <div className="pill-badge mb-6 mx-auto">Capability</div>
+            <h2 className="text-3xl md:text-5xl font-bold tracking-tight mb-5">
+              <span className="text-gradient-hero">Tutto ciò che serve.</span>
+              <br />
+              <span className="text-gradient-primary">Niente che non serve.</span>
+            </h2>
           </motion.div>
 
           <div className="grid md:grid-cols-3 gap-5">
             {[
-              {
-                icon: MessageSquare,
-                title: "Parla, non cliccare",
-                desc: "Scrivi o parla in linguaggio naturale. L'AI capisce il tuo obiettivo, interroga i sistemi giusti e produce il risultato.",
-                accent: "primary",
-              },
-              {
-                icon: Layers,
-                title: "UI generata dall'AI",
-                desc: "Nessun layout fisso. Tabelle, grafici, kanban, report, timeline: l'interfaccia si compone dinamicamente in base al task.",
-                accent: "accent",
-              },
-              {
-                icon: Bot,
-                title: "Multi-agente orchestrato",
-                desc: "Agenti specializzati lavorano in parallelo: analisi dati, comunicazione, design, automazione. Tutto visibile in tempo reale.",
-                accent: "primary",
-              },
-              {
-                icon: Database,
-                title: "Connettore universale",
-                desc: "SQL, NoSQL, REST API, CRM, ERP, email, file storage. Un solo layer sopra tutti i tuoi sistemi, senza migrazioni.",
-                accent: "accent",
-              },
-              {
-                icon: Zap,
-                title: "Azioni massive",
-                desc: "Seleziona record, lancia operazioni su migliaia di elementi. Email, aggiornamenti, export: con feedback live e audit completo.",
-                accent: "primary",
-              },
-              {
-                icon: Shield,
-                title: "Governance enterprise",
-                desc: "Ogni azione AI è tracciata. Ruoli, permessi, audit log, conferme richieste. Trasparenza totale su suggerimento, anteprima ed esecuzione.",
-                accent: "accent",
-              },
+              { icon: MessageSquare, title: "Conversazione naturale", desc: "Scrivi o parla in linguaggio naturale. L'Orchestratore capisce l'intento e coordina gli agenti giusti.", accent: "primary" },
+              { icon: Layers, title: "Canvas adattivo", desc: "Tabelle, grafici, kanban, report, timeline: l'interfaccia si compone dinamicamente in base al task.", accent: "accent" },
+              { icon: Bot, title: "7 agenti orchestrati", desc: "Ogni agente ha un ruolo specializzato. Lavorano in parallelo, con visibilità completa su cosa sta succedendo.", accent: "primary" },
+              { icon: Database, title: "Connettore universale", desc: "SQL, NoSQL, REST API, CRM, ERP, email, file, webhook. Capability mapping automatico per ogni sorgente.", accent: "accent" },
+              { icon: Zap, title: "Operazioni massive", desc: "Email a 200 contatti, aggiornamento 12k record, export GDPR. Con progress live, log dettagliato e gestione errori.", accent: "primary" },
+              { icon: Shield, title: "Governance enterprise", desc: "Ogni azione passa per un flusso chiaro: suggerimento → anteprima → approvazione → esecuzione → audit.", accent: "accent" },
             ].map((feature, i) => (
               <motion.div
                 key={feature.title}
@@ -412,127 +717,48 @@ const Landing = () => {
         </div>
       </section>
 
-      {/* ─── USE CASES ─── */}
-      <section id="usecases" className="relative z-10 py-28 px-6 border-t border-border/50">
-        <div className="max-w-6xl mx-auto">
+      {/* ─── STATE FLOW ─── */}
+      <section className="relative z-10 py-20 px-6 border-t border-border/50">
+        <div className="max-w-4xl mx-auto">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="text-center mb-16"
+            className="text-center mb-12"
           >
-            <div className="pill-badge-accent mb-6 mx-auto">Use Case</div>
-            <h2 className="text-3xl md:text-5xl font-bold tracking-tight mb-5">
-              Un unico strumento,<br />
-              <span className="text-gradient-accent">infiniti contesti.</span>
+            <h2 className="text-2xl md:text-3xl font-bold tracking-tight mb-3">
+              Flusso trasparente di ogni azione
             </h2>
+            <p className="text-sm text-muted-foreground">Nulla accade senza il tuo controllo.</p>
           </motion.div>
 
-          <div className="grid md:grid-cols-2 gap-5">
+          <div className="flex items-center justify-center gap-3 flex-wrap">
             {[
-              {
-                prompt: '"Mostrami i lead che non rispondono da 2 settimane"',
-                result: "L'AI interroga il CRM, filtra 847 lead, genera una vista segmentata con scoring engagement e suggerisce 3 azioni di follow-up.",
-                tags: ["CRM", "Lead Management", "Scoring"],
-                icon: Users,
-              },
-              {
-                prompt: '"Genera un report executive sulle vendite Q4"',
-                result: "Analisi cross-database automatica. Report navigabile con sintesi, grafici trend, evidenze critiche e raccomandazioni. Esportabile in PDF.",
-                tags: ["Report", "Executive", "Analisi"],
-                icon: FileText,
-              },
-              {
-                prompt: '"Invia email personalizzata a questi 200 contatti"',
-                result: "L'agente Communication prepara i template, l'agente Automation esegue l'invio con progress live, log dettagliato e gestione errori in tempo reale.",
-                tags: ["Email", "Automazione", "Massivo"],
-                icon: Mail,
-              },
-              {
-                prompt: '"Confronta il nostro inventario SAP con gli ordini del mese"',
-                result: "Cross-reference tra ERP e database ordini. Discrepanze evidenziate in tabella, alert automatici sui prodotti sottoscorta, suggerimento riordino.",
-                tags: ["ERP", "Inventario", "Cross-data"],
-                icon: BarChart3,
-              },
-            ].map((uc, i) => (
-              <motion.div
-                key={i}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: i * 0.1, duration: 0.5, ease }}
-                className="glass-panel p-6"
-              >
-                <div className="flex items-start gap-4 mb-4">
-                  <div className="w-10 h-10 rounded-xl bg-primary/10 flex items-center justify-center flex-shrink-0">
-                    <uc.icon className="w-4 h-4 text-primary" strokeWidth={1.5} />
-                  </div>
-                  <div>
-                    <p className="text-[13px] text-primary font-medium italic mb-2">{uc.prompt}</p>
-                    <p className="text-sm text-muted-foreground leading-relaxed">{uc.result}</p>
-                  </div>
-                </div>
-                <div className="flex gap-1.5 ml-14">
-                  {uc.tags.map((tag) => (
-                    <span key={tag} className="text-[10px] px-2 py-0.5 rounded-full bg-secondary text-muted-foreground">{tag}</span>
-                  ))}
-                </div>
-              </motion.div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* ─── ARCHITECTURE ─── */}
-      <section id="architecture" className="relative z-10 py-28 px-6 border-t border-border/50">
-        <div className="max-w-5xl mx-auto">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className="text-center mb-16"
-          >
-            <div className="pill-badge mb-6 mx-auto">Architettura</div>
-            <h2 className="text-3xl md:text-5xl font-bold tracking-tight mb-5">
-              <span className="text-gradient-hero">Costruito per scalare.</span>
-            </h2>
-            <p className="text-muted-foreground max-w-2xl mx-auto text-base leading-relaxed">
-              Un orchestratore centrale AI coordina agenti specializzati, connettori universali
-              e un motore di rendering UI in tempo reale.
-            </p>
-          </motion.div>
-
-          {/* Architecture layers */}
-          <div className="space-y-3 max-w-3xl mx-auto">
-            {[
-              { label: "UTENTE", items: ["Chat", "Voce", "Comandi"], color: "primary" },
-              { label: "ORCHESTRATORE AI", items: ["Intento", "Contesto", "Piano", "Esecuzione"], color: "primary" },
-              { label: "AGENTI", items: ["Analista", "Designer", "Comunicazione", "Automazione", "Compliance"], color: "accent" },
-              { label: "CONNETTORI", items: ["SQL", "REST API", "CRM", "ERP", "Email", "Storage"], color: "primary" },
-              { label: "SISTEMI AZIENDALI", items: ["PostgreSQL", "Salesforce", "SAP", "HubSpot", "Stripe", "Drive"], color: "muted-foreground" },
-            ].map((layer, i) => (
-              <motion.div
-                key={layer.label}
-                initial={{ opacity: 0, x: -20 }}
-                whileInView={{ opacity: 1, x: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: i * 0.1, duration: 0.5, ease }}
-                className="glass-panel p-4 flex items-center gap-6"
-              >
-                <span className={`text-[10px] font-mono font-semibold tracking-widest w-36 text-${layer.color} flex-shrink-0`}>
-                  {layer.label}
-                </span>
-                <div className="flex-1 flex items-center gap-2 flex-wrap">
-                  {layer.items.map((item) => (
-                    <span key={item} className="text-xs px-2.5 py-1 rounded-md bg-secondary text-secondary-foreground">
-                      {item}
-                    </span>
-                  ))}
-                </div>
-                {i < 4 && (
-                  <div className="text-muted-foreground text-lg">↕</div>
-                )}
-              </motion.div>
+              { label: "Suggerimento AI", color: "bg-primary/15 text-primary border-primary/20", icon: Bot },
+              { label: "→" },
+              { label: "Anteprima", color: "bg-info/15 text-info border-info/20", icon: Eye },
+              { label: "→" },
+              { label: "Approvazione utente", color: "bg-success/15 text-success border-success/20", icon: CheckCircle2 },
+              { label: "→" },
+              { label: "Esecuzione", color: "bg-accent/15 text-accent border-accent/20", icon: Zap },
+              { label: "→" },
+              { label: "Audit trail", color: "bg-secondary text-muted-foreground", icon: Shield },
+            ].map((step, i) => (
+              "icon" in step ? (
+                <motion.div
+                  key={i}
+                  initial={{ opacity: 0, scale: 0.9 }}
+                  whileInView={{ opacity: 1, scale: 1 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: i * 0.06 }}
+                  className={`flex items-center gap-2 px-4 py-2.5 rounded-xl text-[12px] font-medium border ${step.color}`}
+                >
+                  <step.icon className="w-3.5 h-3.5" strokeWidth={1.5} />
+                  {step.label}
+                </motion.div>
+              ) : (
+                <span key={i} className="text-muted-foreground/30 text-lg">→</span>
+              )
             ))}
           </div>
         </div>
@@ -543,7 +769,7 @@ const Landing = () => {
         <div className="max-w-5xl mx-auto">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
             {[
-              { value: "< 3s", label: "Tempo medio di risposta AI" },
+              { value: "< 3s", label: "Risposta AI media" },
               { value: "50+", label: "Connettori disponibili" },
               { value: "99.9%", label: "Uptime garantito" },
               { value: "SOC 2", label: "Certificazione sicurezza" },
@@ -573,18 +799,20 @@ const Landing = () => {
           className="max-w-3xl mx-auto text-center"
         >
           <h2 className="text-3xl md:text-5xl font-bold tracking-tight mb-6">
-            <span className="text-gradient-hero">Pronto a lavorare</span>
+            <span className="text-gradient-hero">Il commerciale del futuro</span>
             <br />
-            <span className="text-gradient-primary">in modo diverso?</span>
+            <span className="text-gradient-primary">lavora così.</span>
           </h2>
           <p className="text-muted-foreground mb-10 text-base leading-relaxed">
-            Smetti di adattarti al software. Fai in modo che il software si adatti a te.
+            Entra. Parla. Il sistema legge, propone, costruisce ed esegue.
+            <br />
+            <span className="text-secondary-foreground">Tu approvi. Lui traccia tutto.</span>
           </p>
           <button
             onClick={() => navigate("/dashboard")}
             className="inline-flex items-center gap-2 bg-primary text-primary-foreground px-8 py-4 rounded-2xl text-sm font-semibold hover:bg-primary/90 transition-all glow-primary"
           >
-            Attiva il tuo Workspace
+            Attiva il tuo AI Workspace
             <ArrowRight className="w-4 h-4" />
           </button>
         </motion.div>
@@ -595,7 +823,7 @@ const Landing = () => {
         <div className="max-w-6xl mx-auto flex items-center justify-between text-xs text-muted-foreground">
           <div className="flex items-center gap-2">
             <Sparkles className="w-3 h-3 text-primary" />
-            <span>Adaptive AI © 2026</span>
+            <span>Adaptive AI Workspace © 2026</span>
           </div>
           <div className="flex items-center gap-6">
             <span>Privacy</span>
