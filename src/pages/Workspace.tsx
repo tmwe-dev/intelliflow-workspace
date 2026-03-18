@@ -692,7 +692,7 @@ const Workspace = () => {
         </AnimatePresence>
       </div>
     </div>
-    </div>
+  );
   );
 };
 
