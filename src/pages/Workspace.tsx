@@ -605,7 +605,7 @@ const Workspace = () => {
           {showAgents && (
             <motion.div
               initial={{ width: 0, opacity: 0 }}
-              animate={{ width: 300, opacity: 1 }}
+              animate={{ width: 260, opacity: 1 }}
               exit={{ width: 0, opacity: 0 }}
               transition={{ duration: 0.3, ease }}
               className="border-l border-border overflow-hidden flex-shrink-0 bg-card/20"
