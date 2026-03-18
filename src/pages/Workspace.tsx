@@ -691,9 +691,7 @@ const Workspace = () => {
           )}
         </AnimatePresence>
       </div>
-
-      {/* Bottom spacer for dock */}
-      <div className="h-16 flex-shrink-0" />
+    </div>
     </div>
   );
 };
