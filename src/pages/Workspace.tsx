@@ -310,7 +310,7 @@ const Workspace = () => {
                   transition={{ duration: 0.3, ease }}
                 >
                   {/* KPIs */}
-                  <div className="grid grid-cols-4 gap-3 mb-6">
+                  <div className="grid grid-cols-2 xl:grid-cols-4 gap-3 mb-6">
                     {[
                       { label: "Clienti inattivi", value: "34", sub: "ultimi 90 giorni", icon: "👥" },
                       { label: "Fatturato a rischio", value: "€4.2M", sub: "-12% vs Q3", icon: "💰" },
