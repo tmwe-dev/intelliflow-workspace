@@ -155,7 +155,7 @@ const Workspace = () => {
 
       <div className="flex flex-1 overflow-hidden">
         {/* ─── LEFT: THE MIND ─── */}
-        <div className="w-[380px] min-w-[340px] border-r border-border flex flex-col bg-card/20">
+        <div className="w-[320px] min-w-[280px] border-r border-border flex flex-col bg-card/20">
           {/* Chat header */}
           <div className="px-4 py-3 border-b border-border/50">
             <div className="section-label">LA MENTE · CHAT & VOCE</div>
@@ -310,7 +310,7 @@ const Workspace = () => {
                   transition={{ duration: 0.3, ease }}
                 >
                   {/* KPIs */}
-                  <div className="grid grid-cols-4 gap-3 mb-6">
+                  <div className="grid grid-cols-2 xl:grid-cols-4 gap-3 mb-6">
                     {[
                       { label: "Clienti inattivi", value: "34", sub: "ultimi 90 giorni", icon: "👥" },
                       { label: "Fatturato a rischio", value: "€4.2M", sub: "-12% vs Q3", icon: "💰" },
@@ -605,12 +605,12 @@ const Workspace = () => {
           {showAgents && (
             <motion.div
               initial={{ width: 0, opacity: 0 }}
-              animate={{ width: 300, opacity: 1 }}
+              animate={{ width: 260, opacity: 1 }}
               exit={{ width: 0, opacity: 0 }}
               transition={{ duration: 0.3, ease }}
               className="border-l border-border overflow-hidden flex-shrink-0 bg-card/20"
             >
-              <div className="w-[300px] h-full flex flex-col">
+              <div className="w-[260px] h-full flex flex-col">
                 <div className="px-4 py-3 border-b border-border/50">
                   <div className="section-label">AGENTI · ATTIVITÀ IN TEMPO REALE</div>
                 </div>
@@ -691,9 +691,6 @@ const Workspace = () => {
           )}
         </AnimatePresence>
       </div>
-
-      {/* Bottom spacer for dock */}
-      <div className="h-16 flex-shrink-0" />
     </div>
   );
 };
