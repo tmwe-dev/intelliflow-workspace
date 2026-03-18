@@ -1,159 +1,52 @@
 import { motion } from "framer-motion";
-import {
-  Database,
-  Cloud,
-  Mail,
-  MessageSquare,
-  FileText,
-  CheckCircle2,
-  RefreshCw,
-  Plus,
-  ExternalLink,
-  Plug,
-  Globe,
-  Server,
-  HardDrive,
-  Webhook,
-  Phone,
-  FolderOpen,
-  Search,
-} from "lucide-react";
+import { Database, Cloud, Mail, MessageSquare, Server, Globe, HardDrive, Phone, FolderOpen, Plug } from "lucide-react";
 
 const ease = [0.2, 0.8, 0.2, 1] as const;
 
 const connections = [
-  { name: "PostgreSQL — CRM Core Database", type: "Database SQL", icon: Database, status: "connected", lastSync: "2m fa", records: "124.5k", caps: ["Read", "Write", "Search", "Create", "Update"], description: "contacts, companies, partners, prospects, activities" },
-  { name: "MySQL — Ordini & Fatturazione", type: "Database SQL", icon: Database, status: "connected", lastSync: "5m fa", records: "89.2k", caps: ["Read", "Write", "Search", "Export"], description: "ordini, fatture, pagamenti, prodotti" },
-  { name: "Salesforce — Sales Cloud", type: "CRM", icon: Cloud, status: "connected", lastSync: "12m fa", records: "45.3k", caps: ["Read", "Write", "Search", "Create"], description: "leads, opportunities, accounts" },
-  { name: "SAP Business One — ERP", type: "ERP", icon: Server, status: "connected", lastSync: "1h fa", records: "234k", caps: ["Read", "Search", "Export"], description: "inventario, produzione, logistica" },
-  { name: "Google Workspace — Gmail & Drive", type: "Email + Storage", icon: Mail, status: "connected", lastSync: "3m fa", records: "12.8k", caps: ["Read", "Send", "Search", "Export"], description: "email, documenti, fogli, drive" },
-  { name: "Slack — Notifiche & Canali", type: "Messaging", icon: MessageSquare, status: "connected", lastSync: "1m fa", records: "—", caps: ["Send", "Read"], description: "canali team, notifiche agenti" },
-  { name: "MongoDB — Analytics & Events", type: "Database NoSQL", icon: HardDrive, status: "connected", lastSync: "30s fa", records: "1.2M", caps: ["Read", "Search"], description: "eventi tracking, analytics, log" },
-  { name: "Stripe — Pagamenti & Billing", type: "Finanza", icon: FileText, status: "warning", lastSync: "3h fa", records: "67.1k", caps: ["Read", "Search", "Export"], description: "transazioni, subscription, invoice" },
-  { name: "ElevenLabs — Voice AI", type: "Voice Provider", icon: Phone, status: "connected", lastSync: "real-time", records: "—", caps: ["Send"], description: "TTS, STT, voice synthesis" },
-  { name: "REST API — Custom Endpoints", type: "API", icon: Globe, status: "connected", lastSync: "5m fa", records: "—", caps: ["Read", "Write", "Create", "Update"], description: "microservizi interni, webhook custom" },
-  { name: "Webhook — CRM Events", type: "Webhook", icon: Webhook, status: "connected", lastSync: "real-time", records: "—", caps: ["Read"], description: "eventi real-time dal CRM core" },
-  { name: "AWS S3 — File Repository", type: "File Storage", icon: FolderOpen, status: "connected", lastSync: "10m fa", records: "34k", caps: ["Read", "Write", "Export"], description: "documenti, allegati, report generati" },
-  { name: "HubSpot — Marketing Hub", type: "Marketing", icon: Cloud, status: "disconnected", lastSync: "—", records: "—", caps: [], description: "non configurato" },
+  { name: "PostgreSQL", desc: "CRM Core Database", icon: Database, status: "connected", records: "124.5k" },
+  { name: "MySQL", desc: "Ordini & Fatturazione", icon: Database, status: "connected", records: "89.2k" },
+  { name: "Salesforce", desc: "Sales Cloud", icon: Cloud, status: "connected", records: "45.3k" },
+  { name: "SAP", desc: "ERP Business One", icon: Server, status: "connected", records: "234k" },
+  { name: "Google Workspace", desc: "Email & Drive", icon: Mail, status: "connected", records: "12.8k" },
+  { name: "Slack", desc: "Notifiche team", icon: MessageSquare, status: "connected", records: "" },
+  { name: "MongoDB", desc: "Analytics & Events", icon: HardDrive, status: "connected", records: "1.2M" },
+  { name: "Stripe", desc: "Pagamenti", icon: Globe, status: "warning", records: "67.1k" },
+  { name: "ElevenLabs", desc: "Voice AI", icon: Phone, status: "connected", records: "" },
+  { name: "AWS S3", desc: "File Repository", icon: FolderOpen, status: "connected", records: "34k" },
+  { name: "REST API", desc: "Custom Endpoints", icon: Globe, status: "connected", records: "" },
 ];
-
-const capColors: Record<string, string> = {
-  Read: "text-success",
-  Write: "text-primary",
-  Search: "text-info",
-  Export: "text-warning",
-  Create: "text-accent",
-  Update: "text-secondary-foreground",
-  Send: "text-primary",
-};
 
 const Connections = () => {
   return (
-    <div className="min-h-screen pb-24 px-6 lg:px-10 pt-8 max-w-[1400px] mx-auto">
-      <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }}>
-        <div className="flex items-center justify-between mb-10">
-          <div>
-            <div className="flex items-center gap-3 mb-1">
-              <div className="w-9 h-9 rounded-xl bg-primary/15 flex items-center justify-center glow-primary">
-                <Plug className="w-4 h-4 text-primary" strokeWidth={1.5} />
-              </div>
-              <h1 className="text-2xl font-bold tracking-tight">Connessioni & Integrazioni</h1>
-            </div>
-            <p className="text-sm text-muted-foreground ml-12">
-              Layer universale: database, CRM, ERP, API, email, voice, file, webhook. Capability mapping automatico.
-            </p>
-          </div>
-          <button className="flex items-center gap-2 px-4 py-2.5 rounded-xl bg-primary text-primary-foreground text-sm font-semibold hover:bg-primary/90 transition-colors glow-primary">
-            <Plus className="w-4 h-4" /> Aggiungi sorgente
-          </button>
-        </div>
+    <div className="min-h-screen pb-24 flex flex-col items-center px-6 pt-16">
+      <div className="fixed inset-0 pointer-events-none">
+        <div className="absolute top-1/4 left-1/2 -translate-x-1/2 w-[500px] h-[500px] rounded-full bg-primary/[0.02] blur-[120px]" />
+      </div>
+
+      <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8, ease }} className="text-center mb-16 relative z-10">
+        <Plug className="w-5 h-5 text-primary/30 mx-auto mb-4" strokeWidth={1.5} />
+        <h1 className="text-2xl font-light tracking-tight mb-2">Connessioni</h1>
+        <p className="text-sm text-muted-foreground/50 font-light">11 sorgenti attive · 1.8M record</p>
       </motion.div>
 
-      {/* Stats */}
-      <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.1 }} className="grid grid-cols-2 lg:grid-cols-5 gap-3 mb-8">
-        {[
-          { label: "Connessioni attive", value: "11", icon: CheckCircle2, color: "text-success" },
-          { label: "Record totali", value: "1.8M", icon: Database, color: "text-primary" },
-          { label: "Capability mappate", value: "32", icon: Globe, color: "text-info" },
-          { label: "Tipi sorgente", value: "8", icon: Server, color: "text-accent" },
-          { label: "Ultima sync", value: "30s fa", icon: RefreshCw, color: "text-muted-foreground" },
-        ].map((s, i) => (
-          <motion.div key={s.label} initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.15 + i * 0.04, ease }} className="glass-panel p-4">
-            <s.icon className={`w-4 h-4 ${s.color} mb-2`} strokeWidth={1.5} />
-            <div className="text-2xl font-bold tracking-tight">{s.value}</div>
-            <div className="text-[11px] text-muted-foreground mt-0.5">{s.label}</div>
-          </motion.div>
-        ))}
-      </motion.div>
-
-      {/* Capability legend */}
-      <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.2 }} className="flex items-center gap-4 mb-6 px-1 flex-wrap">
-        <span className="section-label">CAPABILITY MAPPING:</span>
-        {Object.entries(capColors).map(([cap, color]) => (
-          <span key={cap} className={`text-[10px] font-mono ${color} flex items-center gap-1`}>
-            <span className="w-1.5 h-1.5 rounded-full bg-current" />
-            {cap}
-          </span>
-        ))}
-      </motion.div>
-
-      {/* Connections list */}
-      <div className="space-y-2.5">
+      <div className="w-full max-w-2xl space-y-1.5 relative z-10">
         {connections.map((conn, i) => (
           <motion.div
             key={conn.name}
-            initial={{ opacity: 0, y: 8 }}
+            initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.2 + i * 0.03, ease }}
-            className="glass-panel-interactive p-5 flex items-center gap-5 group"
+            transition={{ delay: 0.1 + i * 0.04, ease }}
+            className="float-panel-interactive px-5 py-4 flex items-center gap-4 group"
           >
-            <div className={`w-11 h-11 rounded-xl flex items-center justify-center flex-shrink-0 ${
-              conn.status === "connected" ? "bg-primary/10" : conn.status === "warning" ? "bg-warning/10" : "bg-secondary"
-            }`}>
-              <conn.icon className={`w-5 h-5 ${
-                conn.status === "connected" ? "text-primary" : conn.status === "warning" ? "text-warning" : "text-muted-foreground"
-              }`} strokeWidth={1.5} />
-            </div>
+            <conn.icon className={`w-4 h-4 flex-shrink-0 ${conn.status === "connected" ? "text-primary/30" : "text-warning/30"}`} strokeWidth={1.5} />
             <div className="flex-1 min-w-0">
-              <div className="flex items-center gap-2.5 mb-1">
-                <span className="text-sm font-semibold truncate">{conn.name}</span>
-                <span className="text-[10px] px-2 py-0.5 rounded-full glass-panel-subtle text-muted-foreground">{conn.type}</span>
-              </div>
-              <div className="flex items-center gap-4">
-                <div className="flex items-center gap-1.5">
-                  {conn.status === "connected" ? (
-                    <div className="status-dot-success" style={{ width: 5, height: 5 }} />
-                  ) : conn.status === "warning" ? (
-                    <div className="status-dot-warning" style={{ width: 5, height: 5 }} />
-                  ) : (
-                    <div className="status-dot-error" style={{ width: 5, height: 5 }} />
-                  )}
-                  <span className="text-[11px] text-muted-foreground">
-                    {conn.status === "connected" ? `Sync ${conn.lastSync}` : conn.status === "warning" ? `Ultimo sync ${conn.lastSync}` : "Disconnesso"}
-                  </span>
-                </div>
-                {conn.records !== "—" && (
-                  <span className="text-[11px] text-muted-foreground font-mono">{conn.records} record</span>
-                )}
-                <span className="text-[10px] text-muted-foreground/60 truncate hidden lg:inline">{conn.description}</span>
-              </div>
+              <span className="text-sm font-medium">{conn.name}</span>
+              <span className="text-xs text-muted-foreground/30 ml-2">{conn.desc}</span>
             </div>
             <div className="flex items-center gap-3">
-              <div className="flex gap-1 flex-wrap max-w-[200px]">
-                {conn.caps.map((cap) => (
-                  <span key={cap} className={`text-[9px] px-1.5 py-0.5 rounded-md glass-panel-subtle font-mono ${capColors[cap] || "text-muted-foreground"}`}>
-                    {cap}
-                  </span>
-                ))}
-              </div>
-              <div className="flex items-center gap-1 opacity-0 group-hover:opacity-100 transition-opacity">
-                <button className="w-7 h-7 rounded-lg flex items-center justify-center text-muted-foreground hover:text-foreground glass-panel-subtle transition-all">
-                  <RefreshCw className="w-3 h-3" strokeWidth={1.5} />
-                </button>
-                <button className="w-7 h-7 rounded-lg flex items-center justify-center text-muted-foreground hover:text-foreground glass-panel-subtle transition-all">
-                  <ExternalLink className="w-3 h-3" strokeWidth={1.5} />
-                </button>
-              </div>
+              {conn.records && <span className="text-[10px] text-muted-foreground/30 font-mono">{conn.records}</span>}
+              <div className={`w-1.5 h-1.5 rounded-full ${conn.status === "connected" ? "bg-success/40" : "bg-warning/40"}`} />
             </div>
           </motion.div>
         ))}
