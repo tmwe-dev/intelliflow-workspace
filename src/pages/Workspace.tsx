@@ -105,18 +105,18 @@ const scenarios: Record<string, Scenario> = {
   report: {
     key: "report",
     assistantMessages: [{
-      content: "Ho analizzato i dati di 23 partner attivi nella regione Asia Pacific dal database Partner Intelligence.\n\nFonti utilizzate: storico attività, revenue per partner, NPS survey, campagne associate, note del workspace.\n\nIl report include performance per mercato, analisi rischi e 3 raccomandazioni strategiche. Formato ottimizzato per presentazione al board.",
+      content: "Ho analizzato dati cross-source per 23 partner Asia Pacific.\n\nFonti unite: WCA Network (partner profiles), Contact Import (storico interazioni), Company Reports (analisi finanziarie), Activity DB (timeline operativa), Deep Search (dati arricchiti).\n\nIl report include performance per mercato con provenance delle sorgenti, analisi rischi e 3 raccomandazioni strategiche.",
       agentName: "Data Analyst",
-      meta: "CRM Core · Partner DB · Activity Engine · Canvas · Template Memory · 4 agenti · 2.8s",
+      meta: "Source Unification · WCA · Company Reports · Activity DB · Canvas · 4 agenti · 2.8s",
     }],
     canvas: "report",
   },
   email: {
     key: "email",
     assistantMessages: [{
-      content: "Ho generato 10 bozze email personalizzate per i contatti selezionati.\n\nOgni bozza utilizza il template \"Follow-up Commerciale\" adattato a: nome, azienda, settore, ultima interazione, prodotti di interesse.\n\nLe bozze sono nel workspace Email Drafts. Puoi rivederle, modificarle e approvarle prima dell'invio.",
+      content: "Ho generato 10 bozze email personalizzate incrociando dati da business card archive (6 contatti), CRM Core (4 contatti) e note da workspace.\n\nOgni bozza usa contesto cross-source: nome da business card, azienda da CRM, storico da Activity DB, insight da company report.\n\nLe bozze sono nel workspace Email Drafts.",
       agentName: "Communication",
-      meta: "Email Drafting · Contact Memory · Template Memory · 3 agenti · 1.9s",
+      meta: "Business Card · CRM Core · Activity DB · Email Drafting · 3 agenti · 1.9s",
     }],
     canvas: null,
   },
