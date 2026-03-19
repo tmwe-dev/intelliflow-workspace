@@ -66,18 +66,18 @@ const scenarios: Record<string, Scenario> = {
   churn: {
     key: "churn",
     assistantMessages: [{
-      content: "Ho interrogato il database partner e contatti. Trovati 34 account inattivi con fatturato storico >€100k.\n\nIl churn scoring ML ha identificato 6 account critici (score ≥85). Il 67% del rischio è concentrato nei settori Manufacturing e Technology.\n\nI dati includono 4 partner importati dal network Apex e 12 contatti dal CRM principale.",
+      content: "Ho incrociato 3 sorgenti dati: WCA Partner Network (234 partner), contatti importati (12.847) e company report (89).\n\nIl Source Unification Layer ha deduplicato e arricchito i profili cross-source. Il churn scoring ML ha identificato 6 account critici (score ≥85).\n\nOrigini dati: WCA Network → 4 partner, Contact Import → 18 contatti, Company Reports → 3 analisi settoriali, Deep Search → 12 record arricchiti.",
       agentName: "Orchestratore",
-      meta: "CRM Core · Data Analyst · Deep Search · Partner DB · 4 agenti · 1.7s",
+      meta: "Source Unification · CRM Core · Data Analyst · Deep Search · 4 agenti · 1.7s",
     }],
     canvas: "table",
   },
   campaign: {
     key: "campaign",
     assistantMessages: [{
-      content: "Ho selezionato 50 lead dal database contatti importati. Filtro: inattivi >90gg, fatturato storico >€50k, nessuna campagna attiva.\n\nHo generato 50 bozze email personalizzate usando il Communication Agent. Ogni messaggio è adattato a settore, storico interazioni, ultimo acquisto e profilo del contatto.\n\nTemplate base: Re-engagement Q1. Invio in 3 wave progressive con intervallo di 40 minuti.",
+      content: "Ho unificato lead da 3 fonti: contatti importati (32), WCA network (11), business card archive (7). Dopo deduplicazione: 50 profili unici.\n\nOgni bozza è personalizzata con dati cross-source: nome, azienda, settore, storico da CRM, note da business card, insight da company report.\n\nTemplate base: Re-engagement Q1. Invio in 3 wave progressive.",
       agentName: "Communication",
-      meta: "CRM Core · Email Drafting · Template Memory · Contact DB · 5 agenti · 3.2s",
+      meta: "Source Unification · Contact Import · WCA · Business Card · Email Drafting · 5 agenti · 3.2s",
     }],
     canvas: "campaign",
     approval: {
