@@ -20,6 +20,7 @@ interface Message {
   thinking?: boolean;
   meta?: string;
   tools?: string[];
+  governance?: string;
 }
 
 type CanvasType = "table" | "campaign" | "report" | "result" | null;
@@ -46,16 +47,18 @@ const agentDots = [
 ];
 
 const quickPrompts = [
-  "Trova partner Asia unendo WCA + contatti + report",
-  "Campagna per 50 lead importati con deep search",
-  "10 bozze email da business card e CRM",
+  "Importa 300 contatti e uniscili ai partner WCA",
+  "Leggi 20 business card e crea i profili",
+  "Campagna per 50 lead da import + deep search",
   "Report executive partner Asia cross-source",
+  "10 bozze email personalizzate per partner Asia",
+  "Leggi ad alta voce il riepilogo prima della conferma",
 ];
 
 /* ─── Scenarios ─── */
 interface Scenario {
   key: string;
-  assistantMessages: { content: string; agentName: string; meta?: string }[];
+  assistantMessages: { content: string; agentName: string; meta?: string; governance?: string }[];
   canvas: CanvasType;
   approval?: { title: string; description: string; details: { label: string; value: string }[] };
   executionSteps?: ExecutionStep[];
@@ -63,60 +66,114 @@ interface Scenario {
 }
 
 const scenarios: Record<string, Scenario> = {
-  churn: {
-    key: "churn",
+  import: {
+    key: "import",
     assistantMessages: [{
-      content: "Ho incrociato 3 sorgenti dati: WCA Partner Network (234 partner), contatti importati (12.847) e company report (89).\n\nIl Source Unification Layer ha deduplicato e arricchito i profili cross-source. Il churn scoring ML ha identificato 6 account critici (score ≥85).\n\nOrigini dati: WCA Network → 4 partner, Contact Import → 18 contatti, Company Reports → 3 analisi settoriali, Deep Search → 12 record arricchiti.",
+      content: "Ho ricevuto il file con 300 contatti. Avvio il processo di importazione multi-source:\n\n**Parse Contact File** → 300 record estratti, 12 campi per record\n**Deduplicate & Merge** → 287 profili unici (13 duplicati rimossi, 8 arricchiti con dati esistenti dal CRM)\n**Run Deep Search** → 42 profili arricchiti con dati aziendali da fonti esterne\n**Match Partner Network** → 23 contatti collegati a partner WCA esistenti\n\nProfili pronti per l'inserimento nel CRM Core. Richiesta approvazione per aggiornamento record.",
       agentName: "Orchestratore",
-      meta: "Source Unification · CRM Core · Data Analyst · Deep Search · 4 agenti · 1.7s",
+      meta: "Parse Contact File · Deduplicate & Merge · Deep Search · Update CRM · 4 tool · 2.3s",
+      governance: "Ruolo: Admin · Permesso: Import & Write · Policy: max 500 record/batch",
     }],
     canvas: "table",
+    approval: {
+      title: "Importare 287 contatti nel CRM?",
+      description: "287 profili unici dopo deduplicazione. 23 collegati a partner WCA. 42 arricchiti con Deep Search. Governance check superato.",
+      details: [
+        { label: "File sorgente", value: "contacts_asia_q1.csv" },
+        { label: "Record originali", value: "300" },
+        { label: "Dopo deduplicazione", value: "287 unici" },
+        { label: "Match partner WCA", value: "23 collegati" },
+        { label: "Arricchiti Deep Search", value: "42 profili" },
+        { label: "Governance", value: "✓ Conforme · Admin" },
+      ],
+    },
+    executionSteps: [
+      { label: "Parse Contact File → 300 record", status: "done", detail: "300/300 ✓" },
+      { label: "Deduplicate & Merge → 287 unici", status: "done", detail: "13 rimossi" },
+      { label: "Deep Search enrichment", status: "done", detail: "42 arricchiti" },
+      { label: "Match WCA Partner Network", status: "done", detail: "23 match" },
+      { label: "Update CRM Records", status: "running", detail: "189/287" },
+      { label: "Audit Action → log importazione", status: "pending" },
+    ],
+    resultCanvas: "result",
+  },
+  businesscard: {
+    key: "businesscard",
+    assistantMessages: [{
+      content: "Ho analizzato 20 biglietti da visita dal Business Card Archive:\n\n**Parse Business Cards** → 20 schede lette, OCR + AI extraction\n**Unify Sources** → Incrociati con CRM Core (4 già presenti) e Deep Search (16 nuovi)\n**Create Contact Profile** → 16 nuovi profili generati con dati arricchiti\n**Schedule Reminder** → Follow-up suggeriti per 8 contatti prioritari\n\nOrigini dati: Business Card Archive + Deep Search API + Company Reports per 6 profili.",
+      agentName: "CRM Core",
+      meta: "Parse Business Cards · Unify Sources · Deep Search · Create Contact · Schedule Reminder · 5 tool · 1.8s",
+      governance: "Ruolo: Operator · Permesso: Create & Enrich · Policy: auto-merge disabilitato",
+    }],
+    canvas: null,
   },
   campaign: {
     key: "campaign",
     assistantMessages: [{
-      content: "Ho unificato lead da 3 fonti: contatti importati (32), WCA network (11), business card archive (7). Dopo deduplicazione: 50 profili unici.\n\nOgni bozza è personalizzata con dati cross-source: nome, azienda, settore, storico da CRM, note da business card, insight da company report.\n\nTemplate base: Re-engagement Q1. Invio in 3 wave progressive.",
+      content: "Ho costruito il target unificando 3 fonti:\n\n**Search Contacts** → 32 lead da Imported Contacts (inattivi >90gg)\n**Search Partners** → 11 contatti da WCA Partner Network\n**Parse Business Cards** → 7 profili dal Business Card Archive\n**Deduplicate & Merge** → 50 profili unici dopo unificazione\n**Run Deep Search** → Arricchimento con dati aziendali per 38 profili\n**Create Email Draft** → 50 bozze personalizzate generate\n\nOgni bozza usa contesto cross-source. Template: Re-engagement Q1.",
       agentName: "Communication",
-      meta: "Source Unification · Contact Import · WCA · Business Card · Email Drafting · 5 agenti · 3.2s",
+      meta: "Search Contacts · Search Partners · Parse Cards · Deep Search · Create Draft · 6 tool · 3.2s",
+      governance: "Ruolo: Admin · Permesso: Send Email Batch · Policy: max 100 email/batch · Approval: obbligatorio",
     }],
     canvas: "campaign",
     approval: {
-      title: "Avviare campagna email?",
-      description: "50 email personalizzate generate dal Communication Agent. Ogni bozza è stata verificata dal Governance Agent.",
+      title: "Avviare invio batch di 50 email?",
+      description: "50 email personalizzate da 3 fonti unificate. Governance check completato. Approvazione richiesta per Send Email Batch.",
       details: [
-        { label: "Sorgente contatti", value: "CRM Import · Network" },
-        { label: "Bozze generate", value: "50 email personalizzate" },
-        { label: "Template base", value: "Re-engagement Q1" },
+        { label: "Fonti unificate", value: "Import · WCA · Business Card" },
+        { label: "Profili target", value: "50 unici (dopo dedup)" },
+        { label: "Bozze generate", value: "50 · Create Email Draft" },
+        { label: "Arricchimento", value: "38 · Run Deep Search" },
         { label: "Wave", value: "3 (17 · 17 · 16)" },
-        { label: "Governance check", value: "✓ Approvato" },
+        { label: "Governance", value: "✓ Admin · Send approved" },
       ],
     },
     executionSteps: [
-      { label: "Validazione contatti su CRM Core", status: "done", detail: "50/50 ✓" },
-      { label: "Generazione bozze personalizzate", status: "done", detail: "50 email" },
-      { label: "Governance check — policy email", status: "done", detail: "Conforme" },
-      { label: "Invio wave 1 via Email Engine", status: "running", detail: "12/17" },
-      { label: "Invio wave 2", status: "pending" },
-      { label: "Invio wave 3", status: "pending" },
-      { label: "Report esecuzione + audit log", status: "pending" },
+      { label: "Validazione contatti · Search Contacts", status: "done", detail: "50/50 ✓" },
+      { label: "Generazione bozze · Create Email Draft", status: "done", detail: "50 email" },
+      { label: "Governance check · Audit Action", status: "done", detail: "Conforme" },
+      { label: "Invio wave 1 · Send Email Batch", status: "running", detail: "12/17" },
+      { label: "Invio wave 2 · Send Email Batch", status: "pending" },
+      { label: "Invio wave 3 · Send Email Batch", status: "pending" },
+      { label: "Audit Action → log esecuzione completa", status: "pending" },
     ],
     resultCanvas: "result",
   },
   report: {
     key: "report",
     assistantMessages: [{
-      content: "Ho analizzato dati cross-source per 23 partner Asia Pacific.\n\nFonti unite: WCA Network (partner profiles), Contact Import (storico interazioni), Company Reports (analisi finanziarie), Activity DB (timeline operativa), Deep Search (dati arricchiti).\n\nIl report include performance per mercato con provenance delle sorgenti, analisi rischi e 3 raccomandazioni strategiche.",
+      content: "Ho generato il report incrociando 4 sorgenti:\n\n**Search Partners** → 23 partner Asia Pacific dal WCA Network\n**Read Company Report** → 12 report aziendali analizzati\n**Analyze Data** → Scoring, trend analysis, risk assessment cross-source\n**Generate Executive Report** → Documento formattato per presentazione board\n\nProvenance: WCA Network (partner profiles) + Company Reports (dati finanziari) + Internal Database (storico attività) + Deep Search (dati di mercato).",
       agentName: "Data Analyst",
-      meta: "Source Unification · WCA · Company Reports · Activity DB · Canvas · 4 agenti · 2.8s",
+      meta: "Search Partners · Read Company Report · Analyze Data · Generate Report · 4 tool · 2.8s",
+      governance: "Ruolo: Analyst · Permesso: Read & Report · Policy: dati sensibili mascherati",
     }],
     canvas: "report",
   },
   email: {
     key: "email",
     assistantMessages: [{
-      content: "Ho generato 10 bozze email personalizzate incrociando dati da business card archive (6 contatti), CRM Core (4 contatti) e note da workspace.\n\nOgni bozza usa contesto cross-source: nome da business card, azienda da CRM, storico da Activity DB, insight da company report.\n\nLe bozze sono nel workspace Email Drafts.",
+      content: "Ho generato 10 bozze personalizzate:\n\n**Search Contacts** → 6 contatti da Business Card Archive + 4 da CRM Core\n**Read Company Report** → Contesto aziendale per 8 destinatari\n**Create Email Draft** → 10 bozze con personalizzazione cross-source\n**Load Template** → Template \"Follow-up Partner Asia\" applicato\n\nOgni bozza include: nome (da business card), azienda (da CRM), settore (da company report), storico (da Activity DB).\n\nLe bozze sono nel workspace Email Drafts. Pronte per revisione.",
       agentName: "Communication",
-      meta: "Business Card · CRM Core · Activity DB · Email Drafting · 3 agenti · 1.9s",
+      meta: "Search Contacts · Read Company Report · Create Email Draft · Load Template · 4 tool · 1.9s",
+    }],
+    canvas: null,
+  },
+  churn: {
+    key: "churn",
+    assistantMessages: [{
+      content: "Ho incrociato 3 sorgenti dati con 5 tool operativi:\n\n**Search Partners** → 234 partner dal WCA Network scansionati\n**Search Contacts** → 12.847 contatti dal database unificato\n**Run Deep Search** → Arricchimento con 89 company report\n**Run ML Scoring** → Churn scoring su 34 account inattivi\n**Generate Report** → 6 account critici identificati (score ≥85)\n\nOrigini: WCA Partner Network → 4 partner, Imported Contacts → 18, Company Reports → 3 analisi.",
+      agentName: "Orchestratore",
+      meta: "Search Partners · Search Contacts · Deep Search · ML Scoring · Generate Report · 5 tool · 1.7s",
+      governance: "Ruolo: Analyst · Permesso: Read · Policy: nessuna azione distruttiva",
+    }],
+    canvas: "table",
+  },
+  voice: {
+    key: "voice",
+    assistantMessages: [{
+      content: "Preparo la lettura vocale del riepilogo:\n\n**Load Context** → Caricamento ultimo report/riepilogo dal workspace\n**Read Aloud** → Attivazione ElevenLabs Voice AI per lettura premium\n\nIl sistema leggerà il riepilogo completo prima della conferma. Puoi interrompere in qualsiasi momento.",
+      agentName: "Voice",
+      meta: "Load Context · Read Aloud · TTS Engine · 2 tool · 0.4s",
     }],
     canvas: null,
   },
@@ -124,9 +181,12 @@ const scenarios: Record<string, Scenario> = {
 
 function detectScenario(text: string): string {
   const lower = text.toLowerCase();
+  if (lower.includes("importa") || lower.includes("uniscili")) return "import";
+  if (lower.includes("business card") || lower.includes("bigliett")) return "businesscard";
   if (lower.includes("campagna") || lower.includes("lead")) return "campaign";
-  if (lower.includes("report") || lower.includes("partner") || lower.includes("asia") || lower.includes("board")) return "report";
+  if (lower.includes("report") || lower.includes("asia") || lower.includes("board")) return "report";
   if (lower.includes("bozze") || lower.includes("email") || lower.includes("draft")) return "email";
+  if (lower.includes("leggi") || lower.includes("voce") || lower.includes("alta voce")) return "voice";
   return "churn";
 }
 
@@ -171,7 +231,7 @@ const Workspace = () => {
     setTimeout(() => {
       setMessages((prev) => prev.filter((m) => !m.thinking));
       scenario.assistantMessages.forEach((am) => {
-        addMessage({ role: "assistant", content: am.content, timestamp: ts(), agentName: am.agentName, meta: am.meta });
+        addMessage({ role: "assistant", content: am.content, timestamp: ts(), agentName: am.agentName, meta: am.meta, governance: am.governance });
       });
       setCanvas(scenario.canvas);
       setFlowPhase(scenario.approval ? "proposal" : "done");
@@ -185,10 +245,10 @@ const Workspace = () => {
 
     addMessage({
       role: "assistant",
-      content: "Esecuzione avviata. Automation Agent coordina gli step. Governance Agent monitora ogni operazione.",
+      content: "Esecuzione avviata. Automation Agent coordina gli step operativi. Governance Agent monitora ogni azione con audit trail completo.",
       timestamp: ts(),
       agentName: "Automation",
-      meta: "Execution Engine · Governance · Audit Trail · attivo",
+      meta: "Execution Engine · Governance · Audit Action · attivo",
     });
 
     if (activeScenario.executionSteps) {
@@ -228,7 +288,7 @@ const Workspace = () => {
     setFlowPhase("idle");
     setCanvas(null);
     setShowTools(false);
-    addMessage({ role: "assistant", content: "Operazione annullata. Nessuna azione eseguita.", timestamp: ts(), agentName: "Orchestratore" });
+    addMessage({ role: "assistant", content: "Operazione annullata. Nessuna azione eseguita. Audit Action: cancellazione registrata.", timestamp: ts(), agentName: "Orchestratore" });
   }, [addMessage]);
 
   const sendMessage = (text?: string) => {
@@ -267,7 +327,6 @@ const Workspace = () => {
           )}
         </div>
         <div className="flex items-center gap-2">
-          {/* Agent dots */}
           <div className="flex items-center gap-1 mr-2">
             {agentDots.map((a) => (
               <motion.div
@@ -279,7 +338,6 @@ const Workspace = () => {
               />
             ))}
           </div>
-          {/* System stats — whispered */}
           <span className="text-[8px] text-muted-foreground/12 font-mono tracking-wider">14 fonti · 12.8k contatti · 234 partner · 7 agenti</span>
         </div>
       </div>
@@ -305,7 +363,7 @@ const Workspace = () => {
                     key={p}
                     initial={{ opacity: 0, y: 8 }}
                     animate={{ opacity: 1, y: 0 }}
-                    transition={{ delay: 1 + i * 0.12, ease }}
+                    transition={{ delay: 1 + i * 0.1, ease }}
                     onClick={() => sendMessage(p)}
                     whileHover={{ x: 4 }}
                     className="text-[12px] px-4 py-2.5 rounded-2xl text-muted-foreground/25 hover:text-muted-foreground/50 hover:bg-secondary/[0.04] transition-all duration-700 text-left"
@@ -314,20 +372,10 @@ const Workspace = () => {
                   </motion.button>
                 ))}
               </motion.div>
-              {/* Subtle capability hint */}
-              <motion.div
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ delay: 1.8 }}
-                className="flex flex-wrap justify-center gap-x-4 gap-y-1 mt-12"
-              >
-                {["Source Unification", "WCA Network", "Contact Import", "Business Card", "Deep Search", "Voice AI"].map((cap, i) => (
-                  <motion.span
-                    key={cap}
-                    className="text-[9px] text-muted-foreground/12 font-light"
-                    animate={{ opacity: [0.08, 0.18, 0.08] }}
-                    transition={{ duration: 4, repeat: Infinity, delay: i * 0.7 }}
-                  >
+              {/* Capability hint */}
+              <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 1.8 }} className="flex flex-wrap justify-center gap-x-4 gap-y-1 mt-12">
+                {["Source Unification", "Search Contacts", "Parse Cards", "Create Draft", "Send Batch", "Read Aloud", "Audit Action"].map((cap, i) => (
+                  <motion.span key={cap} className="text-[9px] text-muted-foreground/12 font-light" animate={{ opacity: [0.08, 0.18, 0.08] }} transition={{ duration: 4, repeat: Infinity, delay: i * 0.5 }}>
                     {cap}
                   </motion.span>
                 ))}
@@ -336,7 +384,6 @@ const Workspace = () => {
           ) : (
             <div className="flex-1 overflow-y-auto px-8 py-6">
               <div className="max-w-xl mx-auto space-y-6">
-                {/* Tool activation bar */}
                 <ToolActivationBar scenarioKey={activeScenarioKey} visible={showTools && flowPhase !== "idle"} />
 
                 {messages.map((msg) => (
@@ -348,7 +395,7 @@ const Workspace = () => {
                           {[0, 1, 2].map((dot) => (
                             <motion.div key={dot} className="w-1.5 h-1.5 rounded-full bg-primary/30" animate={{ opacity: [0.2, 0.7, 0.2], scale: [0.8, 1.1, 0.8] }} transition={{ duration: 1.2, repeat: Infinity, delay: dot * 0.2 }} />
                           ))}
-                          <span className="text-[11px] text-muted-foreground/25 ml-2 font-light">Interrogo il sistema...</span>
+                          <span className="text-[11px] text-muted-foreground/25 ml-2 font-light">Attivo tool operativi...</span>
                         </div>
                       </motion.div>
                     ) : (
@@ -375,11 +422,23 @@ const Workspace = () => {
                               {msg.agentName}
                             </motion.div>
                           )}
-                          <p className="text-[14px] leading-[1.7] whitespace-pre-line font-light text-foreground/85">{msg.content}</p>
+                          <div className="text-[14px] leading-[1.7] whitespace-pre-line font-light text-foreground/85">
+                            {msg.content.split(/(\*\*[^*]+\*\*)/).map((part, i) =>
+                              part.startsWith("**") && part.endsWith("**")
+                                ? <span key={i} className="text-primary/50 font-mono text-[12px]">{part.slice(2, -2)}</span>
+                                : <span key={i}>{part}</span>
+                            )}
+                          </div>
                           {msg.meta && (
                             <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.4 }} className="flex items-center gap-2 mt-3 pt-2 border-t border-border/[0.04]">
                               <Wand2 className="w-2.5 h-2.5 text-primary/15" />
                               <span className="text-[9px] text-muted-foreground/20 font-light font-mono">{msg.meta}</span>
+                            </motion.div>
+                          )}
+                          {msg.governance && (
+                            <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.6 }} className="flex items-center gap-2 mt-1.5">
+                              <div className="w-1 h-1 rounded-full bg-success/30" />
+                              <span className="text-[8px] text-muted-foreground/15 font-mono">{msg.governance}</span>
                             </motion.div>
                           )}
                           <span className="text-[9px] text-muted-foreground/15 mt-2 block">{msg.timestamp}</span>
@@ -439,7 +498,6 @@ const Workspace = () => {
                   onBlur={() => setInputFocused(false)}
                   className="flex-1 bg-transparent text-[14px] outline-none placeholder:text-muted-foreground/20 font-light text-foreground/90"
                 />
-                {/* Voice output toggle */}
                 <motion.button
                   onClick={() => setVoiceSpeaking(!voiceSpeaking)}
                   whileTap={{ scale: 0.9 }}

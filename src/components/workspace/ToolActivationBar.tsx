@@ -1,5 +1,5 @@
 import { motion, AnimatePresence } from "framer-motion";
-import { Database, Users, Mail, Search, Mic, Brain, Shield, Zap, FileText, Layers, GitMerge } from "lucide-react";
+import { Database, Users, Mail, Search, Mic, Brain, Shield, Zap, FileText, Layers, GitMerge, CreditCard, Upload, BarChart3, Bell, BookOpen } from "lucide-react";
 
 const ease = [0.2, 0.8, 0.2, 1] as const;
 
@@ -17,64 +17,95 @@ interface SourceTag {
 const toolMap: Record<string, { tools: ToolActivation[]; sources: SourceTag[] }> = {
   churn: {
     tools: [
-      { icon: GitMerge, label: "Unification", color: "38 90% 50%" },
-      { icon: Database, label: "CRM Core", color: "210 100% 66%" },
-      { icon: Users, label: "Partner DB", color: "270 60% 62%" },
-      { icon: Brain, label: "ML Scoring", color: "152 60% 45%" },
-      { icon: Search, label: "Deep Search", color: "38 90% 50%" },
+      { icon: GitMerge, label: "Unify Sources", color: "38 90% 50%" },
+      { icon: Search, label: "Search Partners", color: "210 100% 66%" },
+      { icon: Search, label: "Search Contacts", color: "270 60% 62%" },
+      { icon: Brain, label: "Run ML Scoring", color: "152 60% 45%" },
+      { icon: Search, label: "Run Deep Search", color: "38 90% 50%" },
+      { icon: BarChart3, label: "Generate Report", color: "210 100% 66%" },
     ],
     sources: [
-      { name: "WCA Network", color: "210 100% 66%" },
-      { name: "CRM Core", color: "270 60% 62%" },
+      { name: "WCA Partner Network", color: "210 100% 66%" },
+      { name: "Imported Contacts", color: "270 60% 62%" },
       { name: "Company Reports", color: "152 60% 45%" },
     ],
   },
   campaign: {
     tools: [
-      { icon: GitMerge, label: "Unification", color: "38 90% 50%" },
-      { icon: Database, label: "Contact DB", color: "210 100% 66%" },
-      { icon: Mail, label: "Email Engine", color: "270 60% 62%" },
-      { icon: FileText, label: "Drafting AI", color: "152 60% 45%" },
-      { icon: Zap, label: "Execution", color: "38 90% 50%" },
-      { icon: Shield, label: "Governance", color: "210 100% 66%" },
+      { icon: GitMerge, label: "Unify Sources", color: "38 90% 50%" },
+      { icon: Search, label: "Search Contacts", color: "210 100% 66%" },
+      { icon: Search, label: "Run Deep Search", color: "270 60% 62%" },
+      { icon: FileText, label: "Create Email Draft", color: "152 60% 45%" },
+      { icon: Mail, label: "Send Email Batch", color: "38 90% 50%" },
+      { icon: Shield, label: "Audit Action", color: "210 100% 66%" },
     ],
     sources: [
-      { name: "Contatti Import", color: "210 100% 66%" },
-      { name: "WCA Network", color: "270 60% 62%" },
-      { name: "Deep Search", color: "38 90% 50%" },
+      { name: "Imported Contacts", color: "210 100% 66%" },
+      { name: "WCA Partner Network", color: "270 60% 62%" },
+      { name: "Business Card Archive", color: "38 90% 50%" },
+      { name: "Deep Search API", color: "152 60% 45%" },
     ],
   },
   report: {
     tools: [
-      { icon: GitMerge, label: "Unification", color: "38 90% 50%" },
-      { icon: Users, label: "Partner Intel", color: "210 100% 66%" },
-      { icon: Brain, label: "Data Analyst", color: "270 60% 62%" },
-      { icon: Layers, label: "Canvas", color: "152 60% 45%" },
-      { icon: FileText, label: "Template", color: "38 90% 50%" },
+      { icon: GitMerge, label: "Unify Sources", color: "38 90% 50%" },
+      { icon: Search, label: "Search Partners", color: "210 100% 66%" },
+      { icon: Brain, label: "Analyze Data", color: "270 60% 62%" },
+      { icon: BarChart3, label: "Generate Executive Report", color: "152 60% 45%" },
+      { icon: Layers, label: "Save Template", color: "38 90% 50%" },
     ],
     sources: [
-      { name: "WCA Network", color: "210 100% 66%" },
+      { name: "WCA Partner Network", color: "210 100% 66%" },
       { name: "Company Reports", color: "152 60% 45%" },
-      { name: "Activity DB", color: "270 60% 62%" },
+      { name: "Internal Database", color: "270 60% 62%" },
     ],
   },
   email: {
     tools: [
-      { icon: Database, label: "Contact DB", color: "210 100% 66%" },
-      { icon: Mail, label: "Email Draft", color: "270 60% 62%" },
-      { icon: Brain, label: "Tone AI", color: "152 60% 45%" },
-      { icon: Layers, label: "Template", color: "38 90% 50%" },
+      { icon: Search, label: "Search Contacts", color: "210 100% 66%" },
+      { icon: BookOpen, label: "Read Company Report", color: "270 60% 62%" },
+      { icon: FileText, label: "Create Email Draft", color: "152 60% 45%" },
+      { icon: Layers, label: "Load Template", color: "38 90% 50%" },
     ],
     sources: [
-      { name: "Contatti Import", color: "210 100% 66%" },
-      { name: "Business Card", color: "38 90% 50%" },
+      { name: "Imported Contacts", color: "210 100% 66%" },
+      { name: "Business Card Archive", color: "38 90% 50%" },
+      { name: "CRM Core", color: "270 60% 62%" },
+    ],
+  },
+  import: {
+    tools: [
+      { icon: Upload, label: "Parse Contact File", color: "210 100% 66%" },
+      { icon: GitMerge, label: "Deduplicate & Merge", color: "38 90% 50%" },
+      { icon: Search, label: "Run Deep Search", color: "270 60% 62%" },
+      { icon: Database, label: "Update CRM Records", color: "152 60% 45%" },
+      { icon: Shield, label: "Audit Action", color: "210 100% 66%" },
+    ],
+    sources: [
+      { name: "Contact File (300)", color: "210 100% 66%" },
+      { name: "WCA Partner Network", color: "270 60% 62%" },
+      { name: "CRM Core", color: "152 60% 45%" },
+    ],
+  },
+  businesscard: {
+    tools: [
+      { icon: CreditCard, label: "Parse Business Cards", color: "38 90% 50%" },
+      { icon: GitMerge, label: "Unify Sources", color: "210 100% 66%" },
+      { icon: Search, label: "Run Deep Search", color: "270 60% 62%" },
+      { icon: Database, label: "Create Contact Profile", color: "152 60% 45%" },
+      { icon: Bell, label: "Schedule Reminder", color: "38 90% 50%" },
+    ],
+    sources: [
+      { name: "Business Card Archive", color: "38 90% 50%" },
+      { name: "Deep Search API", color: "270 60% 62%" },
+      { name: "Company Reports", color: "152 60% 45%" },
     ],
   },
   voice: {
     tools: [
-      { icon: Mic, label: "Voice AI", color: "152 60% 45%" },
+      { icon: Mic, label: "Read Aloud", color: "152 60% 45%" },
       { icon: Brain, label: "TTS Engine", color: "270 60% 62%" },
-      { icon: Database, label: "Context", color: "210 100% 66%" },
+      { icon: Database, label: "Load Context", color: "210 100% 66%" },
     ],
     sources: [
       { name: "CRM Core", color: "210 100% 66%" },
@@ -102,33 +133,33 @@ const ToolActivationBar = ({ scenarioKey, visible }: ToolActivationBarProps) => 
           transition={{ duration: 0.4, ease }}
           className="overflow-hidden"
         >
-          {/* Tools */}
-          <div className="flex items-center gap-1 py-2 px-1">
-            <span className="text-[8px] text-muted-foreground/15 tracking-[0.2em] uppercase mr-2 font-mono">ATTIVI</span>
+          {/* Operational Tools */}
+          <div className="flex items-center gap-1 py-2 px-1 flex-wrap">
+            <span className="text-[8px] text-muted-foreground/15 tracking-[0.2em] uppercase mr-2 font-mono">TOOLS</span>
             {tools.map((tool, i) => (
               <motion.div
                 key={tool.label}
                 initial={{ opacity: 0, scale: 0.8, x: -8 }}
                 animate={{ opacity: 1, scale: 1, x: 0 }}
-                transition={{ delay: i * 0.08, duration: 0.3, ease }}
-                className="flex items-center gap-1.5 px-2.5 py-1.5 rounded-xl"
+                transition={{ delay: i * 0.06, duration: 0.3, ease }}
+                className="flex items-center gap-1.5 px-2 py-1 rounded-lg"
                 style={{ background: `hsl(${tool.color} / 0.04)`, border: `1px solid hsl(${tool.color} / 0.06)` }}
               >
                 <tool.icon className="w-2.5 h-2.5" style={{ color: `hsl(${tool.color} / 0.35)` }} strokeWidth={1.5} />
-                <span className="text-[9px] font-light" style={{ color: `hsl(${tool.color} / 0.4)` }}>{tool.label}</span>
+                <span className="text-[8px] font-light" style={{ color: `hsl(${tool.color} / 0.4)` }}>{tool.label}</span>
               </motion.div>
             ))}
           </div>
           {/* Sources */}
           {sources.length > 0 && (
-            <div className="flex items-center gap-1 py-1 px-1">
+            <div className="flex items-center gap-1 py-1 px-1 flex-wrap">
               <span className="text-[8px] text-muted-foreground/15 tracking-[0.2em] uppercase mr-2 font-mono">FONTI</span>
               {sources.map((src, i) => (
                 <motion.span
                   key={src.name}
                   initial={{ opacity: 0 }}
                   animate={{ opacity: 1 }}
-                  transition={{ delay: 0.3 + i * 0.1 }}
+                  transition={{ delay: 0.3 + i * 0.08 }}
                   className="text-[8px] px-2 py-1 rounded-lg font-mono"
                   style={{ color: `hsl(${src.color} / 0.35)`, background: `hsl(${src.color} / 0.03)`, border: `1px solid hsl(${src.color} / 0.04)` }}
                 >
