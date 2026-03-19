@@ -9,7 +9,7 @@ const ease = [0.2, 0.8, 0.2, 1] as const;
 const prompts = [
   "Trova i clienti che stanno per lasciarci",
   "Prepara una campagna in 60 secondi",
-  "Dimmi cosa è successo questa settimana",
+  "Importa contatti e uniscili ai partner",
   "Genera un report per il board",
 ];
 
@@ -34,7 +34,6 @@ const Landing = () => {
           transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
         />
         <div className="absolute bottom-0 left-1/3 w-[500px] h-[500px] rounded-full bg-accent/[0.012] blur-[160px]" />
-        {/* Grid pattern — very subtle */}
         <div className="absolute inset-0 opacity-[0.015]"
           style={{
             backgroundImage: "linear-gradient(hsl(0 0% 100%) 1px, transparent 1px), linear-gradient(90deg, hsl(0 0% 100%) 1px, transparent 1px)",
@@ -43,7 +42,7 @@ const Landing = () => {
         />
       </div>
 
-      {/* Nav — ghost */}
+      {/* Nav */}
       <motion.nav
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
@@ -64,9 +63,8 @@ const Landing = () => {
         </button>
       </motion.nav>
 
-      {/* Center — the entire soul */}
+      {/* Center */}
       <div className="flex-1 flex flex-col items-center justify-center relative z-10 px-6 -mt-12">
-        {/* AI Entity — iconic, magnetic */}
         <motion.div
           initial={{ opacity: 0, scale: 0.6 }}
           animate={{ opacity: 1, scale: 1 }}
@@ -76,7 +74,6 @@ const Landing = () => {
           <AiEntity size="hero" />
         </motion.div>
 
-        {/* Headline — cinematic */}
         <motion.div
           initial={{ opacity: 0, y: 40 }}
           animate={{ opacity: 1, y: 0 }}
@@ -96,11 +93,11 @@ const Landing = () => {
           transition={{ delay: 0.9, duration: 1.2 }}
           className="text-[15px] text-muted-foreground/60 text-center max-w-md mb-16 leading-relaxed font-light"
         >
-          Un'intelligenza operativa che legge, analizza, costruisce e agisce.
-          Tu chiedi. Il sistema esegue.
+          Un'intelligenza operativa costruita su moduli reali.
+          Fonti multiple. Tool concreti. Tu chiedi, il sistema esegue.
         </motion.p>
 
-        {/* Prompt — the command center */}
+        {/* Prompt */}
         <motion.div
           initial={{ opacity: 0, y: 24 }}
           animate={{ opacity: 1, y: 0 }}
@@ -156,7 +153,7 @@ const Landing = () => {
           </motion.div>
         </motion.div>
 
-        {/* Suggested prompts — choreographed */}
+        {/* Suggested prompts */}
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
@@ -199,15 +196,15 @@ const Landing = () => {
         </motion.div>
       </div>
 
-      {/* Bottom whisper */}
+      {/* Bottom — foundation signal */}
       <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ delay: 2.5, duration: 1.5 }}
-        className="relative z-10 flex justify-center py-8"
+        className="relative z-10 flex flex-col items-center gap-3 py-8"
       >
         <div className="flex items-center gap-6">
-          {["Database", "CRM", "ERP", "API", "Email", "Voice"].map((s, i) => (
+          {["Partner Network", "Contact Import", "Campaign Engine", "Deep Search", "Voice AI", "Audit"].map((s, i) => (
             <motion.span
               key={s}
               className="text-[10px] text-muted-foreground/20 font-light tracking-wider"
@@ -218,6 +215,13 @@ const Landing = () => {
             </motion.span>
           ))}
         </div>
+        <motion.span
+          className="text-[8px] text-muted-foreground/12 font-mono tracking-widest"
+          animate={{ opacity: [0.08, 0.15, 0.08] }}
+          transition={{ duration: 5, repeat: Infinity }}
+        >
+          FONDATO SU MODULI OPERATIVI GIÀ ESISTENTI
+        </motion.span>
       </motion.div>
     </div>
   );

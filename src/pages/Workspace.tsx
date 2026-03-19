@@ -74,9 +74,9 @@ const scenarios: Record<string, Scenario> = {
   import: {
     key: "import",
     assistantMessages: [{
-      content: "Ho ricevuto il file con 300 contatti. Avvio il processo di importazione multi-source:\n\n**Parse Contact File** → 300 record estratti, 12 campi per record\n**Deduplicate & Merge** → 287 profili unici (13 duplicati rimossi, 8 arricchiti con dati esistenti dal CRM)\n**Run Deep Search** → 42 profili arricchiti con dati aziendali da fonti esterne\n**Match Partner Network** → 23 contatti collegati a partner WCA esistenti\n\nProfili pronti per l'inserimento nel CRM Core. Richiesta approvazione per aggiornamento record.",
+      content: "Ho ricevuto il file con 300 contatti. Sto usando la pipeline di import già operativa nel sistema:\n\n**Parse Contact File** → 300 record estratti dal modulo contact ingestion (12 campi per record)\n**Deduplicate & Merge** → 287 profili unici — il motore di deduplicazione ha rimosso 13 duplicati e arricchito 8 con dati già presenti nel CRM Core\n**Run Deep Search** → 42 profili arricchiti tramite il modulo deep search intelligence (fonti esterne attive)\n**Match Partner Network** → 23 contatti collegati a partner WCA tramite il modulo partner management\n\nProfili pronti per l'inserimento. Il CRM Core è già predisposto per riceverli.",
       agentName: "Orchestratore",
-      meta: "Parse Contact File · Deduplicate & Merge · Deep Search · Update CRM · 4 tool · 2.3s",
+      meta: "contact-ingestion · dedup-engine · deep-search · partner-mgmt · crm-core · 5 moduli · 2.3s",
       governance: "Ruolo: Admin · Permesso: Import & Write · Policy: max 500 record/batch",
     }],
     canvas: "table",
@@ -106,9 +106,9 @@ const scenarios: Record<string, Scenario> = {
   businesscard: {
     key: "businesscard",
     assistantMessages: [{
-      content: "Ho analizzato 20 biglietti da visita dal Business Card Archive:\n\n**Parse Business Cards** → 20 schede lette, OCR + AI extraction\n**Unify Sources** → Incrociati con CRM Core (4 già presenti) e Deep Search (16 nuovi)\n**Create Contact Profile** → 16 nuovi profili generati con dati arricchiti\n**Schedule Reminder** → Follow-up suggeriti per 8 contatti prioritari\n\nOrigini dati: Business Card Archive + Deep Search API + Company Reports per 6 profili.",
+      content: "Ho analizzato 20 biglietti da visita usando il modulo business card capture già operativo:\n\n**Parse Business Cards** → 20 schede lette tramite la pipeline OCR + AI extraction del sistema\n**Unify Sources** → Il motore di source unification ha incrociato CRM Core (4 già presenti) e Deep Search (16 nuovi)\n**Create Contact Profile** → 16 profili generati dal modulo contact ingestion con dati arricchiti\n**Schedule Reminder** → Follow-up suggeriti tramite l'activity engine per 8 contatti prioritari\n\nOrigini: Business Card Archive + Deep Search API + Company Reports per 6 profili.",
       agentName: "CRM Core",
-      meta: "Parse Business Cards · Unify Sources · Deep Search · Create Contact · Schedule Reminder · 5 tool · 1.8s",
+      meta: "card-capture · source-unification · deep-search · contact-ingestion · activity-engine · 5 moduli · 1.8s",
       governance: "Ruolo: Operator · Permesso: Create & Enrich · Policy: auto-merge disabilitato",
     }],
     canvas: null,
@@ -116,9 +116,9 @@ const scenarios: Record<string, Scenario> = {
   campaign: {
     key: "campaign",
     assistantMessages: [{
-      content: "Ho costruito il target unificando 3 fonti:\n\n**Search Contacts** → 32 lead da Imported Contacts (inattivi >90gg)\n**Search Partners** → 11 contatti da WCA Partner Network\n**Parse Business Cards** → 7 profili dal Business Card Archive\n**Deduplicate & Merge** → 50 profili unici dopo unificazione\n**Run Deep Search** → Arricchimento con dati aziendali per 38 profili\n**Create Email Draft** → 50 bozze personalizzate generate\n\nOgni bozza usa contesto cross-source. Template: Re-engagement Q1.",
+      content: "Ho costruito il target usando il motore campagne e 3 fonti dati già nel sistema:\n\n**Search Contacts** → 32 lead da Imported Contacts (inattivi >90gg) — dal modulo contact database\n**Search Partners** → 11 contatti dal modulo partner management (WCA Network)\n**Parse Business Cards** → 7 profili dal modulo card capture (Business Card Archive)\n**Deduplicate & Merge** → 50 profili unici — il motore di deduplicazione ha unificato le 3 fonti\n**Run Deep Search** → 38 profili arricchiti tramite deep search intelligence\n**Create Email Draft** → 50 bozze generate dal motore email drafting con template esistenti\n\nOgni bozza usa contesto cross-source. Template: Re-engagement Q1.",
       agentName: "Communication",
-      meta: "Search Contacts · Search Partners · Parse Cards · Deep Search · Create Draft · 6 tool · 3.2s",
+      meta: "contact-db · partner-mgmt · card-capture · dedup-engine · deep-search · email-draft · 6 moduli · 3.2s",
       governance: "Ruolo: Admin · Permesso: Send Email Batch · Policy: max 100 email/batch · Approval: obbligatorio",
     }],
     canvas: "campaign",
@@ -149,9 +149,9 @@ const scenarios: Record<string, Scenario> = {
   report: {
     key: "report",
     assistantMessages: [{
-      content: "Ho generato il report incrociando 4 sorgenti:\n\n**Search Partners** → 23 partner Asia Pacific dal WCA Network\n**Read Company Report** → 12 report aziendali analizzati\n**Analyze Data** → Scoring, trend analysis, risk assessment cross-source\n**Generate Executive Report** → Documento formattato per presentazione board\n\nProvenance: WCA Network (partner profiles) + Company Reports (dati finanziari) + Internal Database (storico attività) + Deep Search (dati di mercato).",
+      content: "Ho generato il report usando il modulo reporting e 4 sorgenti dati già operative:\n\n**Search Partners** → 23 partner Asia Pacific dal modulo partner management (WCA Network)\n**Read Company Report** → 12 report analizzati dal modulo workspace documents\n**Analyze Data** → Scoring e trend analysis tramite il motore analytics già presente\n**Generate Executive Report** → Documento formattato dal modulo reporting per presentazione board\n\nProvenance: Partner Management (profili) + Document Workspace (report finanziari) + CRM Core (storico attività) + Deep Search (dati di mercato).",
       agentName: "Data Analyst",
-      meta: "Search Partners · Read Company Report · Analyze Data · Generate Report · 4 tool · 2.8s",
+      meta: "partner-mgmt · workspace-docs · analytics · reporting · 4 moduli · 2.8s",
       governance: "Ruolo: Analyst · Permesso: Read & Report · Policy: dati sensibili mascherati",
     }],
     canvas: "report",
@@ -159,18 +159,18 @@ const scenarios: Record<string, Scenario> = {
   email: {
     key: "email",
     assistantMessages: [{
-      content: "Ho generato 10 bozze personalizzate:\n\n**Search Contacts** → 6 contatti da Business Card Archive + 4 da CRM Core\n**Read Company Report** → Contesto aziendale per 8 destinatari\n**Create Email Draft** → 10 bozze con personalizzazione cross-source\n**Load Template** → Template \"Follow-up Partner Asia\" applicato\n\nOgni bozza include: nome (da business card), azienda (da CRM), settore (da company report), storico (da Activity DB).\n\nLe bozze sono nel workspace Email Drafts. Pronte per revisione.",
+      content: "Ho generato 10 bozze usando il motore email drafting e i dati già nel sistema:\n\n**Search Contacts** → 6 contatti dal modulo card capture + 4 dal CRM Core\n**Read Company Report** → Contesto aziendale per 8 destinatari dal modulo workspace documents\n**Create Email Draft** → 10 bozze generate dal motore email drafting con personalizzazione cross-source\n**Load Template** → Template \"Follow-up Partner Asia\" caricato dal modulo template memory\n\nOgni bozza include: nome (card capture), azienda (CRM Core), settore (company reports), storico (activity engine).\n\nLe bozze sono nel workspace. Pronte per revisione.",
       agentName: "Communication",
-      meta: "Search Contacts · Read Company Report · Create Email Draft · Load Template · 4 tool · 1.9s",
+      meta: "contact-db · card-capture · workspace-docs · email-draft · template-memory · 5 moduli · 1.9s",
     }],
     canvas: null,
   },
   churn: {
     key: "churn",
     assistantMessages: [{
-      content: "Ho incrociato 3 sorgenti dati con 5 tool operativi:\n\n**Search Partners** → 234 partner dal WCA Network scansionati\n**Search Contacts** → 12.847 contatti dal database unificato\n**Run Deep Search** → Arricchimento con 89 company report\n**Run ML Scoring** → Churn scoring su 34 account inattivi\n**Generate Report** → 6 account critici identificati (score ≥85)\n\nOrigini: WCA Partner Network → 4 partner, Imported Contacts → 18, Company Reports → 3 analisi.",
+      content: "Ho incrociato 3 sorgenti dati usando i moduli operativi già attivi nel sistema:\n\n**Search Partners** → 234 partner dal modulo partner management (WCA Network)\n**Search Contacts** → 12.847 contatti dal modulo contact database unificato\n**Run Deep Search** → Arricchimento con 89 company report tramite deep search intelligence\n**Run ML Scoring** → Churn scoring su 34 account tramite il motore analytics\n**Generate Report** → 6 account critici identificati (score ≥85) dal modulo reporting\n\nOrigini: Partner Management → 4 partner, Contact Database → 18, Workspace Documents → 3 analisi.",
       agentName: "Orchestratore",
-      meta: "Search Partners · Search Contacts · Deep Search · ML Scoring · Generate Report · 5 tool · 1.7s",
+      meta: "partner-mgmt · contact-db · deep-search · analytics · reporting · 5 moduli · 1.7s",
       governance: "Ruolo: Analyst · Permesso: Read · Policy: nessuna azione distruttiva",
     }],
     canvas: "table",
@@ -179,9 +179,9 @@ const scenarios: Record<string, Scenario> = {
     key: "voice",
     autoVoice: true,
     assistantMessages: [{
-      content: "Preparo la lettura vocale del riepilogo:\n\n**Load Context** → Caricamento ultimo report/riepilogo dal workspace\n**Read Aloud** → Attivazione ElevenLabs Voice AI per lettura premium\n\nIl sistema leggerà il riepilogo completo prima della conferma. Puoi interrompere in qualsiasi momento.",
+      content: "Preparo la lettura vocale usando il modulo voice interaction già integrato:\n\n**Load Context** → Caricamento ultimo riepilogo dal modulo conversation memory\n**Read Aloud** → Attivazione del modulo voice con ElevenLabs TTS premium\n\nIl sistema leggerà il riepilogo completo prima della conferma. Puoi interrompere in qualsiasi momento.",
       agentName: "Voice",
-      meta: "Load Context · Read Aloud · TTS Engine · 2 tool · 0.4s",
+      meta: "conversation-memory · voice-interaction · tts-engine · 3 moduli · 0.4s",
     }],
     canvas: null,
   },
