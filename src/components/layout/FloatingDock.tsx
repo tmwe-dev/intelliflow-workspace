@@ -7,6 +7,7 @@ const items = [
   { to: "/workspace", icon: MessageSquare },
   { to: "/capabilities", icon: Sparkles },
   { to: "/engine", icon: Cpu },
+  { to: "/connections", icon: Plug },
   { to: "/templates", icon: Layers },
   { to: "/automations", icon: Zap },
   { to: "/audit", icon: Shield },

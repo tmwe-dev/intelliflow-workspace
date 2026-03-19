@@ -280,7 +280,7 @@ const Workspace = () => {
             ))}
           </div>
           {/* System stats — whispered */}
-          <span className="text-[8px] text-muted-foreground/12 font-mono tracking-wider">12.8k contatti · 234 partner · 7 agenti</span>
+          <span className="text-[8px] text-muted-foreground/12 font-mono tracking-wider">14 fonti · 12.8k contatti · 234 partner · 7 agenti</span>
         </div>
       </div>
 
