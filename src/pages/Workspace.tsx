@@ -46,10 +46,10 @@ const agentDots = [
 ];
 
 const quickPrompts = [
-  "Trova i partner più interessanti in Asia",
-  "Prepara una campagna per 50 lead importati",
-  "Genera 10 bozze email personalizzate",
-  "Report executive per il board",
+  "Trova partner Asia unendo WCA + contatti + report",
+  "Campagna per 50 lead importati con deep search",
+  "10 bozze email da business card e CRM",
+  "Report executive partner Asia cross-source",
 ];
 
 /* ─── Scenarios ─── */
@@ -66,18 +66,18 @@ const scenarios: Record<string, Scenario> = {
   churn: {
     key: "churn",
     assistantMessages: [{
-      content: "Ho interrogato il database partner e contatti. Trovati 34 account inattivi con fatturato storico >€100k.\n\nIl churn scoring ML ha identificato 6 account critici (score ≥85). Il 67% del rischio è concentrato nei settori Manufacturing e Technology.\n\nI dati includono 4 partner importati dal network Apex e 12 contatti dal CRM principale.",
+      content: "Ho incrociato 3 sorgenti dati: WCA Partner Network (234 partner), contatti importati (12.847) e company report (89).\n\nIl Source Unification Layer ha deduplicato e arricchito i profili cross-source. Il churn scoring ML ha identificato 6 account critici (score ≥85).\n\nOrigini dati: WCA Network → 4 partner, Contact Import → 18 contatti, Company Reports → 3 analisi settoriali, Deep Search → 12 record arricchiti.",
       agentName: "Orchestratore",
-      meta: "CRM Core · Data Analyst · Deep Search · Partner DB · 4 agenti · 1.7s",
+      meta: "Source Unification · CRM Core · Data Analyst · Deep Search · 4 agenti · 1.7s",
     }],
     canvas: "table",
   },
   campaign: {
     key: "campaign",
     assistantMessages: [{
-      content: "Ho selezionato 50 lead dal database contatti importati. Filtro: inattivi >90gg, fatturato storico >€50k, nessuna campagna attiva.\n\nHo generato 50 bozze email personalizzate usando il Communication Agent. Ogni messaggio è adattato a settore, storico interazioni, ultimo acquisto e profilo del contatto.\n\nTemplate base: Re-engagement Q1. Invio in 3 wave progressive con intervallo di 40 minuti.",
+      content: "Ho unificato lead da 3 fonti: contatti importati (32), WCA network (11), business card archive (7). Dopo deduplicazione: 50 profili unici.\n\nOgni bozza è personalizzata con dati cross-source: nome, azienda, settore, storico da CRM, note da business card, insight da company report.\n\nTemplate base: Re-engagement Q1. Invio in 3 wave progressive.",
       agentName: "Communication",
-      meta: "CRM Core · Email Drafting · Template Memory · Contact DB · 5 agenti · 3.2s",
+      meta: "Source Unification · Contact Import · WCA · Business Card · Email Drafting · 5 agenti · 3.2s",
     }],
     canvas: "campaign",
     approval: {
@@ -105,18 +105,18 @@ const scenarios: Record<string, Scenario> = {
   report: {
     key: "report",
     assistantMessages: [{
-      content: "Ho analizzato i dati di 23 partner attivi nella regione Asia Pacific dal database Partner Intelligence.\n\nFonti utilizzate: storico attività, revenue per partner, NPS survey, campagne associate, note del workspace.\n\nIl report include performance per mercato, analisi rischi e 3 raccomandazioni strategiche. Formato ottimizzato per presentazione al board.",
+      content: "Ho analizzato dati cross-source per 23 partner Asia Pacific.\n\nFonti unite: WCA Network (partner profiles), Contact Import (storico interazioni), Company Reports (analisi finanziarie), Activity DB (timeline operativa), Deep Search (dati arricchiti).\n\nIl report include performance per mercato con provenance delle sorgenti, analisi rischi e 3 raccomandazioni strategiche.",
       agentName: "Data Analyst",
-      meta: "CRM Core · Partner DB · Activity Engine · Canvas · Template Memory · 4 agenti · 2.8s",
+      meta: "Source Unification · WCA · Company Reports · Activity DB · Canvas · 4 agenti · 2.8s",
     }],
     canvas: "report",
   },
   email: {
     key: "email",
     assistantMessages: [{
-      content: "Ho generato 10 bozze email personalizzate per i contatti selezionati.\n\nOgni bozza utilizza il template \"Follow-up Commerciale\" adattato a: nome, azienda, settore, ultima interazione, prodotti di interesse.\n\nLe bozze sono nel workspace Email Drafts. Puoi rivederle, modificarle e approvarle prima dell'invio.",
+      content: "Ho generato 10 bozze email personalizzate incrociando dati da business card archive (6 contatti), CRM Core (4 contatti) e note da workspace.\n\nOgni bozza usa contesto cross-source: nome da business card, azienda da CRM, storico da Activity DB, insight da company report.\n\nLe bozze sono nel workspace Email Drafts.",
       agentName: "Communication",
-      meta: "Email Drafting · Contact Memory · Template Memory · 3 agenti · 1.9s",
+      meta: "Business Card · CRM Core · Activity DB · Email Drafting · 3 agenti · 1.9s",
     }],
     canvas: null,
   },
@@ -280,7 +280,7 @@ const Workspace = () => {
             ))}
           </div>
           {/* System stats — whispered */}
-          <span className="text-[8px] text-muted-foreground/12 font-mono tracking-wider">12.8k contatti · 234 partner · 7 agenti</span>
+          <span className="text-[8px] text-muted-foreground/12 font-mono tracking-wider">14 fonti · 12.8k contatti · 234 partner · 7 agenti</span>
         </div>
       </div>
 
@@ -297,7 +297,7 @@ const Workspace = () => {
                 Cosa vuoi ottenere?
               </motion.h2>
               <motion.p initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.6 }} className="text-[13px] text-muted-foreground/30 font-light mb-10 text-center max-w-sm">
-                Accesso a 12.847 contatti, 234 partner, campagne, documenti, email e memoria AI.
+                14 sorgenti unificate · 12.847 contatti · 234 partner WCA · 1.420 business card
               </motion.p>
               <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.9 }} className="flex flex-col items-center gap-2">
                 {quickPrompts.map((p, i) => (
@@ -321,7 +321,7 @@ const Workspace = () => {
                 transition={{ delay: 1.8 }}
                 className="flex flex-wrap justify-center gap-x-4 gap-y-1 mt-12"
               >
-                {["Partner Intelligence", "Email Drafting", "Voice AI", "Deep Search", "Campaign Engine"].map((cap, i) => (
+                {["Source Unification", "WCA Network", "Contact Import", "Business Card", "Deep Search", "Voice AI"].map((cap, i) => (
                   <motion.span
                     key={cap}
                     className="text-[9px] text-muted-foreground/12 font-light"
