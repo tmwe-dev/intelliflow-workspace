@@ -297,7 +297,7 @@ const Workspace = () => {
                 Cosa vuoi ottenere?
               </motion.h2>
               <motion.p initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.6 }} className="text-[13px] text-muted-foreground/30 font-light mb-10 text-center max-w-sm">
-                Accesso a 12.847 contatti, 234 partner, campagne, documenti, email e memoria AI.
+                14 sorgenti unificate · 12.847 contatti · 234 partner WCA · 1.420 business card
               </motion.p>
               <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.9 }} className="flex flex-col items-center gap-2">
                 {quickPrompts.map((p, i) => (
