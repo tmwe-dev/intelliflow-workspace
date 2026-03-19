@@ -106,9 +106,9 @@ const scenarios: Record<string, Scenario> = {
   businesscard: {
     key: "businesscard",
     assistantMessages: [{
-      content: "Ho analizzato 20 biglietti da visita dal Business Card Archive:\n\n**Parse Business Cards** → 20 schede lette, OCR + AI extraction\n**Unify Sources** → Incrociati con CRM Core (4 già presenti) e Deep Search (16 nuovi)\n**Create Contact Profile** → 16 nuovi profili generati con dati arricchiti\n**Schedule Reminder** → Follow-up suggeriti per 8 contatti prioritari\n\nOrigini dati: Business Card Archive + Deep Search API + Company Reports per 6 profili.",
+      content: "Ho analizzato 20 biglietti da visita usando il modulo business card capture già operativo:\n\n**Parse Business Cards** → 20 schede lette tramite la pipeline OCR + AI extraction del sistema\n**Unify Sources** → Il motore di source unification ha incrociato CRM Core (4 già presenti) e Deep Search (16 nuovi)\n**Create Contact Profile** → 16 profili generati dal modulo contact ingestion con dati arricchiti\n**Schedule Reminder** → Follow-up suggeriti tramite l'activity engine per 8 contatti prioritari\n\nOrigini: Business Card Archive + Deep Search API + Company Reports per 6 profili.",
       agentName: "CRM Core",
-      meta: "Parse Business Cards · Unify Sources · Deep Search · Create Contact · Schedule Reminder · 5 tool · 1.8s",
+      meta: "card-capture · source-unification · deep-search · contact-ingestion · activity-engine · 5 moduli · 1.8s",
       governance: "Ruolo: Operator · Permesso: Create & Enrich · Policy: auto-merge disabilitato",
     }],
     canvas: null,
