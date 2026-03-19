@@ -290,11 +290,14 @@ const Engine = () => {
         </div>
 
         <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 2.5 }} className="mt-20 text-center">
-          <p className="text-[12px] text-muted-foreground/20 font-light leading-relaxed max-w-md mx-auto">
+          <p className="text-[12px] text-muted-foreground/20 font-light leading-relaxed max-w-md mx-auto mb-6">
             Fondamenta operative già mature. Moduli già in produzione.
             <br />
             L'AI workspace non inventa le capacità — le unifica, le amplifica, le rende conversazionali.
           </p>
+          <a href="/architecture" className="inline-flex items-center gap-2 text-[11px] text-primary/30 hover:text-primary/50 transition-colors duration-500 font-light">
+            Esplora l'architettura completa del prodotto →
+          </a>
         </motion.div>
       </div>
     </div>

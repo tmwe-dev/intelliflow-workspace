@@ -10,6 +10,7 @@ import Workspace from "@/pages/Workspace";
 import Capabilities from "@/pages/Capabilities";
 import Engine from "@/pages/Engine";
 import Connections from "@/pages/Connections";
+import Architecture from "@/pages/Architecture";
 import Templates from "@/pages/Templates";
 import Automations from "@/pages/Automations";
 import AuditLog from "@/pages/AuditLog";
@@ -32,6 +33,7 @@ const App = () => (
             <Route path="/capabilities" element={<Capabilities />} />
             <Route path="/engine" element={<Engine />} />
             <Route path="/connections" element={<Connections />} />
+            <Route path="/architecture" element={<Architecture />} />
             <Route path="/templates" element={<Templates />} />
             <Route path="/automations" element={<Automations />} />
             <Route path="/audit" element={<AuditLog />} />
