@@ -1,0 +1,29 @@
+import { motion } from "framer-motion";
+import { Bookmark } from "lucide-react";
+
+const ease = [0.2, 0.8, 0.2, 1] as const;
+
+interface TemplateSuggestProps {
+  visible: boolean;
+  label?: string;
+  onSave?: () => void;
+}
+
+const TemplateSuggest = ({ visible, label = "Salva come template", onSave }: TemplateSuggestProps) => {
+  if (!visible) return null;
+
+  return (
+    <motion.button
+      initial={{ opacity: 0, y: 6 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ delay: 0.5, duration: 0.6, ease }}
+      onClick={onSave}
+      className="flex items-center gap-2 mt-3 text-[10px] text-muted-foreground/20 hover:text-primary/40 transition-all duration-700 group"
+    >
+      <Bookmark className="w-3 h-3 group-hover:text-primary/30 transition-colors duration-500" />
+      <span className="font-light tracking-wide">{label}</span>
+    </motion.button>
+  );
+};
+
+export default TemplateSuggest;
