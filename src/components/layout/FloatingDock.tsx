@@ -1,12 +1,13 @@
 import { NavLink, useLocation } from "react-router-dom";
 import { motion } from "framer-motion";
-import { Home, MessageSquare, Plug, LayoutTemplate, Zap, Shield, Settings } from "lucide-react";
+import { Home, MessageSquare, Sparkles, Layers, Zap, Shield, Settings, Cpu } from "lucide-react";
 
 const items = [
   { to: "/dashboard", icon: Home },
   { to: "/workspace", icon: MessageSquare },
-  { to: "/connections", icon: Plug },
-  { to: "/templates", icon: LayoutTemplate },
+  { to: "/capabilities", icon: Sparkles },
+  { to: "/engine", icon: Cpu },
+  { to: "/templates", icon: Layers },
   { to: "/automations", icon: Zap },
   { to: "/audit", icon: Shield },
   { to: "/settings", icon: Settings },
