@@ -25,6 +25,7 @@ interface Message {
 
 type CanvasType = "table" | "campaign" | "report" | "result" | null;
 type FlowPhase = "idle" | "thinking" | "proposal" | "approval" | "executing" | "done";
+type ToolPhase = "activating" | "active" | "done";
 
 /* ─── Realistic Demo Data ─── */
 const tableData = [
@@ -53,16 +54,20 @@ const quickPrompts = [
   "Report executive partner Asia cross-source",
   "10 bozze email personalizzate per partner Asia",
   "Leggi ad alta voce il riepilogo prima della conferma",
+  "Lancia invio batch con approvazione step-by-step",
+  "Salva questo flusso come template operativo",
 ];
 
 /* ─── Scenarios ─── */
+interface GovernanceInfo { role: string; permission: string; policy: string }
 interface Scenario {
   key: string;
   assistantMessages: { content: string; agentName: string; meta?: string; governance?: string }[];
   canvas: CanvasType;
-  approval?: { title: string; description: string; details: { label: string; value: string }[] };
+  approval?: { title: string; description: string; details: { label: string; value: string }[]; governance?: GovernanceInfo };
   executionSteps?: ExecutionStep[];
   resultCanvas?: CanvasType;
+  autoVoice?: boolean;
 }
 
 const scenarios: Record<string, Scenario> = {
@@ -86,6 +91,7 @@ const scenarios: Record<string, Scenario> = {
         { label: "Arricchiti Deep Search", value: "42 profili" },
         { label: "Governance", value: "✓ Conforme · Admin" },
       ],
+      governance: { role: "Admin", permission: "Import & Write", policy: "Max 500 record/batch" },
     },
     executionSteps: [
       { label: "Parse Contact File → 300 record", status: "done", detail: "300/300 ✓" },
@@ -127,6 +133,7 @@ const scenarios: Record<string, Scenario> = {
         { label: "Wave", value: "3 (17 · 17 · 16)" },
         { label: "Governance", value: "✓ Admin · Send approved" },
       ],
+      governance: { role: "Admin", permission: "Send Email Batch", policy: "Max 100 email/batch" },
     },
     executionSteps: [
       { label: "Validazione contatti · Search Contacts", status: "done", detail: "50/50 ✓" },
@@ -170,6 +177,7 @@ const scenarios: Record<string, Scenario> = {
   },
   voice: {
     key: "voice",
+    autoVoice: true,
     assistantMessages: [{
       content: "Preparo la lettura vocale del riepilogo:\n\n**Load Context** → Caricamento ultimo report/riepilogo dal workspace\n**Read Aloud** → Attivazione ElevenLabs Voice AI per lettura premium\n\nIl sistema leggerà il riepilogo completo prima della conferma. Puoi interrompere in qualsiasi momento.",
       agentName: "Voice",
@@ -177,10 +185,72 @@ const scenarios: Record<string, Scenario> = {
     }],
     canvas: null,
   },
+  batch: {
+    key: "batch",
+    assistantMessages: [{
+      content: "Preparo l'invio batch con approvazione step-by-step:\n\n**Search Contacts** → 120 contatti selezionati da 3 fonti\n**Validate & Deduplicate** → 118 profili validi, 2 rimossi\n**Create Email Draft** → 118 bozze generate con personalizzazione\n**Governance Check** → Verifica limiti, ruoli e policy completata\n\nL'invio sarà diviso in 4 wave con approvazione intermedia. Ogni wave richiede conferma esplicita.",
+      agentName: "Automation",
+      meta: "Search Contacts · Validate · Create Draft · Governance Check · Send Batch · 6 tool · 2.9s",
+      governance: "Ruolo: Admin · Permesso: Send Batch · Policy: max 50/wave · Approval: per-wave obbligatorio",
+    }],
+    canvas: null,
+    approval: {
+      title: "Avviare invio batch di 118 email in 4 wave?",
+      description: "118 email pronte. Ogni wave richiede approvazione. Governance Agent monitora ogni step. Audit trail completo.",
+      details: [
+        { label: "Contatti validati", value: "118 / 120" },
+        { label: "Wave pianificate", value: "4 (30 · 30 · 30 · 28)" },
+        { label: "Approvazione", value: "Per-wave obbligatoria" },
+        { label: "Tool attivi", value: "Send Email Batch · Audit Action" },
+        { label: "Governance", value: "✓ Admin · Conforme" },
+      ],
+      governance: { role: "Admin", permission: "Send Batch", policy: "Max 50 email/wave" },
+    },
+    executionSteps: [
+      { label: "Validazione contatti", status: "done", detail: "118/118 ✓" },
+      { label: "Governance pre-check", status: "done", detail: "Conforme" },
+      { label: "Wave 1 · Send Email Batch", status: "done", detail: "30/30 ✓" },
+      { label: "Wave 2 · Send Email Batch", status: "running", detail: "18/30" },
+      { label: "Wave 3 · Send Email Batch", status: "pending" },
+      { label: "Wave 4 · Send Email Batch", status: "pending" },
+      { label: "Audit Action → log completo", status: "pending" },
+    ],
+    resultCanvas: "result",
+  },
+  template: {
+    key: "template",
+    assistantMessages: [{
+      content: "Analizzo il flusso corrente per creare un template operativo riutilizzabile:\n\n**Save Template** → Flusso serializzato con tutti gli step, tool e parametri\n**Audit Action** → Creazione template registrata nel log\n\nIl template sarà disponibile nella Template Library per esecuzioni future con un click.",
+      agentName: "Orchestratore",
+      meta: "Save Template · Audit Action · 2 tool · 0.3s",
+      governance: "Ruolo: Admin · Permesso: Template Management · Policy: versioning attivo",
+    }],
+    canvas: null,
+    resultCanvas: "result",
+    approval: {
+      title: "Salvare questo flusso come template?",
+      description: "Il template includerà tutti gli step, tool e parametri del flusso corrente. Sarà riutilizzabile dalla Template Library.",
+      details: [
+        { label: "Step inclusi", value: "6" },
+        { label: "Tool mappati", value: "4" },
+        { label: "Parametri", value: "Configurabili" },
+        { label: "Audit", value: "✓ Registrato" },
+      ],
+      governance: { role: "Admin", permission: "Template Management", policy: "Versioning attivo" },
+    },
+    executionSteps: [
+      { label: "Analisi flusso corrente", status: "done", detail: "6 step" },
+      { label: "Serializzazione template", status: "done", detail: "✓" },
+      { label: "Save Template → Library", status: "running" },
+      { label: "Audit Action → log creazione", status: "pending" },
+    ],
+  },
 };
 
 function detectScenario(text: string): string {
   const lower = text.toLowerCase();
+  if (lower.includes("template") || lower.includes("salva questo flusso")) return "template";
+  if (lower.includes("batch") || lower.includes("invio batch")) return "batch";
   if (lower.includes("importa") || lower.includes("uniscili")) return "import";
   if (lower.includes("business card") || lower.includes("bigliett")) return "businesscard";
   if (lower.includes("campagna") || lower.includes("lead")) return "campaign";
@@ -202,6 +272,8 @@ const Workspace = () => {
   const [activeScenario, setActiveScenario] = useState<Scenario | null>(null);
   const [activeScenarioKey, setActiveScenarioKey] = useState<string | null>(null);
   const [showTools, setShowTools] = useState(false);
+  const [toolPhase, setToolPhase] = useState<ToolPhase>("active");
+  const [chainHighlight, setChainHighlight] = useState<number | undefined>(undefined);
   const [execProgress, setExecProgress] = useState(0);
   const [execSteps, setExecSteps] = useState<ExecutionStep[]>([]);
   const chatEndRef = useRef<HTMLDivElement>(null);
@@ -225,16 +297,34 @@ const Workspace = () => {
     setActiveScenarioKey(scenarioKey);
     setFlowPhase("thinking");
     setShowTools(true);
+    setToolPhase("activating");
+    setChainHighlight(0); // FONTE
 
     addMessage({ role: "assistant", content: "", timestamp: "", thinking: true });
 
+    // Animate chain during thinking
+    const chainInterval = setInterval(() => {
+      setChainHighlight(prev => {
+        if (prev === undefined || prev >= 2) return prev;
+        return prev + 1;
+      });
+    }, 700);
+
     setTimeout(() => {
+      clearInterval(chainInterval);
+      setToolPhase("active");
+      setChainHighlight(3); // TOOL
       setMessages((prev) => prev.filter((m) => !m.thinking));
       scenario.assistantMessages.forEach((am) => {
         addMessage({ role: "assistant", content: am.content, timestamp: ts(), agentName: am.agentName, meta: am.meta, governance: am.governance });
       });
       setCanvas(scenario.canvas);
       setFlowPhase(scenario.approval ? "proposal" : "done");
+
+      // Voice auto-activation
+      if (scenario.autoVoice) {
+        setTimeout(() => setVoiceSpeaking(true), 800);
+      }
     }, 2200);
   }, [addMessage]);
 
@@ -242,6 +332,7 @@ const Workspace = () => {
     if (!activeScenario) return;
     setFlowPhase("executing");
     setCanvas(null);
+    setChainHighlight(5); // ESECUZIONE
 
     addMessage({
       role: "assistant",
@@ -270,8 +361,10 @@ const Workspace = () => {
           clearInterval(interval);
           setTimeout(() => {
             setFlowPhase("done");
+            setChainHighlight(6); // AUDIT
             setCanvas(activeScenario.resultCanvas || null);
             setShowTools(false);
+            setToolPhase("done");
             addMessage({
               role: "assistant",
               content: "Esecuzione completata. Tutti gli step verificati dal Governance Agent. Audit log aggiornato.\n\nVuoi salvare questo flusso come template operativo?",
@@ -288,6 +381,7 @@ const Workspace = () => {
     setFlowPhase("idle");
     setCanvas(null);
     setShowTools(false);
+    setChainHighlight(undefined);
     addMessage({ role: "assistant", content: "Operazione annullata. Nessuna azione eseguita. Audit Action: cancellazione registrata.", timestamp: ts(), agentName: "Orchestratore" });
   }, [addMessage]);
 
@@ -299,6 +393,8 @@ const Workspace = () => {
     setCanvas(null);
     setFlowPhase("idle");
     setShowTools(false);
+    setVoiceSpeaking(false);
+    setChainHighlight(undefined);
     const scenarioKey = detectScenario(content);
     runFlow(scenarioKey);
   };
@@ -384,7 +480,12 @@ const Workspace = () => {
           ) : (
             <div className="flex-1 overflow-y-auto px-8 py-6">
               <div className="max-w-xl mx-auto space-y-6">
-                <ToolActivationBar scenarioKey={activeScenarioKey} visible={showTools && flowPhase !== "idle"} />
+                <ToolActivationBar
+                  scenarioKey={activeScenarioKey}
+                  visible={showTools && flowPhase !== "idle"}
+                  phase={toolPhase}
+                  chainHighlight={chainHighlight}
+                />
 
                 {messages.map((msg) => (
                   <AnimatePresence key={msg.id}>
@@ -455,6 +556,7 @@ const Workspace = () => {
                       title={activeScenario.approval.title}
                       description={activeScenario.approval.description}
                       details={activeScenario.approval.details}
+                      governance={activeScenario.approval.governance}
                       onApprove={handleApprove}
                       onModify={() => {}}
                       onCancel={handleCancel}
@@ -470,7 +572,7 @@ const Workspace = () => {
           )}
 
           {/* Voice presence */}
-          <VoicePresence active={micActive} listening={micActive && !voiceSpeaking} speaking={voiceSpeaking} />
+          <VoicePresence active={micActive || voiceSpeaking} listening={micActive && !voiceSpeaking} speaking={voiceSpeaking} />
 
           {/* Input */}
           <div className="px-8 pb-20 pt-2">
@@ -527,7 +629,7 @@ const Workspace = () => {
               {canvas === "table" && <TableCanvas data={tableData} onClose={() => setCanvas(null)} />}
               {canvas === "campaign" && <CampaignCanvas onClose={() => setCanvas(null)} />}
               {canvas === "report" && <ReportCanvas onClose={() => setCanvas(null)} />}
-              {canvas === "result" && <ResultCanvas onClose={() => setCanvas(null)} />}
+              {canvas === "result" && <ResultCanvas onClose={() => setCanvas(null)} scenarioKey={activeScenarioKey || undefined} />}
             </motion.div>
           )}
         </AnimatePresence>

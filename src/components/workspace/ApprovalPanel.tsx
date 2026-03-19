@@ -3,17 +3,24 @@ import { CheckCircle2, X, Pencil, Shield } from "lucide-react";
 
 const ease = [0.2, 0.8, 0.2, 1] as const;
 
+interface GovernanceInfo {
+  role: string;
+  permission: string;
+  policy: string;
+}
+
 interface ApprovalPanelProps {
   visible: boolean;
   title: string;
   description: string;
   details?: { label: string; value: string }[];
+  governance?: GovernanceInfo;
   onApprove: () => void;
   onModify?: () => void;
   onCancel: () => void;
 }
 
-const ApprovalPanel = ({ visible, title, description, details, onApprove, onModify, onCancel }: ApprovalPanelProps) => (
+const ApprovalPanel = ({ visible, title, description, details, governance, onApprove, onModify, onCancel }: ApprovalPanelProps) => (
   <AnimatePresence>
     {visible && (
       <motion.div
@@ -52,6 +59,26 @@ const ApprovalPanel = ({ visible, title, description, details, onApprove, onModi
               </motion.div>
             ))}
           </div>
+        )}
+
+        {/* Governance strip */}
+        {governance && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 0.4, ease }}
+            className="mb-4 ml-6 flex items-center gap-3 py-2 px-3 rounded-lg"
+            style={{ background: "hsl(152 60% 45% / 0.03)", border: "1px solid hsl(152 60% 45% / 0.05)" }}
+          >
+            <div className="flex items-center gap-1.5">
+              <div className="w-1 h-1 rounded-full bg-success/40" />
+              <span className="text-[8px] text-success/40 font-mono tracking-wider">{governance.role}</span>
+            </div>
+            <span className="text-[6px] text-muted-foreground/10">·</span>
+            <span className="text-[8px] text-muted-foreground/25 font-mono">{governance.permission}</span>
+            <span className="text-[6px] text-muted-foreground/10">·</span>
+            <span className="text-[8px] text-muted-foreground/20 font-mono">{governance.policy}</span>
+          </motion.div>
         )}
 
         <div className="flex items-center gap-2 ml-6">
