@@ -1,9 +1,11 @@
 import { useState, useRef, useEffect, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Send, Mic, MicOff, Wand2 } from "lucide-react";
+import { Send, Mic, MicOff, Wand2, Volume2, VolumeX } from "lucide-react";
 import AiEntity from "@/components/ai/AiEntity";
 import ApprovalPanel from "@/components/workspace/ApprovalPanel";
 import ExecutionFlow, { type ExecutionStep } from "@/components/workspace/ExecutionFlow";
+import ToolActivationBar from "@/components/workspace/ToolActivationBar";
+import VoicePresence from "@/components/workspace/VoicePresence";
 import { TableCanvas, CampaignCanvas, ReportCanvas, ResultCanvas } from "@/components/workspace/CanvasViews";
 
 const ease = [0.2, 0.8, 0.2, 1] as const;
@@ -16,39 +18,43 @@ interface Message {
   timestamp: string;
   agentName?: string;
   thinking?: boolean;
-  meta?: string; // small contextual line
+  meta?: string;
+  tools?: string[];
 }
 
 type CanvasType = "table" | "campaign" | "report" | "result" | null;
 type FlowPhase = "idle" | "thinking" | "proposal" | "approval" | "executing" | "done";
 
-/* ─── Demo Data ─── */
+/* ─── Realistic Demo Data ─── */
 const tableData = [
-  { name: "Pinnacle Srl", sector: "Manufacturing", revenue: "€129k", days: "120", churn: 91 },
-  { name: "Acme Corporation", sector: "Technology", revenue: "€234k", days: "112", churn: 89 },
-  { name: "Orion Tech", sector: "Technology", revenue: "€118k", days: "105", churn: 85 },
-  { name: "TechnoSteel Srl", sector: "Manufacturing", revenue: "€187k", days: "98", churn: 82 },
-  { name: "Meridian Group", sector: "Consulting", revenue: "€156k", days: "95", churn: 76 },
-  { name: "Nova Industries", sector: "Manufacturing", revenue: "€143k", days: "93", churn: 71 },
+  { name: "TechBridge Japan", sector: "Technology", revenue: "€412k", days: "98", churn: 91 },
+  { name: "Meridian Asia Pacific", sector: "Consulting", revenue: "€234k", days: "112", churn: 89 },
+  { name: "SteelForge Srl", sector: "Manufacturing", revenue: "€187k", days: "105", churn: 85 },
+  { name: "NovaPharma Group", sector: "Healthcare", revenue: "€156k", days: "93", churn: 82 },
+  { name: "Apex Financial", sector: "Finance", revenue: "€298k", days: "88", churn: 76 },
+  { name: "Orion Logistics", sector: "Logistics", revenue: "€143k", days: "120", churn: 71 },
 ];
 
 const agentDots = [
   { agent: "Orchestratore", status: "done" },
   { agent: "CRM Core", status: "done" },
   { agent: "Data Analyst", status: "done" },
-  { agent: "Canvas", status: "done" },
   { agent: "Communication", status: "running" },
+  { agent: "Voice", status: "monitoring" },
+  { agent: "Automation", status: "done" },
   { agent: "Governance", status: "monitoring" },
 ];
 
 const quickPrompts = [
-  "Mostrami i clienti a rischio churn",
-  "Prepara una campagna per 50 lead inattivi",
-  "Genera un report executive sui partner Asia",
+  "Trova i partner più interessanti in Asia",
+  "Prepara una campagna per 50 lead importati",
+  "Genera 10 bozze email personalizzate",
+  "Report executive per il board",
 ];
 
-/* ─── Demo Scenarios ─── */
+/* ─── Scenarios ─── */
 interface Scenario {
+  key: string;
   assistantMessages: { content: string; agentName: string; meta?: string }[];
   canvas: CanvasType;
   approval?: { title: string; description: string; details: { label: string; value: string }[] };
@@ -58,60 +64,69 @@ interface Scenario {
 
 const scenarios: Record<string, Scenario> = {
   churn: {
-    assistantMessages: [
-      {
-        content: "Ho trovato 34 clienti inattivi per un totale di €4.2M di fatturato esposto.\n\nIl churn score medio è 76/100 — livello critico. 6 aziende con score ≥85 richiedono intervento immediato.",
-        agentName: "Orchestratore",
-        meta: "CRM Core · Data Analyst · 4 agenti coinvolti",
-      },
-    ],
+    key: "churn",
+    assistantMessages: [{
+      content: "Ho interrogato il database partner e contatti. Trovati 34 account inattivi con fatturato storico >€100k.\n\nIl churn scoring ML ha identificato 6 account critici (score ≥85). Il 67% del rischio è concentrato nei settori Manufacturing e Technology.\n\nI dati includono 4 partner importati dal network Apex e 12 contatti dal CRM principale.",
+      agentName: "Orchestratore",
+      meta: "CRM Core · Data Analyst · Deep Search · Partner DB · 4 agenti · 1.7s",
+    }],
     canvas: "table",
   },
   campaign: {
-    assistantMessages: [
-      {
-        content: "Ho selezionato 50 lead inattivi da più di 90 giorni con fatturato storico >€50k.\n\nHo preparato una campagna email personalizzata con 3 wave progressive. Ogni messaggio è adattato a settore, storico e profilo del contatto.",
-        agentName: "Communication",
-        meta: "CRM Core · Communication · Canvas · 5 agenti coinvolti",
-      },
-    ],
+    key: "campaign",
+    assistantMessages: [{
+      content: "Ho selezionato 50 lead dal database contatti importati. Filtro: inattivi >90gg, fatturato storico >€50k, nessuna campagna attiva.\n\nHo generato 50 bozze email personalizzate usando il Communication Agent. Ogni messaggio è adattato a settore, storico interazioni, ultimo acquisto e profilo del contatto.\n\nTemplate base: Re-engagement Q1. Invio in 3 wave progressive con intervallo di 40 minuti.",
+      agentName: "Communication",
+      meta: "CRM Core · Email Drafting · Template Memory · Contact DB · 5 agenti · 3.2s",
+    }],
     canvas: "campaign",
     approval: {
       title: "Avviare campagna email?",
-      description: "50 email personalizzate inviate in 3 wave progressive nell'arco di 2 ore.",
+      description: "50 email personalizzate generate dal Communication Agent. Ogni bozza è stata verificata dal Governance Agent.",
       details: [
-        { label: "Destinatari", value: "50 lead" },
-        { label: "Template", value: "Re-engagement personalizzato" },
+        { label: "Sorgente contatti", value: "CRM Import · Network" },
+        { label: "Bozze generate", value: "50 email personalizzate" },
+        { label: "Template base", value: "Re-engagement Q1" },
         { label: "Wave", value: "3 (17 · 17 · 16)" },
-        { label: "Tempo stimato", value: "~2 ore" },
+        { label: "Governance check", value: "✓ Approvato" },
       ],
     },
     executionSteps: [
-      { label: "Validazione contatti", status: "done", detail: "50/50" },
-      { label: "Generazione contenuti personalizzati", status: "done", detail: "50 email" },
-      { label: "Invio wave 1", status: "running", detail: "12/17" },
+      { label: "Validazione contatti su CRM Core", status: "done", detail: "50/50 ✓" },
+      { label: "Generazione bozze personalizzate", status: "done", detail: "50 email" },
+      { label: "Governance check — policy email", status: "done", detail: "Conforme" },
+      { label: "Invio wave 1 via Email Engine", status: "running", detail: "12/17" },
       { label: "Invio wave 2", status: "pending" },
       { label: "Invio wave 3", status: "pending" },
-      { label: "Report finale", status: "pending" },
+      { label: "Report esecuzione + audit log", status: "pending" },
     ],
     resultCanvas: "result",
   },
   report: {
-    assistantMessages: [
-      {
-        content: "Ho analizzato i dati di 23 partner attivi nella regione Asia Pacific.\n\nIl report include performance, rischi e raccomandazioni strategiche. Il formato è pronto per presentazione al board.",
-        agentName: "Data Analyst",
-        meta: "CRM Core · Data Analyst · Canvas · 4 agenti coinvolti",
-      },
-    ],
+    key: "report",
+    assistantMessages: [{
+      content: "Ho analizzato i dati di 23 partner attivi nella regione Asia Pacific dal database Partner Intelligence.\n\nFonti utilizzate: storico attività, revenue per partner, NPS survey, campagne associate, note del workspace.\n\nIl report include performance per mercato, analisi rischi e 3 raccomandazioni strategiche. Formato ottimizzato per presentazione al board.",
+      agentName: "Data Analyst",
+      meta: "CRM Core · Partner DB · Activity Engine · Canvas · Template Memory · 4 agenti · 2.8s",
+    }],
     canvas: "report",
+  },
+  email: {
+    key: "email",
+    assistantMessages: [{
+      content: "Ho generato 10 bozze email personalizzate per i contatti selezionati.\n\nOgni bozza utilizza il template \"Follow-up Commerciale\" adattato a: nome, azienda, settore, ultima interazione, prodotti di interesse.\n\nLe bozze sono nel workspace Email Drafts. Puoi rivederle, modificarle e approvarle prima dell'invio.",
+      agentName: "Communication",
+      meta: "Email Drafting · Contact Memory · Template Memory · 3 agenti · 1.9s",
+    }],
+    canvas: null,
   },
 };
 
 function detectScenario(text: string): string {
   const lower = text.toLowerCase();
-  if (lower.includes("campagna") || lower.includes("email") || lower.includes("lead inattivi")) return "campaign";
-  if (lower.includes("report") || lower.includes("partner") || lower.includes("asia")) return "report";
+  if (lower.includes("campagna") || lower.includes("lead")) return "campaign";
+  if (lower.includes("report") || lower.includes("partner") || lower.includes("asia") || lower.includes("board")) return "report";
+  if (lower.includes("bozze") || lower.includes("email") || lower.includes("draft")) return "email";
   return "churn";
 }
 
@@ -120,10 +135,13 @@ const Workspace = () => {
   const [messages, setMessages] = useState<Message[]>([]);
   const [input, setInput] = useState("");
   const [micActive, setMicActive] = useState(false);
+  const [voiceSpeaking, setVoiceSpeaking] = useState(false);
   const [inputFocused, setInputFocused] = useState(false);
   const [canvas, setCanvas] = useState<CanvasType>(null);
   const [flowPhase, setFlowPhase] = useState<FlowPhase>("idle");
   const [activeScenario, setActiveScenario] = useState<Scenario | null>(null);
+  const [activeScenarioKey, setActiveScenarioKey] = useState<string | null>(null);
+  const [showTools, setShowTools] = useState(false);
   const [execProgress, setExecProgress] = useState(0);
   const [execSteps, setExecSteps] = useState<ExecutionStep[]>([]);
   const chatEndRef = useRef<HTMLDivElement>(null);
@@ -144,12 +162,12 @@ const Workspace = () => {
     const scenario = scenarios[scenarioKey];
     if (!scenario) return;
     setActiveScenario(scenario);
+    setActiveScenarioKey(scenarioKey);
     setFlowPhase("thinking");
+    setShowTools(true);
 
-    // Thinking
     addMessage({ role: "assistant", content: "", timestamp: "", thinking: true });
 
-    // Proposal
     setTimeout(() => {
       setMessages((prev) => prev.filter((m) => !m.thinking));
       scenario.assistantMessages.forEach((am) => {
@@ -157,7 +175,7 @@ const Workspace = () => {
       });
       setCanvas(scenario.canvas);
       setFlowPhase(scenario.approval ? "proposal" : "done");
-    }, 2000);
+    }, 2200);
   }, [addMessage]);
 
   const handleApprove = useCallback(() => {
@@ -167,53 +185,50 @@ const Workspace = () => {
 
     addMessage({
       role: "assistant",
-      content: "Esecuzione avviata. Monitoro ogni step per te.",
+      content: "Esecuzione avviata. Automation Agent coordina gli step. Governance Agent monitora ogni operazione.",
       timestamp: ts(),
       agentName: "Automation",
-      meta: "Governance · Audit attivo",
+      meta: "Execution Engine · Governance · Audit Trail · attivo",
     });
 
     if (activeScenario.executionSteps) {
       setExecSteps(activeScenario.executionSteps);
       setExecProgress(0);
-
-      // Simulate progress
       const steps = [...activeScenario.executionSteps];
       let progress = 0;
       const interval = setInterval(() => {
-        progress += 15;
+        progress += 12;
         if (progress > 100) progress = 100;
         setExecProgress(progress);
-
-        // Update steps
         const updated = steps.map((s, i) => {
           if (progress > (i + 1) * (100 / steps.length)) return { ...s, status: "done" as const, detail: s.detail || "✓" };
           if (progress > i * (100 / steps.length)) return { ...s, status: "running" as const };
           return s;
         });
         setExecSteps(updated);
-
         if (progress >= 100) {
           clearInterval(interval);
           setTimeout(() => {
             setFlowPhase("done");
             setCanvas(activeScenario.resultCanvas || null);
+            setShowTools(false);
             addMessage({
               role: "assistant",
-              content: "Esecuzione completata con successo. Tutti gli step verificati dal Governance Agent.",
+              content: "Esecuzione completata. Tutti gli step verificati dal Governance Agent. Audit log aggiornato.\n\nVuoi salvare questo flusso come template operativo?",
               timestamp: ts(),
               agentName: "Orchestratore",
             });
           }, 600);
         }
-      }, 800);
+      }, 700);
     }
   }, [activeScenario, addMessage]);
 
   const handleCancel = useCallback(() => {
     setFlowPhase("idle");
     setCanvas(null);
-    addMessage({ role: "assistant", content: "Operazione annullata.", timestamp: ts(), agentName: "Orchestratore" });
+    setShowTools(false);
+    addMessage({ role: "assistant", content: "Operazione annullata. Nessuna azione eseguita.", timestamp: ts(), agentName: "Orchestratore" });
   }, [addMessage]);
 
   const sendMessage = (text?: string) => {
@@ -223,7 +238,7 @@ const Workspace = () => {
     setInput("");
     setCanvas(null);
     setFlowPhase("idle");
-
+    setShowTools(false);
     const scenarioKey = detectScenario(content);
     runFlow(scenarioKey);
   };
@@ -251,16 +266,21 @@ const Workspace = () => {
             </motion.span>
           )}
         </div>
-        <div className="flex items-center gap-1">
-          {agentDots.map((a) => (
-            <motion.div
-              key={a.agent}
-              className={`w-1.5 h-1.5 rounded-full ${a.status === "done" ? "bg-success/30" : a.status === "running" ? "bg-primary/40" : "bg-muted-foreground/10"}`}
-              animate={a.status === "running" ? { opacity: [0.3, 0.8, 0.3] } : {}}
-              transition={{ duration: 1.5, repeat: Infinity }}
-              title={a.agent}
-            />
-          ))}
+        <div className="flex items-center gap-2">
+          {/* Agent dots */}
+          <div className="flex items-center gap-1 mr-2">
+            {agentDots.map((a) => (
+              <motion.div
+                key={a.agent}
+                className={`w-1.5 h-1.5 rounded-full ${a.status === "done" ? "bg-success/30" : a.status === "running" ? "bg-primary/40" : "bg-muted-foreground/10"}`}
+                animate={a.status === "running" ? { opacity: [0.3, 0.8, 0.3] } : {}}
+                transition={{ duration: 1.5, repeat: Infinity }}
+                title={a.agent}
+              />
+            ))}
+          </div>
+          {/* System stats — whispered */}
+          <span className="text-[8px] text-muted-foreground/12 font-mono tracking-wider">12.8k contatti · 234 partner · 7 agenti</span>
         </div>
       </div>
 
@@ -269,7 +289,6 @@ const Workspace = () => {
         {/* ─── CONVERSATION ─── */}
         <div className={`flex-1 flex flex-col transition-all duration-700 ease-out ${canvas ? "max-w-[50%]" : ""}`}>
           {isEmpty ? (
-            /* Empty state */
             <div className="flex-1 flex flex-col items-center justify-center px-8">
               <motion.div initial={{ opacity: 0, scale: 0.8 }} animate={{ opacity: 1, scale: 1 }} transition={{ duration: 1.5, ease }} className="mb-10">
                 <AiEntity size="lg" />
@@ -277,8 +296,8 @@ const Workspace = () => {
               <motion.h2 initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.3, ease }} className="text-2xl font-extralight tracking-tight text-foreground/70 mb-2">
                 Cosa vuoi ottenere?
               </motion.h2>
-              <motion.p initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.6 }} className="text-[13px] text-muted-foreground/30 font-light mb-10">
-                Descrivi un obiettivo. Il sistema farà il resto.
+              <motion.p initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.6 }} className="text-[13px] text-muted-foreground/30 font-light mb-10 text-center max-w-sm">
+                Accesso a 12.847 contatti, 234 partner, campagne, documenti, email e memoria AI.
               </motion.p>
               <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.9 }} className="flex flex-col items-center gap-2">
                 {quickPrompts.map((p, i) => (
@@ -295,11 +314,31 @@ const Workspace = () => {
                   </motion.button>
                 ))}
               </motion.div>
+              {/* Subtle capability hint */}
+              <motion.div
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ delay: 1.8 }}
+                className="flex flex-wrap justify-center gap-x-4 gap-y-1 mt-12"
+              >
+                {["Partner Intelligence", "Email Drafting", "Voice AI", "Deep Search", "Campaign Engine"].map((cap, i) => (
+                  <motion.span
+                    key={cap}
+                    className="text-[9px] text-muted-foreground/12 font-light"
+                    animate={{ opacity: [0.08, 0.18, 0.08] }}
+                    transition={{ duration: 4, repeat: Infinity, delay: i * 0.7 }}
+                  >
+                    {cap}
+                  </motion.span>
+                ))}
+              </motion.div>
             </div>
           ) : (
-            /* Messages */
             <div className="flex-1 overflow-y-auto px-8 py-6">
               <div className="max-w-xl mx-auto space-y-6">
+                {/* Tool activation bar */}
+                <ToolActivationBar scenarioKey={activeScenarioKey} visible={showTools && flowPhase !== "idle"} />
+
                 {messages.map((msg) => (
                   <AnimatePresence key={msg.id}>
                     {msg.thinking ? (
@@ -309,7 +348,7 @@ const Workspace = () => {
                           {[0, 1, 2].map((dot) => (
                             <motion.div key={dot} className="w-1.5 h-1.5 rounded-full bg-primary/30" animate={{ opacity: [0.2, 0.7, 0.2], scale: [0.8, 1.1, 0.8] }} transition={{ duration: 1.2, repeat: Infinity, delay: dot * 0.2 }} />
                           ))}
-                          <span className="text-[11px] text-muted-foreground/25 ml-2 font-light">Sto elaborando...</span>
+                          <span className="text-[11px] text-muted-foreground/25 ml-2 font-light">Interrogo il sistema...</span>
                         </div>
                       </motion.div>
                     ) : (
@@ -340,7 +379,7 @@ const Workspace = () => {
                           {msg.meta && (
                             <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.4 }} className="flex items-center gap-2 mt-3 pt-2 border-t border-border/[0.04]">
                               <Wand2 className="w-2.5 h-2.5 text-primary/15" />
-                              <span className="text-[9px] text-muted-foreground/20 font-light">{msg.meta}</span>
+                              <span className="text-[9px] text-muted-foreground/20 font-light font-mono">{msg.meta}</span>
                             </motion.div>
                           )}
                           <span className="text-[9px] text-muted-foreground/15 mt-2 block">{msg.timestamp}</span>
@@ -350,7 +389,6 @@ const Workspace = () => {
                   </AnimatePresence>
                 ))}
 
-                {/* Approval panel — emerges in conversation */}
                 {activeScenario?.approval && (flowPhase === "proposal" || flowPhase === "approval") && (
                   <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.5 }}>
                     <ApprovalPanel
@@ -365,7 +403,6 @@ const Workspace = () => {
                   </motion.div>
                 )}
 
-                {/* Execution flow — emerges in conversation */}
                 <ExecutionFlow visible={flowPhase === "executing"} steps={execSteps} progress={execProgress} />
 
                 <div ref={chatEndRef} />
@@ -373,26 +410,23 @@ const Workspace = () => {
             </div>
           )}
 
-          {/* Input */}
-          <div className="px-8 pb-20 pt-4">
-            <div className="max-w-xl mx-auto">
-              <AnimatePresence>
-                {micActive && (
-                  <motion.div initial={{ opacity: 0, height: 0 }} animate={{ opacity: 1, height: 32 }} exit={{ opacity: 0, height: 0 }} className="flex items-center gap-[1.5px] justify-center mb-4 overflow-hidden">
-                    {Array.from({ length: 40 }).map((_, i) => (
-                      <motion.div key={i} className="w-[1px] rounded-full bg-primary/25" animate={{ height: [1, Math.random() * 24 + 2, 1] }} transition={{ duration: 0.8 + Math.random() * 0.4, repeat: Infinity, delay: i * 0.02 }} />
-                    ))}
-                  </motion.div>
-                )}
-              </AnimatePresence>
+          {/* Voice presence */}
+          <VoicePresence active={micActive} listening={micActive && !voiceSpeaking} speaking={voiceSpeaking} />
 
+          {/* Input */}
+          <div className="px-8 pb-20 pt-2">
+            <div className="max-w-xl mx-auto">
               <motion.div
                 animate={{ boxShadow: inputFocused ? "0 0 0 1px hsl(210 100% 66% / 0.08), 0 0 60px hsl(210 100% 66% / 0.03)" : "0 0 0 0.5px hsl(0 0% 0% / 0.15)" }}
                 transition={{ duration: 0.6 }}
                 className="flex items-center gap-3 rounded-2xl px-4 py-3"
                 style={{ background: "hsl(240 5% 6% / 0.6)", backdropFilter: "blur(40px)", border: "1px solid hsl(0 0% 100% / 0.03)" }}
               >
-                <motion.button onClick={() => setMicActive(!micActive)} whileTap={{ scale: 0.9 }} className={`w-9 h-9 rounded-xl flex items-center justify-center transition-all duration-500 flex-shrink-0 ${micActive ? "bg-primary/10 text-primary/60" : "text-muted-foreground/15 hover:text-muted-foreground/30"}`}>
+                <motion.button
+                  onClick={() => { setMicActive(!micActive); setVoiceSpeaking(false); }}
+                  whileTap={{ scale: 0.9 }}
+                  className={`w-9 h-9 rounded-xl flex items-center justify-center transition-all duration-500 flex-shrink-0 ${micActive ? "bg-primary/10 text-primary/60" : "text-muted-foreground/15 hover:text-muted-foreground/30"}`}
+                >
                   {micActive ? <MicOff className="w-4 h-4" /> : <Mic className="w-4 h-4" />}
                 </motion.button>
                 <input
@@ -405,6 +439,15 @@ const Workspace = () => {
                   onBlur={() => setInputFocused(false)}
                   className="flex-1 bg-transparent text-[14px] outline-none placeholder:text-muted-foreground/20 font-light text-foreground/90"
                 />
+                {/* Voice output toggle */}
+                <motion.button
+                  onClick={() => setVoiceSpeaking(!voiceSpeaking)}
+                  whileTap={{ scale: 0.9 }}
+                  className={`w-9 h-9 rounded-xl flex items-center justify-center transition-all duration-500 flex-shrink-0 ${voiceSpeaking ? "bg-accent/10 text-accent/60" : "text-muted-foreground/10 hover:text-muted-foreground/25"}`}
+                  title="Lettura vocale"
+                >
+                  {voiceSpeaking ? <VolumeX className="w-4 h-4" /> : <Volume2 className="w-4 h-4" />}
+                </motion.button>
                 <motion.button onClick={() => sendMessage()} disabled={!input.trim()} whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.9 }} className="w-9 h-9 rounded-xl flex items-center justify-center bg-primary/8 text-primary/40 hover:bg-primary/12 hover:text-primary/70 transition-all duration-500 disabled:opacity-10">
                   <Send className="w-3.5 h-3.5" />
                 </motion.button>
