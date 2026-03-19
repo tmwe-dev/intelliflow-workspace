@@ -74,9 +74,9 @@ const scenarios: Record<string, Scenario> = {
   import: {
     key: "import",
     assistantMessages: [{
-      content: "Ho ricevuto il file con 300 contatti. Avvio il processo di importazione multi-source:\n\n**Parse Contact File** → 300 record estratti, 12 campi per record\n**Deduplicate & Merge** → 287 profili unici (13 duplicati rimossi, 8 arricchiti con dati esistenti dal CRM)\n**Run Deep Search** → 42 profili arricchiti con dati aziendali da fonti esterne\n**Match Partner Network** → 23 contatti collegati a partner WCA esistenti\n\nProfili pronti per l'inserimento nel CRM Core. Richiesta approvazione per aggiornamento record.",
+      content: "Ho ricevuto il file con 300 contatti. Sto usando la pipeline di import già operativa nel sistema:\n\n**Parse Contact File** → 300 record estratti dal modulo contact ingestion (12 campi per record)\n**Deduplicate & Merge** → 287 profili unici — il motore di deduplicazione ha rimosso 13 duplicati e arricchito 8 con dati già presenti nel CRM Core\n**Run Deep Search** → 42 profili arricchiti tramite il modulo deep search intelligence (fonti esterne attive)\n**Match Partner Network** → 23 contatti collegati a partner WCA tramite il modulo partner management\n\nProfili pronti per l'inserimento. Il CRM Core è già predisposto per riceverli.",
       agentName: "Orchestratore",
-      meta: "Parse Contact File · Deduplicate & Merge · Deep Search · Update CRM · 4 tool · 2.3s",
+      meta: "contact-ingestion · dedup-engine · deep-search · partner-mgmt · crm-core · 5 moduli · 2.3s",
       governance: "Ruolo: Admin · Permesso: Import & Write · Policy: max 500 record/batch",
     }],
     canvas: "table",
