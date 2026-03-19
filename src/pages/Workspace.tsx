@@ -168,9 +168,9 @@ const scenarios: Record<string, Scenario> = {
   churn: {
     key: "churn",
     assistantMessages: [{
-      content: "Ho incrociato 3 sorgenti dati con 5 tool operativi:\n\n**Search Partners** → 234 partner dal WCA Network scansionati\n**Search Contacts** → 12.847 contatti dal database unificato\n**Run Deep Search** → Arricchimento con 89 company report\n**Run ML Scoring** → Churn scoring su 34 account inattivi\n**Generate Report** → 6 account critici identificati (score ≥85)\n\nOrigini: WCA Partner Network → 4 partner, Imported Contacts → 18, Company Reports → 3 analisi.",
+      content: "Ho incrociato 3 sorgenti dati usando i moduli operativi già attivi nel sistema:\n\n**Search Partners** → 234 partner dal modulo partner management (WCA Network)\n**Search Contacts** → 12.847 contatti dal modulo contact database unificato\n**Run Deep Search** → Arricchimento con 89 company report tramite deep search intelligence\n**Run ML Scoring** → Churn scoring su 34 account tramite il motore analytics\n**Generate Report** → 6 account critici identificati (score ≥85) dal modulo reporting\n\nOrigini: Partner Management → 4 partner, Contact Database → 18, Workspace Documents → 3 analisi.",
       agentName: "Orchestratore",
-      meta: "Search Partners · Search Contacts · Deep Search · ML Scoring · Generate Report · 5 tool · 1.7s",
+      meta: "partner-mgmt · contact-db · deep-search · analytics · reporting · 5 moduli · 1.7s",
       governance: "Ruolo: Analyst · Permesso: Read · Policy: nessuna azione distruttiva",
     }],
     canvas: "table",
