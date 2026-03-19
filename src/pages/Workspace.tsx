@@ -116,9 +116,9 @@ const scenarios: Record<string, Scenario> = {
   campaign: {
     key: "campaign",
     assistantMessages: [{
-      content: "Ho costruito il target unificando 3 fonti:\n\n**Search Contacts** → 32 lead da Imported Contacts (inattivi >90gg)\n**Search Partners** → 11 contatti da WCA Partner Network\n**Parse Business Cards** → 7 profili dal Business Card Archive\n**Deduplicate & Merge** → 50 profili unici dopo unificazione\n**Run Deep Search** → Arricchimento con dati aziendali per 38 profili\n**Create Email Draft** → 50 bozze personalizzate generate\n\nOgni bozza usa contesto cross-source. Template: Re-engagement Q1.",
+      content: "Ho costruito il target usando il motore campagne e 3 fonti dati già nel sistema:\n\n**Search Contacts** → 32 lead da Imported Contacts (inattivi >90gg) — dal modulo contact database\n**Search Partners** → 11 contatti dal modulo partner management (WCA Network)\n**Parse Business Cards** → 7 profili dal modulo card capture (Business Card Archive)\n**Deduplicate & Merge** → 50 profili unici — il motore di deduplicazione ha unificato le 3 fonti\n**Run Deep Search** → 38 profili arricchiti tramite deep search intelligence\n**Create Email Draft** → 50 bozze generate dal motore email drafting con template esistenti\n\nOgni bozza usa contesto cross-source. Template: Re-engagement Q1.",
       agentName: "Communication",
-      meta: "Search Contacts · Search Partners · Parse Cards · Deep Search · Create Draft · 6 tool · 3.2s",
+      meta: "contact-db · partner-mgmt · card-capture · dedup-engine · deep-search · email-draft · 6 moduli · 3.2s",
       governance: "Ruolo: Admin · Permesso: Send Email Batch · Policy: max 100 email/batch · Approval: obbligatorio",
     }],
     canvas: "campaign",
