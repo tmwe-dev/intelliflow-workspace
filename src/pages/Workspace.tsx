@@ -149,9 +149,9 @@ const scenarios: Record<string, Scenario> = {
   report: {
     key: "report",
     assistantMessages: [{
-      content: "Ho generato il report incrociando 4 sorgenti:\n\n**Search Partners** → 23 partner Asia Pacific dal WCA Network\n**Read Company Report** → 12 report aziendali analizzati\n**Analyze Data** → Scoring, trend analysis, risk assessment cross-source\n**Generate Executive Report** → Documento formattato per presentazione board\n\nProvenance: WCA Network (partner profiles) + Company Reports (dati finanziari) + Internal Database (storico attività) + Deep Search (dati di mercato).",
+      content: "Ho generato il report usando il modulo reporting e 4 sorgenti dati già operative:\n\n**Search Partners** → 23 partner Asia Pacific dal modulo partner management (WCA Network)\n**Read Company Report** → 12 report analizzati dal modulo workspace documents\n**Analyze Data** → Scoring e trend analysis tramite il motore analytics già presente\n**Generate Executive Report** → Documento formattato dal modulo reporting per presentazione board\n\nProvenance: Partner Management (profili) + Document Workspace (report finanziari) + CRM Core (storico attività) + Deep Search (dati di mercato).",
       agentName: "Data Analyst",
-      meta: "Search Partners · Read Company Report · Analyze Data · Generate Report · 4 tool · 2.8s",
+      meta: "partner-mgmt · workspace-docs · analytics · reporting · 4 moduli · 2.8s",
       governance: "Ruolo: Analyst · Permesso: Read & Report · Policy: dati sensibili mascherati",
     }],
     canvas: "report",
