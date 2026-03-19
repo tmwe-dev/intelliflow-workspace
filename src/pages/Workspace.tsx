@@ -1,24 +1,28 @@
-import { useState, useRef, useEffect } from "react";
+import { useState, useRef, useEffect, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import {
-  Send, Mic, MicOff, Wand2, X, ThumbsUp, Download, CheckCircle2, Loader2, Eye, Command,
-} from "lucide-react";
+import { Send, Mic, MicOff, Wand2 } from "lucide-react";
 import AiEntity from "@/components/ai/AiEntity";
+import ApprovalPanel from "@/components/workspace/ApprovalPanel";
+import ExecutionFlow, { type ExecutionStep } from "@/components/workspace/ExecutionFlow";
+import { TableCanvas, CampaignCanvas, ReportCanvas, ResultCanvas } from "@/components/workspace/CanvasViews";
 
 const ease = [0.2, 0.8, 0.2, 1] as const;
 
+/* ─── Types ─── */
 interface Message {
   id: number;
   role: "user" | "assistant";
   content: string;
   timestamp: string;
   agentName?: string;
-  canvas?: "table" | "chart" | "report";
   thinking?: boolean;
+  meta?: string; // small contextual line
 }
 
-const initialMessages: Message[] = [];
+type CanvasType = "table" | "campaign" | "report" | "result" | null;
+type FlowPhase = "idle" | "thinking" | "proposal" | "approval" | "executing" | "done";
 
+/* ─── Demo Data ─── */
 const tableData = [
   { name: "Pinnacle Srl", sector: "Manufacturing", revenue: "€129k", days: "120", churn: 91 },
   { name: "Acme Corporation", sector: "Technology", revenue: "€234k", days: "112", churn: 89 },
@@ -28,27 +32,100 @@ const tableData = [
   { name: "Nova Industries", sector: "Manufacturing", revenue: "€143k", days: "93", churn: 71 },
 ];
 
-const agentActivity = [
-  { agent: "Orchestratore", task: "Coordinamento", status: "done" },
-  { agent: "CRM Core", task: "Query dati", status: "done" },
-  { agent: "Data Analyst", task: "Scoring ML", status: "done" },
-  { agent: "Canvas", task: "Vista generata", status: "done" },
-  { agent: "Communication", task: "Template email", status: "running" },
-  { agent: "Governance", task: "Audit", status: "monitoring" },
+const agentDots = [
+  { agent: "Orchestratore", status: "done" },
+  { agent: "CRM Core", status: "done" },
+  { agent: "Data Analyst", status: "done" },
+  { agent: "Canvas", status: "done" },
+  { agent: "Communication", status: "running" },
+  { agent: "Governance", status: "monitoring" },
 ];
 
 const quickPrompts = [
-  "Mostrami i clienti a rischio",
-  "Genera un report executive",
-  "Prepara una campagna email",
+  "Mostrami i clienti a rischio churn",
+  "Prepara una campagna per 50 lead inattivi",
+  "Genera un report executive sui partner Asia",
 ];
 
+/* ─── Demo Scenarios ─── */
+interface Scenario {
+  assistantMessages: { content: string; agentName: string; meta?: string }[];
+  canvas: CanvasType;
+  approval?: { title: string; description: string; details: { label: string; value: string }[] };
+  executionSteps?: ExecutionStep[];
+  resultCanvas?: CanvasType;
+}
+
+const scenarios: Record<string, Scenario> = {
+  churn: {
+    assistantMessages: [
+      {
+        content: "Ho trovato 34 clienti inattivi per un totale di €4.2M di fatturato esposto.\n\nIl churn score medio è 76/100 — livello critico. 6 aziende con score ≥85 richiedono intervento immediato.",
+        agentName: "Orchestratore",
+        meta: "CRM Core · Data Analyst · 4 agenti coinvolti",
+      },
+    ],
+    canvas: "table",
+  },
+  campaign: {
+    assistantMessages: [
+      {
+        content: "Ho selezionato 50 lead inattivi da più di 90 giorni con fatturato storico >€50k.\n\nHo preparato una campagna email personalizzata con 3 wave progressive. Ogni messaggio è adattato a settore, storico e profilo del contatto.",
+        agentName: "Communication",
+        meta: "CRM Core · Communication · Canvas · 5 agenti coinvolti",
+      },
+    ],
+    canvas: "campaign",
+    approval: {
+      title: "Avviare campagna email?",
+      description: "50 email personalizzate inviate in 3 wave progressive nell'arco di 2 ore.",
+      details: [
+        { label: "Destinatari", value: "50 lead" },
+        { label: "Template", value: "Re-engagement personalizzato" },
+        { label: "Wave", value: "3 (17 · 17 · 16)" },
+        { label: "Tempo stimato", value: "~2 ore" },
+      ],
+    },
+    executionSteps: [
+      { label: "Validazione contatti", status: "done", detail: "50/50" },
+      { label: "Generazione contenuti personalizzati", status: "done", detail: "50 email" },
+      { label: "Invio wave 1", status: "running", detail: "12/17" },
+      { label: "Invio wave 2", status: "pending" },
+      { label: "Invio wave 3", status: "pending" },
+      { label: "Report finale", status: "pending" },
+    ],
+    resultCanvas: "result",
+  },
+  report: {
+    assistantMessages: [
+      {
+        content: "Ho analizzato i dati di 23 partner attivi nella regione Asia Pacific.\n\nIl report include performance, rischi e raccomandazioni strategiche. Il formato è pronto per presentazione al board.",
+        agentName: "Data Analyst",
+        meta: "CRM Core · Data Analyst · Canvas · 4 agenti coinvolti",
+      },
+    ],
+    canvas: "report",
+  },
+};
+
+function detectScenario(text: string): string {
+  const lower = text.toLowerCase();
+  if (lower.includes("campagna") || lower.includes("email") || lower.includes("lead inattivi")) return "campaign";
+  if (lower.includes("report") || lower.includes("partner") || lower.includes("asia")) return "report";
+  return "churn";
+}
+
+/* ─── Component ─── */
 const Workspace = () => {
-  const [messages, setMessages] = useState<Message[]>(initialMessages);
+  const [messages, setMessages] = useState<Message[]>([]);
   const [input, setInput] = useState("");
   const [micActive, setMicActive] = useState(false);
-  const [showCanvas, setShowCanvas] = useState(false);
   const [inputFocused, setInputFocused] = useState(false);
+  const [canvas, setCanvas] = useState<CanvasType>(null);
+  const [flowPhase, setFlowPhase] = useState<FlowPhase>("idle");
+  const [activeScenario, setActiveScenario] = useState<Scenario | null>(null);
+  const [execProgress, setExecProgress] = useState(0);
+  const [execSteps, setExecSteps] = useState<ExecutionStep[]>([]);
   const chatEndRef = useRef<HTMLDivElement>(null);
 
   const isEmpty = messages.length === 0;
@@ -57,41 +134,98 @@ const Workspace = () => {
     chatEndRef.current?.scrollIntoView({ behavior: "smooth" });
   }, [messages]);
 
+  const ts = () => new Date().toLocaleTimeString("it-IT", { hour: "2-digit", minute: "2-digit" });
+
+  const addMessage = useCallback((msg: Omit<Message, "id">) => {
+    setMessages((prev) => [...prev, { ...msg, id: Date.now() + Math.random() }]);
+  }, []);
+
+  const runFlow = useCallback((scenarioKey: string) => {
+    const scenario = scenarios[scenarioKey];
+    if (!scenario) return;
+    setActiveScenario(scenario);
+    setFlowPhase("thinking");
+
+    // Thinking
+    addMessage({ role: "assistant", content: "", timestamp: "", thinking: true });
+
+    // Proposal
+    setTimeout(() => {
+      setMessages((prev) => prev.filter((m) => !m.thinking));
+      scenario.assistantMessages.forEach((am) => {
+        addMessage({ role: "assistant", content: am.content, timestamp: ts(), agentName: am.agentName, meta: am.meta });
+      });
+      setCanvas(scenario.canvas);
+      setFlowPhase(scenario.approval ? "proposal" : "done");
+    }, 2000);
+  }, [addMessage]);
+
+  const handleApprove = useCallback(() => {
+    if (!activeScenario) return;
+    setFlowPhase("executing");
+    setCanvas(null);
+
+    addMessage({
+      role: "assistant",
+      content: "Esecuzione avviata. Monitoro ogni step per te.",
+      timestamp: ts(),
+      agentName: "Automation",
+      meta: "Governance · Audit attivo",
+    });
+
+    if (activeScenario.executionSteps) {
+      setExecSteps(activeScenario.executionSteps);
+      setExecProgress(0);
+
+      // Simulate progress
+      const steps = [...activeScenario.executionSteps];
+      let progress = 0;
+      const interval = setInterval(() => {
+        progress += 15;
+        if (progress > 100) progress = 100;
+        setExecProgress(progress);
+
+        // Update steps
+        const updated = steps.map((s, i) => {
+          if (progress > (i + 1) * (100 / steps.length)) return { ...s, status: "done" as const, detail: s.detail || "✓" };
+          if (progress > i * (100 / steps.length)) return { ...s, status: "running" as const };
+          return s;
+        });
+        setExecSteps(updated);
+
+        if (progress >= 100) {
+          clearInterval(interval);
+          setTimeout(() => {
+            setFlowPhase("done");
+            setCanvas(activeScenario.resultCanvas || null);
+            addMessage({
+              role: "assistant",
+              content: "Esecuzione completata con successo. Tutti gli step verificati dal Governance Agent.",
+              timestamp: ts(),
+              agentName: "Orchestratore",
+            });
+          }, 600);
+        }
+      }, 800);
+    }
+  }, [activeScenario, addMessage]);
+
+  const handleCancel = useCallback(() => {
+    setFlowPhase("idle");
+    setCanvas(null);
+    addMessage({ role: "assistant", content: "Operazione annullata.", timestamp: ts(), agentName: "Orchestratore" });
+  }, [addMessage]);
+
   const sendMessage = (text?: string) => {
     const content = text || input.trim();
     if (!content) return;
-    const ts = new Date().toLocaleTimeString("it-IT", { hour: "2-digit", minute: "2-digit" });
-
-    setMessages((prev) => [...prev, { id: Date.now(), role: "user", content, timestamp: ts }]);
+    addMessage({ role: "user", content, timestamp: ts() });
     setInput("");
+    setCanvas(null);
+    setFlowPhase("idle");
 
-    // Thinking indicator
-    setTimeout(() => {
-      setMessages((prev) => [
-        ...prev,
-        { id: Date.now() + 1, role: "assistant", content: "", timestamp: "", thinking: true },
-      ]);
-    }, 300);
-
-    // Response
-    setTimeout(() => {
-      setMessages((prev) => {
-        const filtered = prev.filter((m) => !m.thinking);
-        return [
-          ...filtered,
-          {
-            id: Date.now() + 2,
-            role: "assistant",
-            content:
-              "Ho trovato 34 clienti inattivi per un totale di €4.2M di fatturato esposto. Il churn score medio è 76/100 — livello critico.\n\n6 aziende con score ≥85 richiedono intervento immediato.",
-            timestamp: new Date().toLocaleTimeString("it-IT", { hour: "2-digit", minute: "2-digit" }),
-            agentName: "Orchestratore",
-            canvas: "table",
-          },
-        ];
-      });
-      setShowCanvas(true);
-    }, 2200);
+    const scenarioKey = detectScenario(content);
+    runFlow(scenarioKey);
   };
 
   return (
@@ -106,27 +240,25 @@ const Workspace = () => {
         />
       </div>
 
-      {/* Top bar — ghost */}
+      {/* Top bar */}
       <div className="flex items-center justify-between px-6 py-3 relative z-10 flex-shrink-0">
         <div className="flex items-center gap-3">
-          <motion.div
-            className="w-1.5 h-1.5 rounded-full bg-primary/40"
-            animate={{ opacity: [0.3, 0.7, 0.3] }}
-            transition={{ duration: 3, repeat: Infinity }}
-          />
+          <motion.div className="w-1.5 h-1.5 rounded-full bg-primary/40" animate={{ opacity: [0.3, 0.7, 0.3] }} transition={{ duration: 3, repeat: Infinity }} />
           <span className="text-[11px] text-muted-foreground/30 font-light tracking-wide">Sessione attiva</span>
+          {flowPhase !== "idle" && flowPhase !== "done" && (
+            <motion.span initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="text-[9px] text-primary/30 font-mono ml-2">
+              {flowPhase === "thinking" ? "ELABORAZIONE" : flowPhase === "proposal" ? "PROPOSTA" : flowPhase === "approval" ? "IN ATTESA" : "ESECUZIONE"}
+            </motion.span>
+          )}
         </div>
-        {/* Subtle agent indicators */}
         <div className="flex items-center gap-1">
-          {agentActivity.map((a) => (
+          {agentDots.map((a) => (
             <motion.div
               key={a.agent}
-              className={`w-1.5 h-1.5 rounded-full ${
-                a.status === "done" ? "bg-success/30" : a.status === "running" ? "bg-primary/40" : "bg-muted-foreground/10"
-              }`}
+              className={`w-1.5 h-1.5 rounded-full ${a.status === "done" ? "bg-success/30" : a.status === "running" ? "bg-primary/40" : "bg-muted-foreground/10"}`}
               animate={a.status === "running" ? { opacity: [0.3, 0.8, 0.3] } : {}}
               transition={{ duration: 1.5, repeat: Infinity }}
-              title={`${a.agent}: ${a.task}`}
+              title={a.agent}
             />
           ))}
         </div>
@@ -135,50 +267,31 @@ const Workspace = () => {
       {/* Main */}
       <div className="flex-1 flex overflow-hidden relative z-10">
         {/* ─── CONVERSATION ─── */}
-        <div className={`flex-1 flex flex-col transition-all duration-700 ease-out ${showCanvas ? "max-w-[50%]" : ""}`}>
-          {/* Empty state — the soul of the product */}
+        <div className={`flex-1 flex flex-col transition-all duration-700 ease-out ${canvas ? "max-w-[50%]" : ""}`}>
           {isEmpty ? (
+            /* Empty state */
             <div className="flex-1 flex flex-col items-center justify-center px-8">
-              <motion.div
-                initial={{ opacity: 0, scale: 0.8 }}
-                animate={{ opacity: 1, scale: 1 }}
-                transition={{ duration: 1.5, ease }}
-                className="mb-10"
-              >
+              <motion.div initial={{ opacity: 0, scale: 0.8 }} animate={{ opacity: 1, scale: 1 }} transition={{ duration: 1.5, ease }} className="mb-10">
                 <AiEntity size="lg" />
               </motion.div>
-              <motion.h2
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.3, duration: 0.8, ease }}
-                className="text-2xl font-extralight tracking-tight text-foreground/70 mb-2"
-              >
+              <motion.h2 initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.3, ease }} className="text-2xl font-extralight tracking-tight text-foreground/70 mb-2">
                 Cosa vuoi ottenere?
               </motion.h2>
-              <motion.p
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ delay: 0.6 }}
-                className="text-[13px] text-muted-foreground/30 font-light mb-10"
-              >
+              <motion.p initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.6 }} className="text-[13px] text-muted-foreground/30 font-light mb-10">
                 Descrivi un obiettivo. Il sistema farà il resto.
               </motion.p>
-              <motion.div
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ delay: 0.9 }}
-                className="flex flex-wrap justify-center gap-2"
-              >
+              <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.9 }} className="flex flex-col items-center gap-2">
                 {quickPrompts.map((p, i) => (
                   <motion.button
                     key={p}
                     initial={{ opacity: 0, y: 8 }}
                     animate={{ opacity: 1, y: 0 }}
-                    transition={{ delay: 1 + i * 0.1, ease }}
+                    transition={{ delay: 1 + i * 0.12, ease }}
                     onClick={() => sendMessage(p)}
-                    className="text-[12px] px-4 py-2 rounded-2xl text-muted-foreground/25 hover:text-muted-foreground/50 hover:bg-secondary/[0.04] transition-all duration-700"
+                    whileHover={{ x: 4 }}
+                    className="text-[12px] px-4 py-2.5 rounded-2xl text-muted-foreground/25 hover:text-muted-foreground/50 hover:bg-secondary/[0.04] transition-all duration-700 text-left"
                   >
-                    {p}
+                    → {p}
                   </motion.button>
                 ))}
               </motion.div>
@@ -186,36 +299,17 @@ const Workspace = () => {
           ) : (
             /* Messages */
             <div className="flex-1 overflow-y-auto px-8 py-6">
-              <div className="max-w-xl mx-auto space-y-8">
+              <div className="max-w-xl mx-auto space-y-6">
                 {messages.map((msg) => (
                   <AnimatePresence key={msg.id}>
                     {msg.thinking ? (
-                      <motion.div
-                        initial={{ opacity: 0, y: 12 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        exit={{ opacity: 0, scale: 0.95 }}
-                        transition={{ duration: 0.4, ease }}
-                        className="flex items-start gap-3"
-                      >
-                        <div className="flex-shrink-0 mt-1">
-                          <AiEntity size="sm" />
-                        </div>
+                      <motion.div initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, scale: 0.95 }} transition={{ duration: 0.4, ease }} className="flex items-start gap-3">
+                        <div className="flex-shrink-0 mt-1"><AiEntity size="sm" /></div>
                         <div className="flex items-center gap-2 px-5 py-4">
-                          <motion.div
-                            className="flex gap-1"
-                          >
-                            {[0, 1, 2].map((dot) => (
-                              <motion.div
-                                key={dot}
-                                className="w-1.5 h-1.5 rounded-full bg-primary/30"
-                                animate={{ opacity: [0.2, 0.7, 0.2], scale: [0.8, 1.1, 0.8] }}
-                                transition={{ duration: 1.2, repeat: Infinity, delay: dot * 0.2 }}
-                              />
-                            ))}
-                          </motion.div>
-                          <span className="text-[11px] text-muted-foreground/25 ml-2 font-light">
-                            Sto elaborando...
-                          </span>
+                          {[0, 1, 2].map((dot) => (
+                            <motion.div key={dot} className="w-1.5 h-1.5 rounded-full bg-primary/30" animate={{ opacity: [0.2, 0.7, 0.2], scale: [0.8, 1.1, 0.8] }} transition={{ duration: 1.2, repeat: Infinity, delay: dot * 0.2 }} />
+                          ))}
+                          <span className="text-[11px] text-muted-foreground/25 ml-2 font-light">Sto elaborando...</span>
                         </div>
                       </motion.div>
                     ) : (
@@ -226,98 +320,79 @@ const Workspace = () => {
                         className={`flex items-start gap-3 ${msg.role === "user" ? "justify-end" : ""}`}
                       >
                         {msg.role === "assistant" && (
-                          <div className="flex-shrink-0 mt-1">
-                            <AiEntity size="sm" pulse={false} />
-                          </div>
+                          <div className="flex-shrink-0 mt-1"><AiEntity size="sm" pulse={false} /></div>
                         )}
                         <motion.div
-                          initial={{ backdropFilter: "blur(0px)" }}
-                          animate={{ backdropFilter: "blur(40px)" }}
-                          transition={{ duration: 0.8 }}
-                          className={`max-w-[85%] relative ${
-                            msg.role === "user"
-                              ? "px-5 py-4 rounded-2xl rounded-br-lg"
-                              : "px-5 py-4 rounded-2xl rounded-bl-lg"
-                          }`}
+                          className={`max-w-[85%] relative ${msg.role === "user" ? "px-5 py-4 rounded-2xl rounded-br-lg" : "px-5 py-4 rounded-2xl rounded-bl-lg"}`}
                           style={{
-                            background: msg.role === "assistant"
-                              ? "hsl(240 5% 6% / 0.7)"
-                              : "hsl(240 5% 8% / 0.4)",
+                            background: msg.role === "assistant" ? "hsl(240 5% 6% / 0.7)" : "hsl(240 5% 8% / 0.4)",
                             border: `1px solid hsl(0 0% 100% / ${msg.role === "assistant" ? "0.05" : "0.03"})`,
-                            boxShadow: msg.role === "assistant"
-                              ? "0 0 60px hsl(210 100% 66% / 0.03), 0 20px 50px -20px hsl(0 0% 0% / 0.4)"
-                              : "none",
+                            backdropFilter: "blur(40px)",
+                            boxShadow: msg.role === "assistant" ? "0 0 60px hsl(210 100% 66% / 0.03), 0 20px 50px -20px hsl(0 0% 0% / 0.4)" : "none",
                           }}
                         >
                           {msg.agentName && (
-                            <motion.div
-                              initial={{ opacity: 0, x: -8 }}
-                              animate={{ opacity: 1, x: 0 }}
-                              transition={{ delay: 0.2, duration: 0.4 }}
-                              className="text-[9px] text-primary/40 font-mono mb-2.5 tracking-[0.2em] uppercase"
-                            >
+                            <motion.div initial={{ opacity: 0, x: -8 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: 0.15 }} className="text-[9px] text-primary/40 font-mono mb-2.5 tracking-[0.2em] uppercase">
                               {msg.agentName}
                             </motion.div>
                           )}
-                          <p className="text-[14px] leading-[1.7] whitespace-pre-line font-light text-foreground/85">
-                            {msg.content}
-                          </p>
-                          <span className="text-[9px] text-muted-foreground/20 mt-3 block">{msg.timestamp}</span>
+                          <p className="text-[14px] leading-[1.7] whitespace-pre-line font-light text-foreground/85">{msg.content}</p>
+                          {msg.meta && (
+                            <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.4 }} className="flex items-center gap-2 mt-3 pt-2 border-t border-border/[0.04]">
+                              <Wand2 className="w-2.5 h-2.5 text-primary/15" />
+                              <span className="text-[9px] text-muted-foreground/20 font-light">{msg.meta}</span>
+                            </motion.div>
+                          )}
+                          <span className="text-[9px] text-muted-foreground/15 mt-2 block">{msg.timestamp}</span>
                         </motion.div>
                       </motion.div>
                     )}
                   </AnimatePresence>
                 ))}
+
+                {/* Approval panel — emerges in conversation */}
+                {activeScenario?.approval && (flowPhase === "proposal" || flowPhase === "approval") && (
+                  <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.5 }}>
+                    <ApprovalPanel
+                      visible
+                      title={activeScenario.approval.title}
+                      description={activeScenario.approval.description}
+                      details={activeScenario.approval.details}
+                      onApprove={handleApprove}
+                      onModify={() => {}}
+                      onCancel={handleCancel}
+                    />
+                  </motion.div>
+                )}
+
+                {/* Execution flow — emerges in conversation */}
+                <ExecutionFlow visible={flowPhase === "executing"} steps={execSteps} progress={execProgress} />
+
                 <div ref={chatEndRef} />
               </div>
             </div>
           )}
 
-          {/* Input — the command line of the future */}
+          {/* Input */}
           <div className="px-8 pb-20 pt-4">
             <div className="max-w-xl mx-auto">
-              {/* Voice bars — dormant until activated */}
               <AnimatePresence>
                 {micActive && (
-                  <motion.div
-                    initial={{ opacity: 0, height: 0 }}
-                    animate={{ opacity: 1, height: 32 }}
-                    exit={{ opacity: 0, height: 0 }}
-                    className="flex items-center gap-[1.5px] justify-center mb-4 overflow-hidden"
-                  >
+                  <motion.div initial={{ opacity: 0, height: 0 }} animate={{ opacity: 1, height: 32 }} exit={{ opacity: 0, height: 0 }} className="flex items-center gap-[1.5px] justify-center mb-4 overflow-hidden">
                     {Array.from({ length: 40 }).map((_, i) => (
-                      <motion.div
-                        key={i}
-                        className="w-[1px] rounded-full bg-primary/25"
-                        animate={{ height: [1, Math.random() * 24 + 2, 1] }}
-                        transition={{ duration: 0.8 + Math.random() * 0.4, repeat: Infinity, delay: i * 0.02 }}
-                      />
+                      <motion.div key={i} className="w-[1px] rounded-full bg-primary/25" animate={{ height: [1, Math.random() * 24 + 2, 1] }} transition={{ duration: 0.8 + Math.random() * 0.4, repeat: Infinity, delay: i * 0.02 }} />
                     ))}
                   </motion.div>
                 )}
               </AnimatePresence>
 
               <motion.div
-                animate={{
-                  boxShadow: inputFocused
-                    ? "0 0 0 1px hsl(210 100% 66% / 0.08), 0 0 60px hsl(210 100% 66% / 0.03)"
-                    : "0 0 0 0.5px hsl(0 0% 0% / 0.15)",
-                }}
+                animate={{ boxShadow: inputFocused ? "0 0 0 1px hsl(210 100% 66% / 0.08), 0 0 60px hsl(210 100% 66% / 0.03)" : "0 0 0 0.5px hsl(0 0% 0% / 0.15)" }}
                 transition={{ duration: 0.6 }}
                 className="flex items-center gap-3 rounded-2xl px-4 py-3"
-                style={{
-                  background: "hsl(240 5% 6% / 0.6)",
-                  backdropFilter: "blur(40px)",
-                  border: "1px solid hsl(0 0% 100% / 0.03)",
-                }}
+                style={{ background: "hsl(240 5% 6% / 0.6)", backdropFilter: "blur(40px)", border: "1px solid hsl(0 0% 100% / 0.03)" }}
               >
-                <motion.button
-                  onClick={() => setMicActive(!micActive)}
-                  whileTap={{ scale: 0.9 }}
-                  className={`w-9 h-9 rounded-xl flex items-center justify-center transition-all duration-500 flex-shrink-0 ${
-                    micActive ? "bg-primary/10 text-primary/60" : "text-muted-foreground/15 hover:text-muted-foreground/30"
-                  }`}
-                >
+                <motion.button onClick={() => setMicActive(!micActive)} whileTap={{ scale: 0.9 }} className={`w-9 h-9 rounded-xl flex items-center justify-center transition-all duration-500 flex-shrink-0 ${micActive ? "bg-primary/10 text-primary/60" : "text-muted-foreground/15 hover:text-muted-foreground/30"}`}>
                   {micActive ? <MicOff className="w-4 h-4" /> : <Mic className="w-4 h-4" />}
                 </motion.button>
                 <input
@@ -330,13 +405,7 @@ const Workspace = () => {
                   onBlur={() => setInputFocused(false)}
                   className="flex-1 bg-transparent text-[14px] outline-none placeholder:text-muted-foreground/20 font-light text-foreground/90"
                 />
-                <motion.button
-                  onClick={() => sendMessage()}
-                  disabled={!input.trim()}
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.9 }}
-                  className="w-9 h-9 rounded-xl flex items-center justify-center bg-primary/8 text-primary/40 hover:bg-primary/12 hover:text-primary/70 transition-all duration-500 disabled:opacity-10"
-                >
+                <motion.button onClick={() => sendMessage()} disabled={!input.trim()} whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.9 }} className="w-9 h-9 rounded-xl flex items-center justify-center bg-primary/8 text-primary/40 hover:bg-primary/12 hover:text-primary/70 transition-all duration-500 disabled:opacity-10">
                   <Send className="w-3.5 h-3.5" />
                 </motion.button>
               </motion.div>
@@ -344,9 +413,9 @@ const Workspace = () => {
           </div>
         </div>
 
-        {/* ─── CANVAS — materializes like magic ─── */}
+        {/* ─── CANVAS ─── */}
         <AnimatePresence>
-          {showCanvas && (
+          {canvas && (
             <motion.div
               initial={{ opacity: 0, x: 60, scale: 0.95, filter: "blur(10px)" }}
               animate={{ opacity: 1, x: 0, scale: 1, filter: "blur(0px)" }}
@@ -354,129 +423,10 @@ const Workspace = () => {
               transition={{ duration: 0.7, ease }}
               className="w-[50%] p-4 overflow-y-auto"
             >
-              <motion.div
-                className="h-full flex flex-col rounded-2xl p-6"
-                style={{
-                  background: "hsl(240 5% 6% / 0.5)",
-                  backdropFilter: "blur(40px) saturate(1.1)",
-                  border: "1px solid hsl(0 0% 100% / 0.04)",
-                  boxShadow: "0 0 80px hsl(210 100% 66% / 0.02), 0 30px 60px -20px hsl(0 0% 0% / 0.4)",
-                }}
-              >
-                {/* Canvas header */}
-                <motion.div
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  transition={{ delay: 0.3 }}
-                  className="flex items-center justify-between mb-8"
-                >
-                  <div className="flex items-center gap-3">
-                    <motion.div
-                      className="w-1.5 h-1.5 rounded-full bg-primary/40"
-                      animate={{ opacity: [0.3, 0.7, 0.3] }}
-                      transition={{ duration: 2, repeat: Infinity }}
-                    />
-                    <span className="text-[10px] text-muted-foreground/30 font-light tracking-wider">
-                      GENERATO · PROPOSTA
-                    </span>
-                  </div>
-                  <div className="flex items-center gap-1.5">
-                    <motion.button
-                      whileHover={{ scale: 1.05 }}
-                      whileTap={{ scale: 0.95 }}
-                      className="text-[10px] px-3 py-1.5 rounded-xl text-success/40 hover:text-success/70 hover:bg-success/5 transition-all duration-500 flex items-center gap-1.5"
-                    >
-                      <ThumbsUp className="w-3 h-3" /> Approva
-                    </motion.button>
-                    <button className="text-muted-foreground/15 hover:text-muted-foreground/30 transition-colors duration-500 p-1.5">
-                      <Download className="w-3 h-3" />
-                    </button>
-                    <button
-                      onClick={() => setShowCanvas(false)}
-                      className="text-muted-foreground/15 hover:text-muted-foreground/30 transition-colors duration-500 p-1.5"
-                    >
-                      <X className="w-3.5 h-3.5" />
-                    </button>
-                  </div>
-                </motion.div>
-
-                {/* KPIs */}
-                <div className="grid grid-cols-3 gap-3 mb-8">
-                  {[
-                    { label: "Clienti a rischio", value: "34" },
-                    { label: "Fatturato esposto", value: "€4.2M" },
-                    { label: "Score medio", value: "76" },
-                  ].map((kpi, i) => (
-                    <motion.div
-                      key={kpi.label}
-                      initial={{ opacity: 0, y: 16, scale: 0.95 }}
-                      animate={{ opacity: 1, y: 0, scale: 1 }}
-                      transition={{ delay: 0.5 + i * 0.12, duration: 0.6, ease }}
-                      className="p-4 rounded-xl text-center"
-                      style={{
-                        background: "hsl(240 5% 7% / 0.4)",
-                        border: "1px solid hsl(0 0% 100% / 0.02)",
-                      }}
-                    >
-                      <div className="text-2xl font-extralight tracking-tight text-foreground/80">{kpi.value}</div>
-                      <div className="text-[9px] text-muted-foreground/25 mt-1.5 tracking-wider uppercase">{kpi.label}</div>
-                    </motion.div>
-                  ))}
-                </div>
-
-                {/* Table */}
-                <div className="flex-1 overflow-hidden">
-                  <table className="w-full">
-                    <thead>
-                      <tr className="text-[9px] text-muted-foreground/25 font-mono tracking-wider">
-                        <th className="text-left pb-4 font-normal">COMPANY</th>
-                        <th className="text-left pb-4 font-normal">SETTORE</th>
-                        <th className="text-right pb-4 font-normal">FATTURATO</th>
-                        <th className="text-right pb-4 font-normal">GG</th>
-                        <th className="text-right pb-4 font-normal">SCORE</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      {tableData.map((row, i) => (
-                        <motion.tr
-                          key={row.name}
-                          initial={{ opacity: 0, x: -8 }}
-                          animate={{ opacity: 1, x: 0 }}
-                          transition={{ delay: 0.8 + i * 0.07, duration: 0.4, ease }}
-                          className="border-t border-border/[0.06] group cursor-pointer"
-                        >
-                          <td className="py-3.5 text-[13px] font-light text-foreground/60 group-hover:text-primary/70 transition-colors duration-500">{row.name}</td>
-                          <td className="py-3.5 text-[11px] text-muted-foreground/25">{row.sector}</td>
-                          <td className="py-3.5 text-[13px] text-right font-mono text-muted-foreground/40">{row.revenue}</td>
-                          <td className="py-3.5 text-[12px] text-right text-muted-foreground/25">{row.days}</td>
-                          <td className="py-3.5 text-right">
-                            <span className={`text-[11px] font-mono px-2 py-0.5 rounded-lg ${
-                              row.churn >= 85 ? "text-destructive/50 bg-destructive/[0.04]"
-                              : row.churn >= 70 ? "text-warning/50 bg-warning/[0.04]"
-                              : "text-success/50 bg-success/[0.04]"
-                            }`}>{row.churn}</span>
-                          </td>
-                        </motion.tr>
-                      ))}
-                    </tbody>
-                  </table>
-                </div>
-
-                {/* AI insight */}
-                <motion.div
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  transition={{ delay: 1.5, duration: 0.8 }}
-                  className="mt-6 pt-5 border-t border-border/[0.04]"
-                >
-                  <div className="flex items-start gap-3">
-                    <Wand2 className="w-3 h-3 text-primary/20 mt-0.5 flex-shrink-0" />
-                    <p className="text-[11px] text-muted-foreground/30 leading-relaxed font-light">
-                      Manufacturing e Technology concentrano il 67% del rischio. Posso preparare una campagna re-engagement differenziata per settore.
-                    </p>
-                  </div>
-                </motion.div>
-              </motion.div>
+              {canvas === "table" && <TableCanvas data={tableData} onClose={() => setCanvas(null)} />}
+              {canvas === "campaign" && <CampaignCanvas onClose={() => setCanvas(null)} />}
+              {canvas === "report" && <ReportCanvas onClose={() => setCanvas(null)} />}
+              {canvas === "result" && <ResultCanvas onClose={() => setCanvas(null)} />}
             </motion.div>
           )}
         </AnimatePresence>
