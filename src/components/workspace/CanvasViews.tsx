@@ -1,5 +1,5 @@
 import { motion, AnimatePresence } from "framer-motion";
-import { Wand2, ThumbsUp, Download, X } from "lucide-react";
+import { Wand2, ThumbsUp, Download, X, CheckCircle2, Upload, FileText, Users } from "lucide-react";
 import TemplateSuggest from "./TemplateSuggest";
 
 const ease = [0.2, 0.8, 0.2, 1] as const;
@@ -140,7 +140,7 @@ export const CampaignCanvas = ({ onClose }: { onClose: () => void }) => (
           { wave: "Wave 1", count: "17 email", time: "Immediato", targets: "Score ≥85 · Priorità alta" },
           { wave: "Wave 2", count: "17 email", time: "+40 min", targets: "Score 70-84 · Priorità media" },
           { wave: "Wave 3", count: "16 email", time: "+80 min", targets: "Score <70 · Nurturing" },
-        ].map((w, i) => (
+        ].map((w) => (
           <div key={w.wave} className="flex items-center justify-between text-[11px]">
             <div className="flex items-center gap-3">
               <span className="text-foreground/40 font-light">{w.wave}</span>
@@ -224,77 +224,142 @@ export const ReportCanvas = ({ onClose }: { onClose: () => void }) => (
   </CanvasShell>
 );
 
-/* ── Execution Result Canvas ── */
-export const ResultCanvas = ({ onClose }: { onClose: () => void }) => (
-  <CanvasShell onClose={onClose} title="ESECUZIONE · COMPLETATA">
-    <motion.div
-      initial={{ opacity: 0, scale: 0.95 }}
-      animate={{ opacity: 1, scale: 1 }}
-      transition={{ delay: 0.3, ease }}
-      className="text-center py-8"
-    >
+/* ── Execution Result Canvas (Scenario-Aware) ── */
+interface ResultCanvasProps {
+  onClose: () => void;
+  scenarioKey?: string;
+}
+
+const resultConfigs: Record<string, { title: string; subtitle: string; kpis: { label: string; value: string }[]; audit: { action: string; agent: string; time: string }[] }> = {
+  import: {
+    title: "Importazione completata",
+    subtitle: "287 contatti importati · 23 match WCA · Audit log aggiornato",
+    kpis: [
+      { label: "Importati", value: "287" },
+      { label: "Match WCA", value: "23" },
+      { label: "Arricchiti", value: "42" },
+    ],
+    audit: [
+      { action: "Parse Contact File", agent: "CRM Core Agent", time: "14:01" },
+      { action: "Deduplicate & Merge", agent: "CRM Core Agent", time: "14:01" },
+      { action: "Deep Search enrichment", agent: "Data Agent", time: "14:02" },
+      { action: "Approvazione utente", agent: "Marco R.", time: "14:03" },
+      { action: "Update CRM Records", agent: "Automation Agent", time: "14:03" },
+      { action: "Audit Action registrato", agent: "Governance Agent", time: "14:03" },
+    ],
+  },
+  campaign: {
+    title: "Campagna avviata con successo",
+    subtitle: "50 email personalizzate in coda · 3 wave · Audit log aggiornato",
+    kpis: [
+      { label: "In coda", value: "50" },
+      { label: "Inviate", value: "0" },
+      { label: "Wave attiva", value: "1/3" },
+    ],
+    audit: [
+      { action: "Proposta generata", agent: "Communication Agent", time: "14:02" },
+      { action: "Governance check", agent: "Governance Agent", time: "14:02" },
+      { action: "Approvazione utente", agent: "Marco R.", time: "14:03" },
+      { action: "Esecuzione avviata", agent: "Automation Agent", time: "14:03" },
+    ],
+  },
+  batch: {
+    title: "Invio batch completato",
+    subtitle: "120 email inviate · 4 wave · Governance verificata",
+    kpis: [
+      { label: "Inviate", value: "120" },
+      { label: "Wave", value: "4/4" },
+      { label: "Errori", value: "0" },
+    ],
+    audit: [
+      { action: "Validazione contatti", agent: "CRM Core Agent", time: "14:01" },
+      { action: "Governance pre-check", agent: "Governance Agent", time: "14:01" },
+      { action: "Approvazione step-by-step", agent: "Marco R.", time: "14:02" },
+      { action: "Send Email Batch ×4", agent: "Automation Agent", time: "14:03" },
+      { action: "Audit Action registrato", agent: "Governance Agent", time: "14:04" },
+    ],
+  },
+  template: {
+    title: "Template salvato",
+    subtitle: "Disponibile in Template Library · Riutilizzabile",
+    kpis: [
+      { label: "Template ID", value: "#T-0042" },
+      { label: "Step", value: "6" },
+      { label: "Stato", value: "Attivo" },
+    ],
+    audit: [
+      { action: "Flusso analizzato", agent: "Orchestratore", time: "14:02" },
+      { action: "Template creato", agent: "Memory Agent", time: "14:02" },
+      { action: "Audit Action registrato", agent: "Governance Agent", time: "14:02" },
+    ],
+  },
+};
+
+export const ResultCanvas = ({ onClose, scenarioKey }: ResultCanvasProps) => {
+  const config = resultConfigs[scenarioKey || ""] || resultConfigs.campaign;
+
+  return (
+    <CanvasShell onClose={onClose} title="ESECUZIONE · COMPLETATA">
       <motion.div
-        initial={{ scale: 0 }}
-        animate={{ scale: 1 }}
-        transition={{ delay: 0.5, type: "spring", stiffness: 200 }}
-        className="w-12 h-12 rounded-full bg-success/8 flex items-center justify-center mx-auto mb-4"
+        initial={{ opacity: 0, scale: 0.95 }}
+        animate={{ opacity: 1, scale: 1 }}
+        transition={{ delay: 0.3, ease }}
+        className="text-center py-8"
       >
-        <ThumbsUp className="w-5 h-5 text-success/50" />
-      </motion.div>
-      <div className="text-lg font-extralight text-foreground/70 mb-2">Campagna avviata con successo</div>
-      <p className="text-[12px] text-muted-foreground/30 font-light">50 email personalizzate in coda · 3 wave · Audit log aggiornato</p>
-    </motion.div>
-
-    <div className="grid grid-cols-3 gap-3 mt-4 mb-6">
-      {[
-        { label: "In coda", value: "50" },
-        { label: "Inviate", value: "0" },
-        { label: "Wave attiva", value: "1/3" },
-      ].map((s, i) => (
         <motion.div
-          key={s.label}
-          initial={{ opacity: 0, y: 10 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.8 + i * 0.1, ease }}
-          className="p-3 rounded-xl text-center"
-          style={{ background: "hsl(240 5% 7% / 0.4)", border: "1px solid hsl(0 0% 100% / 0.02)" }}
+          initial={{ scale: 0 }}
+          animate={{ scale: 1 }}
+          transition={{ delay: 0.5, type: "spring", stiffness: 200 }}
+          className="w-12 h-12 rounded-full bg-success/8 flex items-center justify-center mx-auto mb-4"
         >
-          <div className="text-lg font-extralight text-foreground/70">{s.value}</div>
-          <div className="text-[9px] text-muted-foreground/20 mt-1 tracking-wider uppercase">{s.label}</div>
+          <ThumbsUp className="w-5 h-5 text-success/50" />
         </motion.div>
-      ))}
-    </div>
+        <div className="text-lg font-extralight text-foreground/70 mb-2">{config.title}</div>
+        <p className="text-[12px] text-muted-foreground/30 font-light">{config.subtitle}</p>
+      </motion.div>
 
-    {/* Audit reference */}
-    <motion.div
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      transition={{ delay: 1.2 }}
-      className="px-4 py-3 rounded-xl mb-4"
-      style={{ background: "hsl(240 5% 7% / 0.3)", border: "1px solid hsl(0 0% 100% / 0.015)" }}
-    >
-      <div className="text-[9px] text-muted-foreground/20 tracking-wider uppercase mb-2">AUDIT TRAIL</div>
-      <div className="space-y-1">
-        {[
-          { action: "Proposta generata", agent: "Communication Agent", time: "14:02" },
-          { action: "Governance check", agent: "Governance Agent", time: "14:02" },
-          { action: "Approvazione utente", agent: "Marco R.", time: "14:03" },
-          { action: "Esecuzione avviata", agent: "Automation Agent", time: "14:03" },
-        ].map((log) => (
-          <div key={log.action} className="flex items-center justify-between text-[10px]">
-            <span className="text-foreground/30 font-light">{log.action}</span>
-            <div className="flex items-center gap-2">
-              <span className="text-muted-foreground/15 font-mono text-[9px]">{log.agent}</span>
-              <span className="text-muted-foreground/15 font-mono text-[9px]">{log.time}</span>
-            </div>
-          </div>
+      <div className="grid grid-cols-3 gap-3 mt-4 mb-6">
+        {config.kpis.map((s, i) => (
+          <motion.div
+            key={s.label}
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.8 + i * 0.1, ease }}
+            className="p-3 rounded-xl text-center"
+            style={{ background: "hsl(240 5% 7% / 0.4)", border: "1px solid hsl(0 0% 100% / 0.02)" }}
+          >
+            <div className="text-lg font-extralight text-foreground/70">{s.value}</div>
+            <div className="text-[9px] text-muted-foreground/20 mt-1 tracking-wider uppercase">{s.label}</div>
+          </motion.div>
         ))}
       </div>
-    </motion.div>
 
-    <TemplateSuggest visible label="Salva questo flusso come automazione ripetibile" />
-  </CanvasShell>
-);
+      {/* Audit reference */}
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ delay: 1.2 }}
+        className="px-4 py-3 rounded-xl mb-4"
+        style={{ background: "hsl(240 5% 7% / 0.3)", border: "1px solid hsl(0 0% 100% / 0.015)" }}
+      >
+        <div className="text-[9px] text-muted-foreground/20 tracking-wider uppercase mb-2">AUDIT TRAIL</div>
+        <div className="space-y-1">
+          {config.audit.map((log) => (
+            <div key={log.action} className="flex items-center justify-between text-[10px]">
+              <span className="text-foreground/30 font-light">{log.action}</span>
+              <div className="flex items-center gap-2">
+                <span className="text-muted-foreground/15 font-mono text-[9px]">{log.agent}</span>
+                <span className="text-muted-foreground/15 font-mono text-[9px]">{log.time}</span>
+              </div>
+            </div>
+          ))}
+        </div>
+      </motion.div>
+
+      <TemplateSuggest visible label="Salva questo flusso come automazione ripetibile" />
+    </CanvasShell>
+  );
+};
 
 /* ── Shell ── */
 const CanvasShell = ({ children, onClose, title }: { children: React.ReactNode; onClose: () => void; title: string }) => (
