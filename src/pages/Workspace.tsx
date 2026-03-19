@@ -179,9 +179,9 @@ const scenarios: Record<string, Scenario> = {
     key: "voice",
     autoVoice: true,
     assistantMessages: [{
-      content: "Preparo la lettura vocale del riepilogo:\n\n**Load Context** → Caricamento ultimo report/riepilogo dal workspace\n**Read Aloud** → Attivazione ElevenLabs Voice AI per lettura premium\n\nIl sistema leggerà il riepilogo completo prima della conferma. Puoi interrompere in qualsiasi momento.",
+      content: "Preparo la lettura vocale usando il modulo voice interaction già integrato:\n\n**Load Context** → Caricamento ultimo riepilogo dal modulo conversation memory\n**Read Aloud** → Attivazione del modulo voice con ElevenLabs TTS premium\n\nIl sistema leggerà il riepilogo completo prima della conferma. Puoi interrompere in qualsiasi momento.",
       agentName: "Voice",
-      meta: "Load Context · Read Aloud · TTS Engine · 2 tool · 0.4s",
+      meta: "conversation-memory · voice-interaction · tts-engine · 3 moduli · 0.4s",
     }],
     canvas: null,
   },
