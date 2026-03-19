@@ -321,7 +321,7 @@ const Workspace = () => {
                 transition={{ delay: 1.8 }}
                 className="flex flex-wrap justify-center gap-x-4 gap-y-1 mt-12"
               >
-                {["Partner Intelligence", "Email Drafting", "Voice AI", "Deep Search", "Campaign Engine"].map((cap, i) => (
+                {["Source Unification", "WCA Network", "Contact Import", "Business Card", "Deep Search", "Voice AI"].map((cap, i) => (
                   <motion.span
                     key={cap}
                     className="text-[9px] text-muted-foreground/12 font-light"
