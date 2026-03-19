@@ -46,10 +46,10 @@ const agentDots = [
 ];
 
 const quickPrompts = [
-  "Trova i partner più interessanti in Asia",
-  "Prepara una campagna per 50 lead importati",
-  "Genera 10 bozze email personalizzate",
-  "Report executive per il board",
+  "Trova partner Asia unendo WCA + contatti + report",
+  "Campagna per 50 lead importati con deep search",
+  "10 bozze email da business card e CRM",
+  "Report executive partner Asia cross-source",
 ];
 
 /* ─── Scenarios ─── */
