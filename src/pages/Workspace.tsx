@@ -159,9 +159,9 @@ const scenarios: Record<string, Scenario> = {
   email: {
     key: "email",
     assistantMessages: [{
-      content: "Ho generato 10 bozze personalizzate:\n\n**Search Contacts** → 6 contatti da Business Card Archive + 4 da CRM Core\n**Read Company Report** → Contesto aziendale per 8 destinatari\n**Create Email Draft** → 10 bozze con personalizzazione cross-source\n**Load Template** → Template \"Follow-up Partner Asia\" applicato\n\nOgni bozza include: nome (da business card), azienda (da CRM), settore (da company report), storico (da Activity DB).\n\nLe bozze sono nel workspace Email Drafts. Pronte per revisione.",
+      content: "Ho generato 10 bozze usando il motore email drafting e i dati già nel sistema:\n\n**Search Contacts** → 6 contatti dal modulo card capture + 4 dal CRM Core\n**Read Company Report** → Contesto aziendale per 8 destinatari dal modulo workspace documents\n**Create Email Draft** → 10 bozze generate dal motore email drafting con personalizzazione cross-source\n**Load Template** → Template \"Follow-up Partner Asia\" caricato dal modulo template memory\n\nOgni bozza include: nome (card capture), azienda (CRM Core), settore (company reports), storico (activity engine).\n\nLe bozze sono nel workspace. Pronte per revisione.",
       agentName: "Communication",
-      meta: "Search Contacts · Read Company Report · Create Email Draft · Load Template · 4 tool · 1.9s",
+      meta: "contact-db · card-capture · workspace-docs · email-draft · template-memory · 5 moduli · 1.9s",
     }],
     canvas: null,
   },
