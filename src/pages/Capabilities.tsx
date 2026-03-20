@@ -53,14 +53,14 @@ const Capabilities = () => {
   return (
     <div className="min-h-screen pb-24 px-6 relative">
       <div className="fixed inset-0 pointer-events-none">
-        <div className="absolute top-1/4 left-1/2 -translate-x-1/2 w-[700px] h-[700px] rounded-full bg-primary/[0.015] blur-[160px]" />
+        <div className="absolute top-1/4 left-1/2 -translate-x-1/2 w-[700px] h-[700px] rounded-full bg-primary/[0.02] blur-[160px]" />
       </div>
 
       <div className="max-w-3xl mx-auto pt-20 relative z-10">
         <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 1, ease }} className="text-center mb-20">
           <div className="flex justify-center mb-8"><AiEntity size="md" /></div>
           <h1 className="text-3xl md:text-4xl font-extralight tracking-tight mb-4">Poteri operativi</h1>
-          <p className="text-[14px] text-muted-foreground/40 font-light max-w-md mx-auto leading-relaxed">
+          <p className="text-[14px] text-muted-foreground/60 font-light max-w-md mx-auto leading-relaxed">
             Ogni capacità è un modulo reale già operativo.
             L'AI non le inventa — le unifica e le amplifica.
           </p>
@@ -70,8 +70,8 @@ const Capabilities = () => {
         <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.5 }} className="flex flex-wrap justify-center gap-x-8 gap-y-2 mb-16">
           {systemStats.map((stat, i) => (
             <motion.div key={stat.label} initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.7 + i * 0.08 }} className="text-center">
-              <div className="text-lg font-extralight text-foreground/60 font-mono">{stat.value}</div>
-              <div className="text-[9px] text-muted-foreground/20 tracking-wider uppercase">{stat.label}</div>
+              <div className="text-lg font-extralight text-foreground/75 font-mono">{stat.value}</div>
+              <div className="text-[9px] text-muted-foreground/40 tracking-wider uppercase">{stat.label}</div>
             </motion.div>
           ))}
         </motion.div>
@@ -82,11 +82,11 @@ const Capabilities = () => {
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.6, ease }}
           className="mb-16 rounded-2xl p-5"
-          style={{ background: "hsl(240 5% 6% / 0.3)", border: "1px solid hsl(0 0% 100% / 0.015)" }}
+          style={{ background: "hsl(240 5% 6% / 0.4)", border: "1px solid hsl(0 0% 100% / 0.06)" }}
         >
           <div className="flex items-center gap-2.5 mb-4">
-            <Box className="w-3.5 h-3.5 text-muted-foreground/20" strokeWidth={1.5} />
-            <span className="text-[10px] text-muted-foreground/30 tracking-[0.15em] uppercase font-mono">Composizione modulare</span>
+            <Box className="w-3.5 h-3.5 text-muted-foreground/40" strokeWidth={1.5} />
+            <span className="text-[10px] text-muted-foreground/50 tracking-[0.15em] uppercase font-mono">Composizione modulare</span>
           </div>
           <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
             {moduleGroups.map((group, gi) => (
@@ -96,12 +96,12 @@ const Capabilities = () => {
                 animate={{ opacity: 1 }}
                 transition={{ delay: 0.8 + gi * 0.1 }}
               >
-                <div className="text-[9px] text-muted-foreground/25 font-light mb-2">{group.title}</div>
+                <div className="text-[9px] text-muted-foreground/45 font-light mb-2">{group.title}</div>
                 <div className="space-y-1">
                   {group.items.map((item) => (
                     <div key={item} className="flex items-center gap-1.5">
-                      <CheckCircle2 className="w-2 h-2 text-success/30 flex-shrink-0" />
-                      <span className="text-[8px] text-muted-foreground/25 font-mono">{item}</span>
+                      <CheckCircle2 className="w-2 h-2 text-success/50 flex-shrink-0" />
+                      <span className="text-[8px] text-muted-foreground/45 font-mono">{item}</span>
                     </div>
                   ))}
                 </div>
@@ -119,16 +119,16 @@ const Capabilities = () => {
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.3 + i * 0.06, duration: 0.5, ease }}
               className="group cursor-default rounded-2xl p-5 transition-all duration-700"
-              style={{ background: "hsl(240 5% 6% / 0.4)", border: "1px solid hsl(0 0% 100% / 0.02)" }}
-              whileHover={{ borderColor: `hsl(${cap.color} / 0.08)`, boxShadow: `0 0 40px hsl(${cap.color} / 0.03)` }}
+              style={{ background: "hsl(240 5% 6% / 0.5)", border: "1px solid hsl(0 0% 100% / 0.06)" }}
+              whileHover={{ borderColor: `hsl(${cap.color} / 0.12)`, boxShadow: `0 0 40px hsl(${cap.color} / 0.05)` }}
             >
               <div className="flex items-start gap-4">
-                <div className="w-9 h-9 rounded-xl flex items-center justify-center flex-shrink-0 transition-all duration-700" style={{ background: `hsl(${cap.color} / 0.06)` }}>
-                  <cap.icon className="w-4 h-4 transition-colors duration-500" style={{ color: `hsl(${cap.color} / 0.4)` }} strokeWidth={1.5} />
+                <div className="w-9 h-9 rounded-xl flex items-center justify-center flex-shrink-0 transition-all duration-700" style={{ background: `hsl(${cap.color} / 0.08)` }}>
+                  <cap.icon className="w-4 h-4 transition-colors duration-500" style={{ color: `hsl(${cap.color} / 0.6)` }} strokeWidth={1.5} />
                 </div>
                 <div className="flex-1 min-w-0">
-                  <div className="text-[13px] font-light text-foreground/70 mb-1">{cap.label}</div>
-                  <div className="text-[11px] text-muted-foreground/25 leading-relaxed font-light">{cap.desc}</div>
+                  <div className="text-[13px] font-light text-foreground/80 mb-1">{cap.label}</div>
+                  <div className="text-[11px] text-muted-foreground/50 leading-relaxed font-light">{cap.desc}</div>
                 </div>
               </div>
             </motion.div>
@@ -137,13 +137,13 @@ const Capabilities = () => {
 
         {/* Data sources hint */}
         <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 1.2 }} className="mt-16 text-center">
-          <div className="text-[9px] text-muted-foreground/15 tracking-[0.3em] uppercase mb-4">SORGENTI COLLEGATE</div>
+          <div className="text-[9px] text-muted-foreground/40 tracking-[0.3em] uppercase mb-4">SORGENTI COLLEGATE</div>
           <div className="flex flex-wrap justify-center gap-4">
             {["WCA Network", "Contatti Import", "Business Card", "Company Reports", "CRM Core", "Deep Search", "Voice AI", "API Esterne"].map((src, i) => (
               <motion.span
                 key={src}
-                className="text-[10px] text-muted-foreground/20 font-light"
-                animate={{ opacity: [0.12, 0.28, 0.12] }}
+                className="text-[10px] text-muted-foreground/40 font-light"
+                animate={{ opacity: [0.3, 0.55, 0.3] }}
                 transition={{ duration: 4, repeat: Infinity, delay: i * 0.5 }}
               >
                 {src}
@@ -153,7 +153,7 @@ const Capabilities = () => {
         </motion.div>
 
         <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 1.5 }} className="mt-12 text-center">
-          <p className="text-[11px] text-muted-foreground/20 font-light max-w-sm mx-auto">
+          <p className="text-[11px] text-muted-foreground/45 font-light max-w-sm mx-auto">
             Moduli già operativi. L'interfaccia conversazionale li rende più potenti, non li sostituisce.
           </p>
         </motion.div>

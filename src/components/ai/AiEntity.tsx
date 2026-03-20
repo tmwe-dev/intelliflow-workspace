@@ -22,7 +22,7 @@ const AiEntity = ({ size = "md", pulse = true, className = "" }: AiEntityProps) 
       <motion.div
         className="absolute inset-0 rounded-full"
         style={{
-          background: `radial-gradient(circle, hsl(210 100% 66% / 0.08) 0%, hsl(270 60% 62% / 0.04) 50%, transparent 70%)`,
+          background: `radial-gradient(circle, hsl(210 100% 66% / 0.1) 0%, hsl(270 60% 62% / 0.05) 50%, transparent 70%)`,
           filter: "blur(20px)",
         }}
         animate={pulse ? {
@@ -34,15 +34,15 @@ const AiEntity = ({ size = "md", pulse = true, className = "" }: AiEntityProps) 
 
       {/* Mid ring — magnetic field */}
       <motion.div
-        className="absolute rounded-full border border-primary/[0.06]"
+        className="absolute rounded-full border border-primary/[0.1]"
         style={{ width: s.outer + 16, height: s.outer + 16 }}
         animate={pulse ? { rotate: 360 } : {}}
         transition={{ duration: 30, repeat: Infinity, ease: "linear" }}
       >
         <motion.div
-          className="absolute w-1 h-1 rounded-full bg-primary/30"
+          className="absolute w-1 h-1 rounded-full bg-primary/40"
           style={{ top: -1, left: "50%", marginLeft: -2 }}
-          animate={{ opacity: [0.2, 0.8, 0.2] }}
+          animate={{ opacity: [0.3, 0.9, 0.3] }}
           transition={{ duration: 2, repeat: Infinity }}
         />
       </motion.div>
@@ -53,10 +53,10 @@ const AiEntity = ({ size = "md", pulse = true, className = "" }: AiEntityProps) 
         style={{
           width: s.outer,
           height: s.outer,
-          background: `radial-gradient(circle at 35% 35%, hsl(210 100% 75% / 0.15), hsl(270 60% 55% / 0.08) 60%, hsl(240 5% 6% / 0.3))`,
+          background: `radial-gradient(circle at 35% 35%, hsl(210 100% 75% / 0.18), hsl(270 60% 55% / 0.1) 60%, hsl(240 5% 6% / 0.3))`,
           boxShadow: `
-            0 0 ${s.outer}px hsl(210 100% 66% / 0.06),
-            inset 0 0 ${s.inner}px hsl(210 100% 66% / 0.04)
+            0 0 ${s.outer}px hsl(210 100% 66% / 0.08),
+            inset 0 0 ${s.inner}px hsl(210 100% 66% / 0.05)
           `,
         }}
         animate={pulse ? {
@@ -70,7 +70,7 @@ const AiEntity = ({ size = "md", pulse = true, className = "" }: AiEntityProps) 
           style={{
             width: s.inner,
             height: s.inner,
-            background: `radial-gradient(circle at 40% 40%, hsl(210 100% 80% / 0.4), hsl(270 60% 65% / 0.15) 70%, transparent)`,
+            background: `radial-gradient(circle at 40% 40%, hsl(210 100% 80% / 0.45), hsl(270 60% 65% / 0.2) 70%, transparent)`,
           }}
           animate={pulse ? {
             scale: [1, 1.1, 1],
@@ -81,7 +81,7 @@ const AiEntity = ({ size = "md", pulse = true, className = "" }: AiEntityProps) 
 
         {/* Specular highlight */}
         <div
-          className="absolute rounded-full bg-foreground/[0.06]"
+          className="absolute rounded-full bg-foreground/[0.08]"
           style={{
             width: s.inner * 0.4,
             height: s.inner * 0.25,
