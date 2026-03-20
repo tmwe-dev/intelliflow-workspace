@@ -519,7 +519,7 @@ const Workspace = () => {
                           }}
                         >
                           {msg.agentName && (
-                            <motion.div initial={{ opacity: 0, x: -8 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: 0.15 }} className="text-[9px] text-primary/40 font-mono mb-2.5 tracking-[0.2em] uppercase">
+                            <motion.div initial={{ opacity: 0, x: -8 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: 0.15 }} className="text-[9px] text-primary/55 font-mono mb-2.5 tracking-[0.2em] uppercase">
                               {msg.agentName}
                             </motion.div>
                           )}
