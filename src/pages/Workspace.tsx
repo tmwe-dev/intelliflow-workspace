@@ -586,7 +586,7 @@ const Workspace = () => {
                 <motion.button
                   onClick={() => { setMicActive(!micActive); setVoiceSpeaking(false); }}
                   whileTap={{ scale: 0.9 }}
-                  className={`w-9 h-9 rounded-xl flex items-center justify-center transition-all duration-500 flex-shrink-0 ${micActive ? "bg-primary/10 text-primary/60" : "text-muted-foreground/15 hover:text-muted-foreground/30"}`}
+                  className={`w-9 h-9 rounded-xl flex items-center justify-center transition-all duration-500 flex-shrink-0 ${micActive ? "bg-primary/12 text-primary/70" : "text-muted-foreground/30 hover:text-muted-foreground/50"}`}
                 >
                   {micActive ? <MicOff className="w-4 h-4" /> : <Mic className="w-4 h-4" />}
                 </motion.button>
