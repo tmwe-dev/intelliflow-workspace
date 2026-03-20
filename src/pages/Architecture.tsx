@@ -142,8 +142,8 @@ const Architecture = () => {
     <div className="min-h-screen pb-32 px-6 relative">
       {/* Ambient */}
       <div className="fixed inset-0 pointer-events-none">
-        <div className="absolute top-1/4 left-1/2 -translate-x-1/2 w-[900px] h-[900px] rounded-full bg-primary/[0.01] blur-[200px]" />
-        <div className="absolute bottom-1/4 right-1/4 w-[500px] h-[500px] rounded-full bg-accent/[0.008] blur-[160px]" />
+        <div className="absolute top-1/4 left-1/2 -translate-x-1/2 w-[900px] h-[900px] rounded-full bg-primary/[0.02] blur-[200px]" />
+        <div className="absolute bottom-1/4 right-1/4 w-[500px] h-[500px] rounded-full bg-accent/[0.015] blur-[160px]" />
       </div>
 
       <div className="max-w-4xl mx-auto pt-20 relative z-10">
@@ -154,7 +154,7 @@ const Architecture = () => {
             <AiEntity size="lg" />
           </div>
           <h1 className="text-3xl md:text-4xl font-extralight tracking-tight mb-5">Product Architecture</h1>
-          <p className="text-[14px] text-muted-foreground/40 font-light max-w-lg mx-auto leading-relaxed mb-8">
+          <p className="text-[14px] text-muted-foreground/60 font-light max-w-lg mx-auto leading-relaxed mb-8">
             Superficie radicalmente semplice. Motore profondamente strutturato.
             <br />10 layer coordinati. 13 tool contracts. Una macchina pronta a costruire.
           </p>
@@ -167,19 +167,19 @@ const Architecture = () => {
             className="flex items-center justify-center gap-8 mt-8"
           >
             <div className="text-center">
-              <div className="text-[9px] text-muted-foreground/20 tracking-[0.2em] uppercase mb-2 font-mono">SUPERFICIE</div>
-              <div className="text-[13px] text-foreground/50 font-light">Prompt · Assistant · Canvas</div>
-              <div className="text-[9px] text-muted-foreground/15 mt-1">L'utente vede solo questo</div>
+              <div className="text-[9px] text-muted-foreground/40 tracking-[0.2em] uppercase mb-2 font-mono">SUPERFICIE</div>
+              <div className="text-[13px] text-foreground/65 font-light">Prompt · Assistant · Canvas</div>
+              <div className="text-[9px] text-muted-foreground/35 mt-1">L'utente vede solo questo</div>
             </div>
             <div className="flex flex-col items-center gap-1">
-              <div className="w-px h-6 bg-gradient-to-b from-muted-foreground/10 to-primary/20" />
-              <div className="w-6 h-px bg-primary/15" />
-              <div className="w-px h-6 bg-gradient-to-b from-primary/20 to-muted-foreground/10" />
+              <div className="w-px h-6 bg-gradient-to-b from-muted-foreground/20 to-primary/30" />
+              <div className="w-6 h-px bg-primary/25" />
+              <div className="w-px h-6 bg-gradient-to-b from-primary/30 to-muted-foreground/20" />
             </div>
             <div className="text-center">
-              <div className="text-[9px] text-muted-foreground/20 tracking-[0.2em] uppercase mb-2 font-mono">MOTORE</div>
-              <div className="text-[13px] text-foreground/50 font-light">10 layer · 13 tool · 9 moduli</div>
-              <div className="text-[9px] text-muted-foreground/15 mt-1">L'utente non lo vede mai</div>
+              <div className="text-[9px] text-muted-foreground/40 tracking-[0.2em] uppercase mb-2 font-mono">MOTORE</div>
+              <div className="text-[13px] text-foreground/65 font-light">10 layer · 13 tool · 9 moduli</div>
+              <div className="text-[9px] text-muted-foreground/35 mt-1">L'utente non lo vede mai</div>
             </div>
           </motion.div>
         </motion.div>
@@ -191,18 +191,18 @@ const Architecture = () => {
           transition={{ delay: 0.8 }}
           className="mb-24"
         >
-          <div className="text-[9px] text-muted-foreground/15 tracking-[0.3em] uppercase text-center mb-6 font-mono">FLUSSO ARCHITETTURALE</div>
+          <div className="text-[9px] text-muted-foreground/40 tracking-[0.3em] uppercase text-center mb-6 font-mono">FLUSSO ARCHITETTURALE</div>
           <div className="flex items-center justify-center gap-1 flex-wrap">
             {flowSteps.map((step, i) => (
               <motion.div key={step} className="flex items-center gap-1" initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 1 + i * 0.1, ease }}>
                 <span
-                  className="text-[10px] text-muted-foreground/35 px-3 py-2 rounded-xl font-mono tracking-wide"
-                  style={{ background: "hsl(240 5% 7% / 0.6)", border: "1px solid hsl(0 0% 100% / 0.03)" }}
+                  className="text-[10px] text-muted-foreground/55 px-3 py-2 rounded-xl font-mono tracking-wide"
+                  style={{ background: "hsl(240 5% 7% / 0.6)", border: "1px solid hsl(0 0% 100% / 0.06)" }}
                 >
                   {step}
                 </span>
                 {i < flowSteps.length - 1 && (
-                  <ChevronRight className="w-3 h-3 text-muted-foreground/10" />
+                  <ChevronRight className="w-3 h-3 text-muted-foreground/25" />
                 )}
               </motion.div>
             ))}
@@ -214,16 +214,16 @@ const Architecture = () => {
             className="flex justify-center mt-4"
           >
             <div className="flex items-center gap-2">
-              <div className="w-12 h-px bg-gradient-to-r from-transparent to-primary/15" />
-              <span className="text-[8px] text-muted-foreground/15 font-mono">loop continuo</span>
-              <div className="w-12 h-px bg-gradient-to-r from-primary/15 to-transparent" />
+              <div className="w-12 h-px bg-gradient-to-r from-transparent to-primary/25" />
+              <span className="text-[8px] text-muted-foreground/35 font-mono">loop continuo</span>
+              <div className="w-12 h-px bg-gradient-to-r from-primary/25 to-transparent" />
             </div>
           </motion.div>
         </motion.div>
 
         {/* ─── 10 LAYERS ─── */}
         <div className="mb-24">
-          <div className="text-[9px] text-muted-foreground/15 tracking-[0.3em] uppercase text-center mb-8 font-mono">10 LAYER ARCHITETTURALI</div>
+          <div className="text-[9px] text-muted-foreground/40 tracking-[0.3em] uppercase text-center mb-8 font-mono">10 LAYER ARCHITETTURALI</div>
           <div className="space-y-3">
             {layers.map((layer, li) => (
               <motion.div
@@ -232,27 +232,27 @@ const Architecture = () => {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.2 + li * 0.06, duration: 0.5, ease }}
                 className="rounded-2xl overflow-hidden group"
-                style={{ background: "hsl(240 5% 6% / 0.4)", border: "1px solid hsl(0 0% 100% / 0.02)" }}
+                style={{ background: "hsl(240 5% 6% / 0.5)", border: "1px solid hsl(0 0% 100% / 0.06)" }}
               >
                 <div className="p-5 flex items-start gap-4">
                   {/* Layer number */}
                   <div className="w-8 h-8 rounded-xl flex items-center justify-center flex-shrink-0 font-mono text-[11px]"
-                    style={{ background: `hsl(${layer.color} / 0.05)`, color: `hsl(${layer.color} / 0.3)` }}
+                    style={{ background: `hsl(${layer.color} / 0.08)`, color: `hsl(${layer.color} / 0.5)` }}
                   >
                     {String(li + 1).padStart(2, "0")}
                   </div>
                   <div className="flex-1 min-w-0">
                     <div className="flex items-center gap-3 mb-1">
-                      <layer.icon className="w-3.5 h-3.5 flex-shrink-0" style={{ color: `hsl(${layer.color} / 0.4)` }} strokeWidth={1.5} />
-                      <h3 className="text-[14px] font-light text-foreground/70">{layer.title}</h3>
+                      <layer.icon className="w-3.5 h-3.5 flex-shrink-0" style={{ color: `hsl(${layer.color} / 0.6)` }} strokeWidth={1.5} />
+                      <h3 className="text-[14px] font-light text-foreground/80">{layer.title}</h3>
                     </div>
-                    <p className="text-[11px] text-muted-foreground/25 font-light mb-3">{layer.subtitle}</p>
+                    <p className="text-[11px] text-muted-foreground/50 font-light mb-3">{layer.subtitle}</p>
 
                     {/* Items */}
                     <div className="flex flex-wrap gap-1.5 mb-2">
                       {layer.items.map((item) => (
                         <span key={item} className="text-[9px] px-2.5 py-1 rounded-lg font-light"
-                          style={{ color: `hsl(${layer.color} / 0.35)`, background: `hsl(${layer.color} / 0.03)`, border: `1px solid hsl(${layer.color} / 0.04)` }}
+                          style={{ color: `hsl(${layer.color} / 0.55)`, background: `hsl(${layer.color} / 0.05)`, border: `1px solid hsl(${layer.color} / 0.08)` }}
                         >
                           {item}
                         </span>
@@ -261,9 +261,9 @@ const Architecture = () => {
 
                     {/* Capabilities */}
                     <div className="flex items-center gap-1.5">
-                      <span className="text-[7px] text-muted-foreground/12 font-mono tracking-widest">CAPABILITIES</span>
+                      <span className="text-[7px] text-muted-foreground/30 font-mono tracking-widest">CAPABILITIES</span>
                       {layer.capabilities.map((cap) => (
-                        <span key={cap} className="text-[7px] text-muted-foreground/18 font-mono">{cap}</span>
+                        <span key={cap} className="text-[7px] text-muted-foreground/35 font-mono">{cap}</span>
                       ))}
                     </div>
                   </div>
@@ -272,7 +272,7 @@ const Architecture = () => {
                 {/* Connection line */}
                 {li < layers.length - 1 && (
                   <div className="flex justify-center -mb-1.5">
-                    <div className="w-px h-3 bg-gradient-to-b from-border/[0.06] to-transparent" />
+                    <div className="w-px h-3 bg-gradient-to-b from-border/[0.1] to-transparent" />
                   </div>
                 )}
               </motion.div>
@@ -287,18 +287,18 @@ const Architecture = () => {
           transition={{ delay: 0.5, ease }}
           className="mb-24"
         >
-          <div className="text-[9px] text-muted-foreground/15 tracking-[0.3em] uppercase text-center mb-3 font-mono">TOOL CONTRACTS</div>
-          <p className="text-[12px] text-muted-foreground/25 font-light text-center mb-8 max-w-md mx-auto">
+          <div className="text-[9px] text-muted-foreground/40 tracking-[0.3em] uppercase text-center mb-3 font-mono">TOOL CONTRACTS</div>
+          <p className="text-[12px] text-muted-foreground/50 font-light text-center mb-8 max-w-md mx-auto">
             Ogni azione dell'assistente passa attraverso un tool contract definito.
             Il sistema non improvvisa — attiva capability precise.
           </p>
 
-          <div className="rounded-2xl overflow-hidden" style={{ background: "hsl(240 5% 6% / 0.3)", border: "1px solid hsl(0 0% 100% / 0.02)" }}>
+          <div className="rounded-2xl overflow-hidden" style={{ background: "hsl(240 5% 6% / 0.4)", border: "1px solid hsl(0 0% 100% / 0.06)" }}>
             {/* Header */}
-            <div className="flex items-center px-5 py-3 border-b border-border/[0.04]">
-              <span className="text-[8px] text-muted-foreground/15 font-mono tracking-wider flex-1">TOOL</span>
-              <span className="text-[8px] text-muted-foreground/15 font-mono tracking-wider w-32 text-right">LAYER</span>
-              <span className="text-[8px] text-muted-foreground/15 font-mono tracking-wider w-20 text-right">TYPE</span>
+            <div className="flex items-center px-5 py-3 border-b border-border/[0.08]">
+              <span className="text-[8px] text-muted-foreground/35 font-mono tracking-wider flex-1">TOOL</span>
+              <span className="text-[8px] text-muted-foreground/35 font-mono tracking-wider w-32 text-right">LAYER</span>
+              <span className="text-[8px] text-muted-foreground/35 font-mono tracking-wider w-20 text-right">TYPE</span>
             </div>
             {toolContracts.map((tool, i) => (
               <motion.div
@@ -306,15 +306,15 @@ const Architecture = () => {
                 initial={{ opacity: 0, x: -8 }}
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ delay: 0.8 + i * 0.04, ease }}
-                className="flex items-center px-5 py-2.5 border-b border-border/[0.02] last:border-b-0 hover:bg-secondary/[0.02] transition-colors duration-500"
+                className="flex items-center px-5 py-2.5 border-b border-border/[0.04] last:border-b-0 hover:bg-secondary/[0.04] transition-colors duration-500"
               >
                 <div className="flex items-center gap-2 flex-1">
-                  <div className="w-1 h-1 rounded-full" style={{ background: `hsl(${directionColors[tool.direction]} / 0.5)` }} />
-                  <span className="text-[11px] text-foreground/50 font-light">{tool.name}</span>
+                  <div className="w-1.5 h-1.5 rounded-full" style={{ background: `hsl(${directionColors[tool.direction]} / 0.6)` }} />
+                  <span className="text-[11px] text-foreground/65 font-light">{tool.name}</span>
                 </div>
-                <span className="text-[9px] text-muted-foreground/20 font-mono w-32 text-right">{tool.layer}</span>
+                <span className="text-[9px] text-muted-foreground/40 font-mono w-32 text-right">{tool.layer}</span>
                 <span className="text-[8px] font-mono w-20 text-right px-2 py-0.5 rounded-md"
-                  style={{ color: `hsl(${directionColors[tool.direction]} / 0.4)`, background: `hsl(${directionColors[tool.direction]} / 0.04)` }}
+                  style={{ color: `hsl(${directionColors[tool.direction]} / 0.6)`, background: `hsl(${directionColors[tool.direction]} / 0.06)` }}
                 >
                   {tool.direction}
                 </span>
@@ -330,11 +330,11 @@ const Architecture = () => {
           transition={{ delay: 0.6, ease }}
           className="mb-24"
         >
-          <div className="text-[9px] text-muted-foreground/15 tracking-[0.3em] uppercase text-center mb-8 font-mono">DUALISMO ARCHITETTURALE</div>
+          <div className="text-[9px] text-muted-foreground/40 tracking-[0.3em] uppercase text-center mb-8 font-mono">DUALISMO ARCHITETTURALE</div>
           <div className="grid grid-cols-2 gap-4">
             {/* Surface */}
-            <div className="rounded-2xl p-6" style={{ background: "hsl(240 5% 6% / 0.3)", border: "1px solid hsl(210 100% 66% / 0.04)" }}>
-              <div className="text-[10px] text-primary/30 tracking-[0.2em] uppercase mb-4 font-mono">CIÒ CHE L'UTENTE VEDE</div>
+            <div className="rounded-2xl p-6" style={{ background: "hsl(240 5% 6% / 0.4)", border: "1px solid hsl(210 100% 66% / 0.08)" }}>
+              <div className="text-[10px] text-primary/50 tracking-[0.2em] uppercase mb-4 font-mono">CIÒ CHE L'UTENTE VEDE</div>
               <div className="space-y-3">
                 {[
                   "Un campo di testo per esprimere obiettivi",
@@ -344,15 +344,15 @@ const Architecture = () => {
                   "Risultati immediati e azionabili",
                 ].map((item, i) => (
                   <motion.div key={i} initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 1 + i * 0.1 }} className="flex items-start gap-2">
-                    <div className="w-1 h-1 rounded-full bg-primary/25 mt-1.5 flex-shrink-0" />
-                    <span className="text-[11px] text-foreground/45 font-light leading-relaxed">{item}</span>
+                    <div className="w-1 h-1 rounded-full bg-primary/40 mt-1.5 flex-shrink-0" />
+                    <span className="text-[11px] text-foreground/60 font-light leading-relaxed">{item}</span>
                   </motion.div>
                 ))}
               </div>
             </div>
             {/* Engine */}
-            <div className="rounded-2xl p-6" style={{ background: "hsl(240 5% 6% / 0.3)", border: "1px solid hsl(270 60% 62% / 0.04)" }}>
-              <div className="text-[10px] text-accent/30 tracking-[0.2em] uppercase mb-4 font-mono">CIÒ CHE IL SISTEMA FA</div>
+            <div className="rounded-2xl p-6" style={{ background: "hsl(240 5% 6% / 0.4)", border: "1px solid hsl(270 60% 62% / 0.08)" }}>
+              <div className="text-[10px] text-accent/50 tracking-[0.2em] uppercase mb-4 font-mono">CIÒ CHE IL SISTEMA FA</div>
               <div className="space-y-3">
                 {[
                   "Acquisisce dati da 14 sorgenti in parallelo",
@@ -362,8 +362,8 @@ const Architecture = () => {
                   "Esegue job, registra audit, salva in memoria",
                 ].map((item, i) => (
                   <motion.div key={i} initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 1.2 + i * 0.1 }} className="flex items-start gap-2">
-                    <div className="w-1 h-1 rounded-full bg-accent/25 mt-1.5 flex-shrink-0" />
-                    <span className="text-[11px] text-foreground/45 font-light leading-relaxed">{item}</span>
+                    <div className="w-1 h-1 rounded-full bg-accent/40 mt-1.5 flex-shrink-0" />
+                    <span className="text-[11px] text-foreground/60 font-light leading-relaxed">{item}</span>
                   </motion.div>
                 ))}
               </div>
@@ -378,8 +378,8 @@ const Architecture = () => {
           transition={{ delay: 0.7, ease }}
           className="mb-20"
         >
-          <div className="text-[9px] text-muted-foreground/15 tracking-[0.3em] uppercase text-center mb-3 font-mono">MATURITÀ DEL SISTEMA</div>
-          <p className="text-[12px] text-muted-foreground/25 font-light text-center mb-8 max-w-sm mx-auto">
+          <div className="text-[9px] text-muted-foreground/40 tracking-[0.3em] uppercase text-center mb-3 font-mono">MATURITÀ DEL SISTEMA</div>
+          <p className="text-[12px] text-muted-foreground/50 font-light text-center mb-8 max-w-sm mx-auto">
             Non una roadmap. La crescita naturale di una macchina già in movimento.
           </p>
 
@@ -391,35 +391,35 @@ const Architecture = () => {
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ delay: 1 + i * 0.1, ease }}
                 className="rounded-2xl p-5"
-                style={{ background: "hsl(240 5% 6% / 0.35)", border: "1px solid hsl(0 0% 100% / 0.02)" }}
+                style={{ background: "hsl(240 5% 6% / 0.45)", border: "1px solid hsl(0 0% 100% / 0.06)" }}
               >
                 <div className="flex items-center justify-between mb-2">
                   <div className="flex items-center gap-3">
-                    <span className="text-[9px] font-mono text-muted-foreground/15">{String(i + 1).padStart(2, "0")}</span>
-                    <h4 className="text-[13px] font-light text-foreground/65">{level.name}</h4>
+                    <span className="text-[9px] font-mono text-muted-foreground/35">{String(i + 1).padStart(2, "0")}</span>
+                    <h4 className="text-[13px] font-light text-foreground/75">{level.name}</h4>
                   </div>
                   <div className="flex items-center gap-2">
                     <span className={`text-[8px] font-mono px-2 py-0.5 rounded-md ${
-                      level.status === "live" ? "text-success/50 bg-success/[0.06]" :
-                      level.status === "building" ? "text-primary/40 bg-primary/[0.05]" :
-                      "text-muted-foreground/25 bg-secondary/[0.04]"
+                      level.status === "live" ? "text-success/60 bg-success/[0.08]" :
+                      level.status === "building" ? "text-primary/55 bg-primary/[0.07]" :
+                      "text-muted-foreground/40 bg-secondary/[0.06]"
                     }`}>
                       {level.status === "live" ? "OPERATIVO" : level.status === "building" ? "IN COSTRUZIONE" : "PIANIFICATO"}
                     </span>
-                    <span className="text-[9px] text-muted-foreground/20 font-mono">{level.percent}%</span>
+                    <span className="text-[9px] text-muted-foreground/40 font-mono">{level.percent}%</span>
                   </div>
                 </div>
-                <p className="text-[10px] text-muted-foreground/20 font-light mb-3 ml-7">{level.desc}</p>
+                <p className="text-[10px] text-muted-foreground/40 font-light mb-3 ml-7">{level.desc}</p>
                 <div className="ml-7">
-                  <div className="h-[2px] rounded-full bg-secondary/10 overflow-hidden">
+                  <div className="h-[2px] rounded-full bg-secondary/15 overflow-hidden">
                     <motion.div
                       className="h-full rounded-full"
                       style={{
                         background: level.status === "live"
-                          ? "linear-gradient(90deg, hsl(152 60% 45% / 0.5), hsl(152 60% 45% / 0.3))"
+                          ? "linear-gradient(90deg, hsl(152 60% 45% / 0.6), hsl(152 60% 45% / 0.4))"
                           : level.status === "building"
-                          ? "linear-gradient(90deg, hsl(210 100% 66% / 0.4), hsl(210 100% 66% / 0.2))"
-                          : "linear-gradient(90deg, hsl(0 0% 50% / 0.2), hsl(0 0% 50% / 0.1))",
+                          ? "linear-gradient(90deg, hsl(210 100% 66% / 0.5), hsl(210 100% 66% / 0.3))"
+                          : "linear-gradient(90deg, hsl(0 0% 50% / 0.3), hsl(0 0% 50% / 0.15))",
                       }}
                       initial={{ width: 0 }}
                       animate={{ width: `${level.percent}%` }}
@@ -434,12 +434,12 @@ const Architecture = () => {
 
         {/* ─── CLOSING ─── */}
         <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 2.5 }} className="text-center">
-          <p className="text-[13px] text-foreground/35 font-light leading-relaxed max-w-md mx-auto mb-3">
+          <p className="text-[13px] text-foreground/50 font-light leading-relaxed max-w-md mx-auto mb-3">
             Davanti, una conversazione.
             <br />
             Dietro, una macchina enterprise pronta a costruire.
           </p>
-          <p className="text-[9px] text-muted-foreground/15 font-mono tracking-widest">
+          <p className="text-[9px] text-muted-foreground/35 font-mono tracking-widest">
             10 LAYER · 13 TOOL CONTRACTS · 9 MODULI OPERATIVI · 14 SORGENTI
           </p>
         </motion.div>

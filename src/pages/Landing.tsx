@@ -29,12 +29,12 @@ const Landing = () => {
       <div className="fixed inset-0 pointer-events-none">
         <motion.div
           className="absolute top-[30%] left-1/2 -translate-x-1/2 -translate-y-1/2 w-[900px] h-[900px] rounded-full"
-          style={{ background: "radial-gradient(circle, hsl(210 100% 66% / 0.025) 0%, hsl(270 60% 62% / 0.01) 40%, transparent 70%)" }}
+          style={{ background: "radial-gradient(circle, hsl(210 100% 66% / 0.04) 0%, hsl(270 60% 62% / 0.02) 40%, transparent 70%)" }}
           animate={{ scale: [1, 1.05, 1], opacity: [0.8, 1, 0.8] }}
           transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
         />
-        <div className="absolute bottom-0 left-1/3 w-[500px] h-[500px] rounded-full bg-accent/[0.012] blur-[160px]" />
-        <div className="absolute inset-0 opacity-[0.015]"
+        <div className="absolute bottom-0 left-1/3 w-[500px] h-[500px] rounded-full bg-accent/[0.02] blur-[160px]" />
+        <div className="absolute inset-0 opacity-[0.02]"
           style={{
             backgroundImage: "linear-gradient(hsl(0 0% 100%) 1px, transparent 1px), linear-gradient(90deg, hsl(0 0% 100%) 1px, transparent 1px)",
             backgroundSize: "80px 80px",
@@ -50,14 +50,14 @@ const Landing = () => {
         className="relative z-10 flex items-center justify-between px-8 lg:px-16 py-8"
       >
         <div className="flex items-center gap-2.5">
-          <div className="w-6 h-6 rounded-lg bg-gradient-to-br from-primary/20 to-accent/10 flex items-center justify-center">
-            <div className="w-2 h-2 rounded-full bg-primary/50" />
+          <div className="w-6 h-6 rounded-lg bg-gradient-to-br from-primary/25 to-accent/15 flex items-center justify-center">
+            <div className="w-2 h-2 rounded-full bg-primary/60" />
           </div>
-          <span className="text-sm font-medium tracking-tight text-foreground/60">Adaptive</span>
+          <span className="text-sm font-medium tracking-tight text-foreground/80">Adaptive</span>
         </div>
         <button
           onClick={() => navigate("/dashboard")}
-          className="text-xs text-muted-foreground/40 hover:text-foreground transition-colors duration-700"
+          className="text-xs text-muted-foreground/60 hover:text-foreground transition-colors duration-700"
         >
           Entra
         </button>
@@ -91,7 +91,7 @@ const Landing = () => {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 0.9, duration: 1.2 }}
-          className="text-[15px] text-muted-foreground/60 text-center max-w-md mb-16 leading-relaxed font-light"
+          className="text-[15px] text-muted-foreground/70 text-center max-w-md mb-16 leading-relaxed font-light"
         >
           Un'intelligenza operativa costruita su moduli reali.
           Fonti multiple. Tool concreti. Tu chiedi, il sistema esegue.
@@ -107,21 +107,21 @@ const Landing = () => {
           <motion.div
             animate={{
               boxShadow: inputFocused
-                ? "0 0 0 1px hsl(210 100% 66% / 0.1), 0 0 80px hsl(210 100% 66% / 0.04), 0 20px 60px -15px hsl(0 0% 0% / 0.5)"
-                : "0 0 0 0.5px hsl(0 0% 0% / 0.2), 0 20px 60px -15px hsl(0 0% 0% / 0.5)",
+                ? "0 0 0 1px hsl(210 100% 66% / 0.15), 0 0 80px hsl(210 100% 66% / 0.06), 0 20px 60px -15px hsl(0 0% 0% / 0.5)"
+                : "0 0 0 0.5px hsl(0 0% 0% / 0.3), 0 20px 60px -15px hsl(0 0% 0% / 0.5)",
             }}
             transition={{ duration: 0.5 }}
             className="relative rounded-2xl overflow-hidden"
             style={{
               background: "hsl(240 5% 6% / 0.7)",
               backdropFilter: "blur(40px) saturate(1.1)",
-              border: "1px solid hsl(0 0% 100% / 0.04)",
+              border: "1px solid hsl(0 0% 100% / 0.08)",
             }}
           >
             <div className="flex items-center px-5 py-4 gap-4">
               <motion.div
                 className="w-2.5 h-2.5 rounded-full flex-shrink-0"
-                style={{ background: "radial-gradient(circle, hsl(210 100% 70% / 0.6), hsl(210 100% 66% / 0.2))" }}
+                style={{ background: "radial-gradient(circle, hsl(210 100% 70% / 0.7), hsl(210 100% 66% / 0.3))" }}
                 animate={{ scale: [1, 1.2, 1], opacity: [0.5, 1, 0.5] }}
                 transition={{ duration: 2.5, repeat: Infinity, ease: "easeInOut" }}
               />
@@ -133,10 +133,10 @@ const Landing = () => {
                 onFocus={() => setInputFocused(true)}
                 onBlur={() => setInputFocused(false)}
                 onKeyDown={(e) => e.key === "Enter" && handleSubmit()}
-                className="flex-1 bg-transparent text-[15px] outline-none placeholder:text-muted-foreground/25 font-light text-foreground"
+                className="flex-1 bg-transparent text-[15px] outline-none placeholder:text-muted-foreground/40 font-light text-foreground"
               />
               <div className="flex items-center gap-2">
-                <div className="flex items-center gap-1 text-muted-foreground/20">
+                <div className="flex items-center gap-1 text-muted-foreground/35">
                   <Command className="w-3 h-3" />
                   <span className="text-[10px] font-mono">K</span>
                 </div>
@@ -144,7 +144,7 @@ const Landing = () => {
                   onClick={handleSubmit}
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
-                  className="w-8 h-8 rounded-xl flex items-center justify-center bg-primary/10 text-primary/50 hover:bg-primary/15 hover:text-primary transition-all duration-500"
+                  className="w-8 h-8 rounded-xl flex items-center justify-center bg-primary/15 text-primary/70 hover:bg-primary/20 hover:text-primary transition-all duration-500"
                 >
                   <ArrowRight className="w-3.5 h-3.5" />
                 </motion.button>
@@ -174,7 +174,7 @@ const Landing = () => {
               <motion.span
                 className="relative z-10"
                 animate={{
-                  color: hoveredPrompt === i ? "hsl(0 0% 85%)" : "hsl(0 0% 35%)",
+                  color: hoveredPrompt === i ? "hsl(0 0% 90%)" : "hsl(0 0% 55%)",
                 }}
                 transition={{ duration: 0.5 }}
               >
@@ -185,8 +185,8 @@ const Landing = () => {
                   layoutId="prompt-highlight"
                   className="absolute inset-0 rounded-2xl"
                   style={{
-                    background: "hsl(240 5% 7% / 0.5)",
-                    border: "1px solid hsl(0 0% 100% / 0.04)",
+                    background: "hsl(240 5% 7% / 0.6)",
+                    border: "1px solid hsl(0 0% 100% / 0.08)",
                   }}
                   transition={{ type: "spring", stiffness: 400, damping: 30 }}
                 />
@@ -207,8 +207,8 @@ const Landing = () => {
           {["Partner Network", "Contact Import", "Campaign Engine", "Deep Search", "Voice AI", "Audit"].map((s, i) => (
             <motion.span
               key={s}
-              className="text-[10px] text-muted-foreground/20 font-light tracking-wider"
-              animate={{ opacity: [0.15, 0.3, 0.15] }}
+              className="text-[10px] text-muted-foreground/40 font-light tracking-wider"
+              animate={{ opacity: [0.3, 0.6, 0.3] }}
               transition={{ duration: 3, repeat: Infinity, delay: i * 0.5 }}
             >
               {s}
@@ -216,8 +216,8 @@ const Landing = () => {
           ))}
         </div>
         <motion.span
-          className="text-[8px] text-muted-foreground/12 font-mono tracking-widest"
-          animate={{ opacity: [0.08, 0.15, 0.08] }}
+          className="text-[8px] text-muted-foreground/30 font-mono tracking-widest"
+          animate={{ opacity: [0.2, 0.4, 0.2] }}
           transition={{ duration: 5, repeat: Infinity }}
         >
           FONDATO SU MODULI OPERATIVI GIÀ ESISTENTI

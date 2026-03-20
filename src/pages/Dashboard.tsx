@@ -25,7 +25,7 @@ const Dashboard = () => {
     <div className="min-h-screen pb-24 flex flex-col items-center px-6">
       {/* Ambient */}
       <div className="fixed inset-0 pointer-events-none">
-        <div className="absolute top-1/4 left-1/2 -translate-x-1/2 w-[600px] h-[600px] rounded-full bg-primary/[0.015] blur-[140px]" />
+        <div className="absolute top-1/4 left-1/2 -translate-x-1/2 w-[600px] h-[600px] rounded-full bg-primary/[0.02] blur-[140px]" />
       </div>
 
       {/* Greeting */}
@@ -45,7 +45,7 @@ const Dashboard = () => {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 0.5 }}
-          className="text-sm text-muted-foreground/50 font-light"
+          className="text-sm text-muted-foreground/60 font-light"
         >
           7 agenti operativi · Tutto è pronto
         </motion.p>
@@ -60,18 +60,18 @@ const Dashboard = () => {
       >
         <div
           onClick={() => navigate("/workspace")}
-          className="float-panel px-5 py-4 cursor-pointer group glow-soft transition-all duration-700 hover:border-primary/[0.06]"
+          className="float-panel px-5 py-4 cursor-pointer group glow-soft transition-all duration-700 hover:border-primary/[0.1]"
         >
           <div className="flex items-center gap-4">
             <motion.div
-              className="w-2 h-2 rounded-full bg-primary/40 flex-shrink-0"
-              animate={{ opacity: [0.3, 0.7, 0.3] }}
+              className="w-2 h-2 rounded-full bg-primary/50 flex-shrink-0"
+              animate={{ opacity: [0.4, 0.8, 0.4] }}
               transition={{ duration: 2.5, repeat: Infinity }}
             />
-            <span className="text-[14px] text-muted-foreground/35 group-hover:text-muted-foreground/60 transition-colors duration-700 flex-1 font-light">
+            <span className="text-[14px] text-muted-foreground/50 group-hover:text-muted-foreground/75 transition-colors duration-700 flex-1 font-light">
               Cosa vuoi fare?
             </span>
-            <div className="flex items-center gap-1 text-muted-foreground/15">
+            <div className="flex items-center gap-1 text-muted-foreground/30">
               <Command className="w-3 h-3" />
               <span className="text-[10px] font-mono">K</span>
             </div>
@@ -93,7 +93,7 @@ const Dashboard = () => {
             animate={{ opacity: 1 }}
             transition={{ delay: 0.9 + i * 0.1 }}
             onClick={() => navigate("/workspace")}
-            className="text-[12px] px-3.5 py-2 rounded-2xl text-muted-foreground/30 hover:text-muted-foreground/60 hover:bg-secondary/20 transition-all duration-700"
+            className="text-[12px] px-3.5 py-2 rounded-2xl text-muted-foreground/45 hover:text-muted-foreground/75 hover:bg-secondary/30 transition-all duration-700"
           >
             {s}
           </motion.button>
@@ -116,24 +116,24 @@ const Dashboard = () => {
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 1.1 + i * 0.08, ease }}
               onClick={() => navigate("/workspace")}
-              className="group cursor-pointer px-5 py-4 rounded-2xl hover:bg-secondary/[0.03] transition-all duration-500"
+              className="group cursor-pointer px-5 py-4 rounded-2xl hover:bg-secondary/[0.06] transition-all duration-500"
             >
               <div className="flex items-center gap-4">
                 <div className="flex-1 min-w-0">
-                  <div className="text-[13px] font-light text-foreground/70 group-hover:text-foreground/90 transition-colors duration-500 truncate">
+                  <div className="text-[13px] font-light text-foreground/80 group-hover:text-foreground/95 transition-colors duration-500 truncate">
                     {session.title}
                   </div>
                   <div className="flex items-center gap-3 mt-1.5">
-                    <span className="text-[10px] text-muted-foreground/30">{session.time}</span>
+                    <span className="text-[10px] text-muted-foreground/45">{session.time}</span>
                     {session.status === "running" && (
                       <div className="flex items-center gap-1.5">
-                        <Loader2 className="w-2.5 h-2.5 text-primary/40 animate-spin" />
-                        <span className="text-[10px] text-primary/40">in corso</span>
+                        <Loader2 className="w-2.5 h-2.5 text-primary/50 animate-spin" />
+                        <span className="text-[10px] text-primary/50">in corso</span>
                       </div>
                     )}
                   </div>
                 </div>
-                <ArrowRight className="w-3 h-3 text-muted-foreground/10 group-hover:text-muted-foreground/30 transition-all duration-500 group-hover:translate-x-0.5" />
+                <ArrowRight className="w-3 h-3 text-muted-foreground/20 group-hover:text-muted-foreground/50 transition-all duration-500 group-hover:translate-x-0.5" />
               </div>
             </motion.div>
           ))}

@@ -68,9 +68,9 @@ const Connections = () => {
       </div>
 
       <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8, ease }} className="text-center mb-16 relative z-10">
-        <Plug className="w-5 h-5 text-primary/30 mx-auto mb-4" strokeWidth={1.5} />
+        <Plug className="w-5 h-5 text-primary/50 mx-auto mb-4" strokeWidth={1.5} />
         <h1 className="text-2xl font-light tracking-tight mb-2">Sorgenti & Connessioni</h1>
-        <p className="text-sm text-muted-foreground/50 font-light">Multi-source intelligence · 14 origini attive · 1.8M record unificati</p>
+        <p className="text-sm text-muted-foreground/60 font-light">Multi-source intelligence · 14 origini attive · 1.8M record unificati</p>
       </motion.div>
 
       {/* Source groups */}
@@ -82,7 +82,7 @@ const Connections = () => {
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.2 + gi * 0.15, ease }}
           >
-            <div className="text-[9px] text-muted-foreground/20 tracking-[0.3em] uppercase mb-3 px-1">{group.title}</div>
+            <div className="text-[9px] text-muted-foreground/45 tracking-[0.3em] uppercase mb-3 px-1">{group.title}</div>
             <div className="space-y-1.5">
               {group.sources.map((src, si) => (
                 <motion.div
@@ -92,10 +92,10 @@ const Connections = () => {
                   transition={{ delay: 0.3 + gi * 0.15 + si * 0.05, ease }}
                   className="float-panel-interactive px-5 py-4 flex items-center gap-4 group"
                 >
-                  <div className={`w-1.5 h-1.5 rounded-full flex-shrink-0 ${src.status === "live" ? "bg-success/40" : "bg-muted-foreground/20"}`} />
+                  <div className={`w-1.5 h-1.5 rounded-full flex-shrink-0 ${src.status === "live" ? "bg-success/50" : "bg-muted-foreground/30"}`} />
                   <div className="flex-1 min-w-0">
-                    <span className="text-sm font-medium">{src.name}</span>
-                    <span className="text-xs text-muted-foreground/30 ml-2">{src.records}</span>
+                    <span className="text-sm font-medium text-foreground/80">{src.name}</span>
+                    <span className="text-xs text-muted-foreground/45 ml-2">{src.records}</span>
                   </div>
                   <div className="flex items-center gap-1 opacity-0 group-hover:opacity-100 transition-opacity duration-500">
                     {src.capabilities.slice(0, 3).map((cap) => (
@@ -103,8 +103,8 @@ const Connections = () => {
                         key={cap}
                         className="text-[8px] px-1.5 py-0.5 rounded-md font-mono"
                         style={{
-                          color: `hsl(${capabilityColors[cap] || "210 100% 66%"} / 0.5)`,
-                          background: `hsl(${capabilityColors[cap] || "210 100% 66%"} / 0.06)`,
+                          color: `hsl(${capabilityColors[cap] || "210 100% 66%"} / 0.6)`,
+                          background: `hsl(${capabilityColors[cap] || "210 100% 66%"} / 0.08)`,
                         }}
                       >
                         {cap}
@@ -125,8 +125,8 @@ const Connections = () => {
         transition={{ delay: 1.2 }}
         className="text-center max-w-md relative z-10 mb-16"
       >
-        <div className="text-[9px] text-muted-foreground/15 tracking-[0.3em] uppercase mb-3">SOURCE UNIFICATION</div>
-        <p className="text-[12px] text-muted-foreground/25 font-light leading-relaxed">
+        <div className="text-[9px] text-muted-foreground/40 tracking-[0.3em] uppercase mb-3">SOURCE UNIFICATION</div>
+        <p className="text-[12px] text-muted-foreground/50 font-light leading-relaxed">
           Ogni sorgente viene acquisita, pulita, deduplicata, arricchita e normalizzata
           dal Source Unification Layer prima di diventare operativa per gli agenti AI.
         </p>
@@ -134,7 +134,7 @@ const Connections = () => {
 
       {/* Legacy connectors */}
       <div className="w-full max-w-2xl relative z-10">
-        <div className="text-[9px] text-muted-foreground/15 tracking-[0.3em] uppercase mb-3 px-1">CONNETTORI INFRASTRUTTURA</div>
+        <div className="text-[9px] text-muted-foreground/40 tracking-[0.3em] uppercase mb-3 px-1">CONNETTORI INFRASTRUTTURA</div>
         <div className="space-y-1.5">
           {connections.map((conn, i) => (
             <motion.div
@@ -144,14 +144,14 @@ const Connections = () => {
               transition={{ delay: 1.4 + i * 0.04, ease }}
               className="float-panel-interactive px-5 py-3.5 flex items-center gap-4 group"
             >
-              <conn.icon className={`w-3.5 h-3.5 flex-shrink-0 ${conn.status === "connected" ? "text-primary/20" : "text-warning/30"}`} strokeWidth={1.5} />
+              <conn.icon className={`w-3.5 h-3.5 flex-shrink-0 ${conn.status === "connected" ? "text-primary/40" : "text-warning/50"}`} strokeWidth={1.5} />
               <div className="flex-1 min-w-0">
-                <span className="text-[13px] font-light text-foreground/60">{conn.name}</span>
-                <span className="text-[10px] text-muted-foreground/20 ml-2">{conn.desc}</span>
+                <span className="text-[13px] font-light text-foreground/75">{conn.name}</span>
+                <span className="text-[10px] text-muted-foreground/40 ml-2">{conn.desc}</span>
               </div>
               <div className="flex items-center gap-3">
-                {conn.records && <span className="text-[9px] text-muted-foreground/20 font-mono">{conn.records}</span>}
-                <div className={`w-1.5 h-1.5 rounded-full ${conn.status === "connected" ? "bg-success/30" : "bg-warning/40"}`} />
+                {conn.records && <span className="text-[9px] text-muted-foreground/40 font-mono">{conn.records}</span>}
+                <div className={`w-1.5 h-1.5 rounded-full ${conn.status === "connected" ? "bg-success/45" : "bg-warning/50"}`} />
               </div>
             </motion.div>
           ))}

@@ -12,7 +12,7 @@ export interface ExecutionStep {
 interface ExecutionFlowProps {
   visible: boolean;
   steps: ExecutionStep[];
-  progress?: number; // 0–100
+  progress?: number;
 }
 
 const ExecutionFlow = ({ visible, steps, progress }: ExecutionFlowProps) => (
@@ -25,24 +25,23 @@ const ExecutionFlow = ({ visible, steps, progress }: ExecutionFlowProps) => (
         transition={{ duration: 0.5, ease }}
         className="rounded-2xl p-5 mt-4"
         style={{
-          background: "hsl(240 5% 6% / 0.5)",
+          background: "hsl(240 5% 6% / 0.6)",
           backdropFilter: "blur(40px)",
-          border: "1px solid hsl(0 0% 100% / 0.03)",
+          border: "1px solid hsl(0 0% 100% / 0.06)",
         }}
       >
-        {/* Progress bar — ultra subtle */}
         {progress !== undefined && (
           <div className="mb-4">
-            <div className="h-[2px] rounded-full bg-secondary/20 overflow-hidden">
+            <div className="h-[2px] rounded-full bg-secondary/25 overflow-hidden">
               <motion.div
                 className="h-full rounded-full"
-                style={{ background: "linear-gradient(90deg, hsl(210 100% 66% / 0.4), hsl(270 60% 62% / 0.3))" }}
+                style={{ background: "linear-gradient(90deg, hsl(210 100% 66% / 0.5), hsl(270 60% 62% / 0.4))" }}
                 initial={{ width: 0 }}
                 animate={{ width: `${progress}%` }}
                 transition={{ duration: 0.8, ease }}
               />
             </div>
-            <div className="text-[9px] text-muted-foreground/20 mt-1.5 text-right font-mono">{progress}%</div>
+            <div className="text-[9px] text-muted-foreground/40 mt-1.5 text-right font-mono">{progress}%</div>
           </div>
         )}
 
@@ -57,22 +56,22 @@ const ExecutionFlow = ({ visible, steps, progress }: ExecutionFlowProps) => (
             >
               <div className="flex-shrink-0 w-4 flex justify-center">
                 {step.status === "done" ? (
-                  <CheckCircle2 className="w-3 h-3 text-success/40" />
+                  <CheckCircle2 className="w-3 h-3 text-success/55" />
                 ) : step.status === "running" ? (
-                  <Loader2 className="w-3 h-3 text-primary/40 animate-spin" />
+                  <Loader2 className="w-3 h-3 text-primary/55 animate-spin" />
                 ) : step.status === "error" ? (
-                  <div className="w-2 h-2 rounded-full bg-destructive/40" />
+                  <div className="w-2 h-2 rounded-full bg-destructive/50" />
                 ) : (
-                  <div className="w-1.5 h-1.5 rounded-full bg-muted-foreground/10" />
+                  <div className="w-1.5 h-1.5 rounded-full bg-muted-foreground/20" />
                 )}
               </div>
               <span className={`text-[11px] font-light flex-1 ${
-                step.status === "done" ? "text-foreground/40" :
-                step.status === "running" ? "text-foreground/60" :
-                "text-muted-foreground/20"
+                step.status === "done" ? "text-foreground/55" :
+                step.status === "running" ? "text-foreground/75" :
+                "text-muted-foreground/35"
               }`}>{step.label}</span>
               {step.detail && (
-                <span className="text-[9px] text-muted-foreground/20 font-mono">{step.detail}</span>
+                <span className="text-[9px] text-muted-foreground/40 font-mono">{step.detail}</span>
               )}
             </motion.div>
           ))}
