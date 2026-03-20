@@ -581,7 +581,7 @@ const Workspace = () => {
                 animate={{ boxShadow: inputFocused ? "0 0 0 1px hsl(210 100% 66% / 0.08), 0 0 60px hsl(210 100% 66% / 0.03)" : "0 0 0 0.5px hsl(0 0% 0% / 0.15)" }}
                 transition={{ duration: 0.6 }}
                 className="flex items-center gap-3 rounded-2xl px-4 py-3"
-                style={{ background: "hsl(240 5% 6% / 0.6)", backdropFilter: "blur(40px)", border: "1px solid hsl(0 0% 100% / 0.03)" }}
+                style={{ background: "hsl(240 5% 6% / 0.6)", backdropFilter: "blur(40px)", border: "1px solid hsl(0 0% 100% / 0.06)" }}
               >
                 <motion.button
                   onClick={() => { setMicActive(!micActive); setVoiceSpeaking(false); }}
