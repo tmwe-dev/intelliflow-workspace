@@ -531,18 +531,18 @@ const Workspace = () => {
                             )}
                           </div>
                           {msg.meta && (
-                            <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.4 }} className="flex items-center gap-2 mt-3 pt-2 border-t border-border/[0.04]">
-                              <Wand2 className="w-2.5 h-2.5 text-primary/15" />
-                              <span className="text-[9px] text-muted-foreground/20 font-light font-mono">{msg.meta}</span>
+                            <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.4 }} className="flex items-center gap-2 mt-3 pt-2 border-t border-border/[0.08]">
+                              <Wand2 className="w-2.5 h-2.5 text-primary/30" />
+                              <span className="text-[9px] text-muted-foreground/40 font-light font-mono">{msg.meta}</span>
                             </motion.div>
                           )}
                           {msg.governance && (
                             <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.6 }} className="flex items-center gap-2 mt-1.5">
-                              <div className="w-1 h-1 rounded-full bg-success/30" />
-                              <span className="text-[8px] text-muted-foreground/15 font-mono">{msg.governance}</span>
+                              <div className="w-1 h-1 rounded-full bg-success/45" />
+                              <span className="text-[8px] text-muted-foreground/35 font-mono">{msg.governance}</span>
                             </motion.div>
                           )}
-                          <span className="text-[9px] text-muted-foreground/15 mt-2 block">{msg.timestamp}</span>
+                          <span className="text-[9px] text-muted-foreground/30 mt-2 block">{msg.timestamp}</span>
                         </motion.div>
                       </motion.div>
                     )}
