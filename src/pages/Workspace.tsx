@@ -414,10 +414,10 @@ const Workspace = () => {
       {/* Top bar */}
       <div className="flex items-center justify-between px-6 py-3 relative z-10 flex-shrink-0">
         <div className="flex items-center gap-3">
-          <motion.div className="w-1.5 h-1.5 rounded-full bg-primary/40" animate={{ opacity: [0.3, 0.7, 0.3] }} transition={{ duration: 3, repeat: Infinity }} />
-          <span className="text-[11px] text-muted-foreground/30 font-light tracking-wide">Sessione attiva</span>
+          <motion.div className="w-1.5 h-1.5 rounded-full bg-primary/50" animate={{ opacity: [0.4, 0.8, 0.4] }} transition={{ duration: 3, repeat: Infinity }} />
+          <span className="text-[11px] text-muted-foreground/50 font-light tracking-wide">Sessione attiva</span>
           {flowPhase !== "idle" && flowPhase !== "done" && (
-            <motion.span initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="text-[9px] text-primary/30 font-mono ml-2">
+            <motion.span initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="text-[9px] text-primary/50 font-mono ml-2">
               {flowPhase === "thinking" ? "ELABORAZIONE" : flowPhase === "proposal" ? "PROPOSTA" : flowPhase === "approval" ? "IN ATTESA" : "ESECUZIONE"}
             </motion.span>
           )}
@@ -427,14 +427,14 @@ const Workspace = () => {
             {agentDots.map((a) => (
               <motion.div
                 key={a.agent}
-                className={`w-1.5 h-1.5 rounded-full ${a.status === "done" ? "bg-success/30" : a.status === "running" ? "bg-primary/40" : "bg-muted-foreground/10"}`}
-                animate={a.status === "running" ? { opacity: [0.3, 0.8, 0.3] } : {}}
+                className={`w-1.5 h-1.5 rounded-full ${a.status === "done" ? "bg-success/45" : a.status === "running" ? "bg-primary/50" : "bg-muted-foreground/20"}`}
+                animate={a.status === "running" ? { opacity: [0.4, 0.9, 0.4] } : {}}
                 transition={{ duration: 1.5, repeat: Infinity }}
                 title={a.agent}
               />
             ))}
           </div>
-          <span className="text-[8px] text-muted-foreground/12 font-mono tracking-wider">14 fonti · 12.8k contatti · 234 partner · 7 agenti</span>
+          <span className="text-[8px] text-muted-foreground/30 font-mono tracking-wider">14 fonti · 12.8k contatti · 234 partner · 7 agenti</span>
         </div>
       </div>
 
