@@ -496,7 +496,7 @@ const Workspace = () => {
                           {[0, 1, 2].map((dot) => (
                             <motion.div key={dot} className="w-1.5 h-1.5 rounded-full bg-primary/30" animate={{ opacity: [0.2, 0.7, 0.2], scale: [0.8, 1.1, 0.8] }} transition={{ duration: 1.2, repeat: Infinity, delay: dot * 0.2 }} />
                           ))}
-                          <span className="text-[11px] text-muted-foreground/25 ml-2 font-light">Attivo tool operativi...</span>
+                          <span className="text-[11px] text-muted-foreground/40 ml-2 font-light">Attivo tool operativi...</span>
                         </div>
                       </motion.div>
                     ) : (
