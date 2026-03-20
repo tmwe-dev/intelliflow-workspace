@@ -603,7 +603,7 @@ const Workspace = () => {
                 <motion.button
                   onClick={() => setVoiceSpeaking(!voiceSpeaking)}
                   whileTap={{ scale: 0.9 }}
-                  className={`w-9 h-9 rounded-xl flex items-center justify-center transition-all duration-500 flex-shrink-0 ${voiceSpeaking ? "bg-accent/10 text-accent/60" : "text-muted-foreground/10 hover:text-muted-foreground/25"}`}
+                  className={`w-9 h-9 rounded-xl flex items-center justify-center transition-all duration-500 flex-shrink-0 ${voiceSpeaking ? "bg-accent/12 text-accent/70" : "text-muted-foreground/25 hover:text-muted-foreground/45"}`}
                   title="Lettura vocale"
                 >
                   {voiceSpeaking ? <VolumeX className="w-4 h-4" /> : <Volume2 className="w-4 h-4" />}
