@@ -27,7 +27,7 @@ const ExecutionFlow = ({ visible, steps, progress }: ExecutionFlowProps) => (
         style={{
           background: "hsl(240 5% 6% / 0.75)",
           backdropFilter: "blur(40px)",
-          border: "1px solid hsl(0 0% 100% / 0.06)",
+          border: "1px solid hsl(0 0% 100% / 0.1)",
         }}
       >
         {progress !== undefined && (

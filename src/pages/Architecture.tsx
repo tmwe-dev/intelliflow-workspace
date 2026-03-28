@@ -197,7 +197,7 @@ const Architecture = () => {
               <motion.div key={step} className="flex items-center gap-1" initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 1 + i * 0.1, ease }}>
                 <span
                   className="text-[10px] text-muted-foreground/55 px-3 py-2 rounded-xl font-mono tracking-wide"
-                  style={{ background: "hsl(240 5% 7% / 0.75)", border: "1px solid hsl(0 0% 100% / 0.06)" }}
+                  style={{ background: "hsl(240 5% 7% / 0.75)", border: "1px solid hsl(0 0% 100% / 0.1)" }}
                 >
                   {step}
                 </span>
@@ -232,7 +232,7 @@ const Architecture = () => {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.2 + li * 0.06, duration: 0.5, ease }}
                 className="rounded-2xl overflow-hidden group"
-                style={{ background: "hsl(240 5% 6% / 0.7)", border: "1px solid hsl(0 0% 100% / 0.06)" }}
+                style={{ background: "hsl(240 5% 6% / 0.7)", border: "1px solid hsl(0 0% 100% / 0.1)" }}
               >
                 <div className="p-5 flex items-start gap-4">
                   {/* Layer number */}
@@ -293,7 +293,7 @@ const Architecture = () => {
             Il sistema non improvvisa — attiva capability precise.
           </p>
 
-          <div className="rounded-2xl overflow-hidden" style={{ background: "hsl(240 5% 6% / 0.65)", border: "1px solid hsl(0 0% 100% / 0.06)" }}>
+          <div className="rounded-2xl overflow-hidden" style={{ background: "hsl(240 5% 6% / 0.65)", border: "1px solid hsl(0 0% 100% / 0.1)" }}>
             {/* Header */}
             <div className="flex items-center px-5 py-3 border-b border-border/[0.12]">
               <span className="text-[8px] text-muted-foreground/60 font-mono tracking-wider flex-1">TOOL</span>
@@ -391,7 +391,7 @@ const Architecture = () => {
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ delay: 1 + i * 0.1, ease }}
                 className="rounded-2xl p-5"
-                style={{ background: "hsl(240 5% 6% / 0.7)", border: "1px solid hsl(0 0% 100% / 0.06)" }}
+                style={{ background: "hsl(240 5% 6% / 0.7)", border: "1px solid hsl(0 0% 100% / 0.1)" }}
               >
                 <div className="flex items-center justify-between mb-2">
                   <div className="flex items-center gap-3">

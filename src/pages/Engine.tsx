@@ -153,7 +153,7 @@ const Engine = () => {
               animate={{ opacity: 1 }}
               transition={{ delay: 0.7 + i * 0.08 }}
               className={step === "→" ? "text-[10px] text-muted-foreground/55" : "text-[10px] text-muted-foreground/70 px-2.5 py-1.5 rounded-lg font-mono tracking-wider"}
-              style={step !== "→" ? { background: "hsl(240 5% 7% / 0.75)", border: "1px solid hsl(0 0% 100% / 0.06)" } : {}}
+              style={step !== "→" ? { background: "hsl(240 5% 7% / 0.75)", border: "1px solid hsl(0 0% 100% / 0.1)" } : {}}
             >
               {step}
             </motion.span>
@@ -175,7 +175,7 @@ const Engine = () => {
             </div>
           </div>
 
-          <div className="rounded-2xl overflow-hidden" style={{ background: "hsl(240 5% 6% / 0.7)", border: "1px solid hsl(0 0% 100% / 0.06)" }}>
+          <div className="rounded-2xl overflow-hidden" style={{ background: "hsl(240 5% 6% / 0.7)", border: "1px solid hsl(0 0% 100% / 0.1)" }}>
             {foundations.map((f, i) => (
               <motion.div
                 key={f.name}
@@ -227,7 +227,7 @@ const Engine = () => {
           animate={{ opacity: 1 }}
           transition={{ delay: 1.2 }}
           className="mb-16 rounded-2xl p-6"
-          style={{ background: "hsl(240 5% 6% / 0.65)", border: "1px solid hsl(0 0% 100% / 0.06)" }}
+          style={{ background: "hsl(240 5% 6% / 0.65)", border: "1px solid hsl(0 0% 100% / 0.1)" }}
         >
           <div className="text-[10px] text-muted-foreground/70 tracking-[0.2em] uppercase mb-4 font-mono">COME FUNZIONA</div>
           <div className="space-y-3">
@@ -259,7 +259,7 @@ const Engine = () => {
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.3 + li * 0.08, duration: 0.6, ease }}
               className="rounded-2xl overflow-hidden"
-              style={{ background: "hsl(240 5% 6% / 0.7)", border: "1px solid hsl(0 0% 100% / 0.06)" }}
+              style={{ background: "hsl(240 5% 6% / 0.7)", border: "1px solid hsl(0 0% 100% / 0.1)" }}
             >
               <div className="p-6 flex items-start gap-4">
                 <div className="w-10 h-10 rounded-xl flex items-center justify-center flex-shrink-0" style={{ background: `hsl(${layer.color} / 0.08)` }}>
@@ -278,7 +278,7 @@ const Engine = () => {
                     animate={{ opacity: 1 }}
                     transition={{ delay: 0.5 + li * 0.08 + mi * 0.03 }}
                     className="px-4 py-3 rounded-xl"
-                    style={{ background: "hsl(240 5% 7% / 0.65)", border: "1px solid hsl(0 0% 100% / 0.04)" }}
+                    style={{ background: "hsl(240 5% 7% / 0.65)", border: "1px solid hsl(0 0% 100% / 0.1)" }}
                   >
                     <div className="text-[11px] text-foreground/90 font-light mb-0.5">{mod.name}</div>
                     <div className="text-[9px] text-muted-foreground/60 leading-relaxed">{mod.detail}</div>
