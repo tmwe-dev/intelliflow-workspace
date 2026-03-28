@@ -37,7 +37,7 @@ const Templates = () => {
             className="float-panel-interactive p-5 group"
           >
             <div className="flex items-start justify-between mb-3">
-              <t.icon className="w-4 h-4 text-primary/20" strokeWidth={1.5} />
+              <t.icon className="w-4 h-4 text-primary/55" strokeWidth={1.5} />
               {t.starred && <Star className="w-3 h-3 text-warning/40 fill-warning/40" />}
             </div>
             <h3 className="text-sm font-medium mb-1 group-hover:text-primary transition-colors duration-300">{t.name}</h3>

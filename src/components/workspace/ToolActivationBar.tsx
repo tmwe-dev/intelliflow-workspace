@@ -196,7 +196,7 @@ const ToolActivationBar = ({ scenarioKey, visible, phase = "active", chainHighli
                     {step}
                   </motion.span>
                   {i < chainSteps.length - 1 && (
-                    <span className={`text-[7px] ${isActive ? "text-muted-foreground/55" : "text-muted-foreground/12"}`}>→</span>
+                    <span className={`text-[7px] ${isActive ? "text-muted-foreground/55" : "text-muted-foreground/30"}`}>→</span>
                   )}
                 </div>
               );
