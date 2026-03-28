@@ -22,7 +22,7 @@ const SettingsPage = () => {
       </div>
 
       <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} className="text-center mb-12 relative z-10">
-        <Settings className="w-5 h-5 text-primary/30 mx-auto mb-4" strokeWidth={1.5} />
+        <Settings className="w-5 h-5 text-primary/70 mx-auto mb-4" strokeWidth={1.5} />
         <h1 className="text-2xl font-light tracking-tight mb-2">Impostazioni</h1>
       </motion.div>
 
@@ -32,7 +32,7 @@ const SettingsPage = () => {
           <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-primary/10 to-accent/10 flex items-center justify-center text-sm font-medium">MR</div>
           <div>
             <div className="text-sm font-medium">Marco Rossi</div>
-            <div className="text-[11px] text-muted-foreground/30">marco.rossi@enterprise.it</div>
+            <div className="text-[11px] text-muted-foreground/55">marco.rossi@enterprise.it</div>
           </div>
         </div>
       </motion.div>
@@ -46,12 +46,12 @@ const SettingsPage = () => {
             transition={{ delay: 0.15 + i * 0.03 }}
             className="flex items-center gap-4 px-4 py-3.5 rounded-xl hover:bg-secondary/5 transition-colors duration-300 cursor-pointer group"
           >
-            <item.icon className="w-4 h-4 text-muted-foreground/20 group-hover:text-primary/30 transition-colors duration-300" strokeWidth={1.5} />
+            <item.icon className="w-4 h-4 text-muted-foreground/70 group-hover:text-primary/70 transition-colors duration-300" strokeWidth={1.5} />
             <div className="flex-1">
               <span className="text-sm font-light">{item.label}</span>
-              <span className="text-[11px] text-muted-foreground/25 ml-2">{item.desc}</span>
+              <span className="text-[11px] text-muted-foreground/70 ml-2">{item.desc}</span>
             </div>
-            <ChevronRight className="w-3.5 h-3.5 text-muted-foreground/10 group-hover:text-muted-foreground/30 transition-colors duration-300" />
+            <ChevronRight className="w-3.5 h-3.5 text-muted-foreground/10 group-hover:text-muted-foreground/55 transition-colors duration-300" />
           </motion.div>
         ))}
       </div>

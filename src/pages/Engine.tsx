@@ -152,7 +152,7 @@ const Engine = () => {
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ delay: 0.7 + i * 0.08 }}
-              className={step === "→" ? "text-[10px] text-muted-foreground/30" : "text-[10px] text-muted-foreground/50 px-2.5 py-1.5 rounded-lg font-mono tracking-wider"}
+              className={step === "→" ? "text-[10px] text-muted-foreground/55" : "text-[10px] text-muted-foreground/70 px-2.5 py-1.5 rounded-lg font-mono tracking-wider"}
               style={step !== "→" ? { background: "hsl(240 5% 7% / 0.6)", border: "1px solid hsl(0 0% 100% / 0.06)" } : {}}
             >
               {step}
@@ -168,10 +168,10 @@ const Engine = () => {
           className="mb-16"
         >
           <div className="flex items-center gap-3 mb-6">
-            <Box className="w-4 h-4 text-muted-foreground/40" strokeWidth={1.5} />
+            <Box className="w-4 h-4 text-muted-foreground/60" strokeWidth={1.5} />
             <div>
-              <h2 className="text-[15px] font-light text-foreground/80">Operational Foundations</h2>
-              <p className="text-[11px] text-muted-foreground/50 font-light">Moduli operativi già esistenti e maturi su cui il prodotto si fonda</p>
+              <h2 className="text-[15px] font-light text-foreground/90">Operational Foundations</h2>
+              <p className="text-[11px] text-muted-foreground/70 font-light">Moduli operativi già esistenti e maturi su cui il prodotto si fonda</p>
             </div>
           </div>
 
@@ -185,8 +185,8 @@ const Engine = () => {
                 className="flex items-center gap-4 px-5 py-3.5 border-b border-border/[0.06] last:border-b-0"
               >
                 <div className="flex-1 min-w-0">
-                  <div className="text-[12px] font-light text-foreground/75">{f.name}</div>
-                  <div className="text-[9px] text-muted-foreground/40 font-mono mt-0.5">{f.records}</div>
+                  <div className="text-[12px] font-light text-foreground/90">{f.name}</div>
+                  <div className="text-[9px] text-muted-foreground/60 font-mono mt-0.5">{f.records}</div>
                 </div>
                 <div className="flex items-center gap-3 flex-shrink-0">
                   {/* Maturity bar */}
@@ -199,7 +199,7 @@ const Engine = () => {
                       transition={{ delay: 1 + i * 0.08, duration: 0.8, ease }}
                     />
                   </div>
-                  <span className="text-[8px] text-muted-foreground/40 font-mono w-7 text-right">{f.maturity}%</span>
+                  <span className="text-[8px] text-muted-foreground/60 font-mono w-7 text-right">{f.maturity}%</span>
                   <motion.div
                     className="w-1.5 h-1.5 rounded-full bg-success/50"
                     animate={{ opacity: [0.4, 0.8, 0.4] }}
@@ -216,8 +216,8 @@ const Engine = () => {
             transition={{ delay: 1.5 }}
             className="flex items-center gap-2 mt-3 px-1"
           >
-            <Radio className="w-2.5 h-2.5 text-success/40" />
-            <span className="text-[9px] text-muted-foreground/40 font-light">9 fondamenta operative attive · Maturity media 84% · Tutti i moduli già in uso</span>
+            <Radio className="w-2.5 h-2.5 text-success/65" />
+            <span className="text-[9px] text-muted-foreground/60 font-light">9 fondamenta operative attive · Maturity media 84% · Tutti i moduli già in uso</span>
           </motion.div>
         </motion.div>
 
@@ -229,7 +229,7 @@ const Engine = () => {
           className="mb-16 rounded-2xl p-6"
           style={{ background: "hsl(240 5% 6% / 0.4)", border: "1px solid hsl(0 0% 100% / 0.06)" }}
         >
-          <div className="text-[10px] text-muted-foreground/50 tracking-[0.2em] uppercase mb-4 font-mono">COME FUNZIONA</div>
+          <div className="text-[10px] text-muted-foreground/70 tracking-[0.2em] uppercase mb-4 font-mono">COME FUNZIONA</div>
           <div className="space-y-3">
             {[
               "Il prodotto non ricostruisce ogni funzione da zero. Integra e orchestra moduli operativi già esistenti.",
@@ -244,7 +244,7 @@ const Engine = () => {
                 className="flex items-start gap-3"
               >
                 <div className="w-1 h-1 rounded-full bg-primary/40 mt-1.5 flex-shrink-0" />
-                <p className="text-[12px] text-foreground/60 font-light leading-relaxed">{text}</p>
+                <p className="text-[12px] text-foreground/90 font-light leading-relaxed">{text}</p>
               </motion.div>
             ))}
           </div>
@@ -266,8 +266,8 @@ const Engine = () => {
                   <layer.icon className="w-4.5 h-4.5" style={{ color: `hsl(${layer.color} / 0.6)` }} strokeWidth={1.5} />
                 </div>
                 <div>
-                  <h2 className="text-[15px] font-light text-foreground/85 mb-0.5">{layer.title}</h2>
-                  <p className="text-[11px] text-muted-foreground/50 font-light">{layer.subtitle}</p>
+                  <h2 className="text-[15px] font-light text-foreground/95 mb-0.5">{layer.title}</h2>
+                  <p className="text-[11px] text-muted-foreground/70 font-light">{layer.subtitle}</p>
                 </div>
               </div>
               <div className="px-6 pb-5 grid grid-cols-1 md:grid-cols-2 gap-2">
@@ -280,8 +280,8 @@ const Engine = () => {
                     className="px-4 py-3 rounded-xl"
                     style={{ background: "hsl(240 5% 7% / 0.4)", border: "1px solid hsl(0 0% 100% / 0.04)" }}
                   >
-                    <div className="text-[11px] text-foreground/65 font-light mb-0.5">{mod.name}</div>
-                    <div className="text-[9px] text-muted-foreground/40 leading-relaxed">{mod.detail}</div>
+                    <div className="text-[11px] text-foreground/90 font-light mb-0.5">{mod.name}</div>
+                    <div className="text-[9px] text-muted-foreground/60 leading-relaxed">{mod.detail}</div>
                   </motion.div>
                 ))}
               </div>
@@ -290,12 +290,12 @@ const Engine = () => {
         </div>
 
         <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 2.5 }} className="mt-20 text-center">
-          <p className="text-[12px] text-muted-foreground/45 font-light leading-relaxed max-w-md mx-auto mb-6">
+          <p className="text-[12px] text-muted-foreground/65 font-light leading-relaxed max-w-md mx-auto mb-6">
             Fondamenta operative già mature. Moduli già in produzione.
             <br />
             L'AI workspace non inventa le capacità — le unifica, le amplifica, le rende conversazionali.
           </p>
-          <a href="/architecture" className="inline-flex items-center gap-2 text-[11px] text-primary/50 hover:text-primary/70 transition-colors duration-500 font-light">
+          <a href="/architecture" className="inline-flex items-center gap-2 text-[11px] text-primary/70 hover:text-primary/70 transition-colors duration-500 font-light">
             Esplora l'architettura completa del prodotto →
           </a>
         </motion.div>

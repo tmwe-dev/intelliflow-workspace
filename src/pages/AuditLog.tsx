@@ -9,7 +9,7 @@ const statusIcon: Record<Status, typeof Bot> = {
   suggested: Bot, previewed: Eye, approved: ThumbsUp, executed: CheckCircle2, error: AlertTriangle, policy: Lock,
 };
 const statusColor: Record<Status, string> = {
-  suggested: "text-primary/40", previewed: "text-info/40", approved: "text-success/40", executed: "text-success/40", error: "text-destructive/40", policy: "text-accent/40",
+  suggested: "text-primary/60", previewed: "text-info/65", approved: "text-success/65", executed: "text-success/65", error: "text-destructive/65", policy: "text-accent/65",
 };
 
 const entries = [
@@ -33,16 +33,16 @@ const AuditLog = () => {
       </div>
 
       <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8, ease }} className="text-center mb-12 relative z-10">
-        <Shield className="w-5 h-5 text-primary/30 mx-auto mb-4" strokeWidth={1.5} />
+        <Shield className="w-5 h-5 text-primary/70 mx-auto mb-4" strokeWidth={1.5} />
         <h1 className="text-2xl font-light tracking-tight mb-2">Audit & Governance</h1>
-        <p className="text-sm text-muted-foreground/50 font-light">Ogni azione tracciata</p>
+        <p className="text-sm text-muted-foreground/70 font-light">Ogni azione tracciata</p>
       </motion.div>
 
       {/* Search */}
       <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.2 }} className="w-full max-w-2xl mb-6 relative z-10">
         <div className="float-panel-subtle px-4 py-3 flex items-center gap-3">
-          <Search className="w-3.5 h-3.5 text-muted-foreground/20" />
-          <input type="text" placeholder="Cerca..." className="bg-transparent text-sm outline-none flex-1 placeholder:text-muted-foreground/20 font-light" />
+          <Search className="w-3.5 h-3.5 text-muted-foreground/70" />
+          <input type="text" placeholder="Cerca..." className="bg-transparent text-sm outline-none flex-1 placeholder:text-muted-foreground/70 font-light" />
         </div>
       </motion.div>
 
@@ -58,10 +58,10 @@ const AuditLog = () => {
                 transition={{ delay: 0.1 + i * 0.03 }}
                 className="flex items-center gap-4 px-4 py-3 rounded-xl hover:bg-secondary/5 transition-colors duration-300 cursor-pointer group"
               >
-                <span className="text-[10px] font-mono text-muted-foreground/25 w-10">{entry.time}</span>
+                <span className="text-[10px] font-mono text-muted-foreground/70 w-10">{entry.time}</span>
                 <Icon className={`w-3.5 h-3.5 ${statusColor[entry.status]} flex-shrink-0`} strokeWidth={1.5} />
-                <span className="text-sm font-light flex-1 text-secondary-foreground/70 group-hover:text-foreground transition-colors duration-300">{entry.action}</span>
-                <span className="text-[10px] text-muted-foreground/20">{entry.agent}</span>
+                <span className="text-sm font-light flex-1 text-secondary-foreground/85 group-hover:text-foreground transition-colors duration-300">{entry.action}</span>
+                <span className="text-[10px] text-muted-foreground/70">{entry.agent}</span>
               </motion.div>
             );
           })}
