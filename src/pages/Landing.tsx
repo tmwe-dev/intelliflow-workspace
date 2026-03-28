@@ -115,7 +115,7 @@ const Landing = () => {
             style={{
               background: "hsl(240 5% 6% / 0.7)",
               backdropFilter: "blur(40px) saturate(1.1)",
-              border: "1px solid hsl(0 0% 100% / 0.12)",
+              border: "1px solid hsl(0 0% 100% / 0.18)",
             }}
           >
             <div className="flex items-center px-5 py-4 gap-4">
@@ -174,7 +174,7 @@ const Landing = () => {
               <motion.span
                 className="relative z-10"
                 animate={{
-                  color: hoveredPrompt === i ? "hsl(0 0% 90%)" : "hsl(0 0% 55%)",
+                  color: hoveredPrompt === i ? "hsl(var(--foreground) / 0.98)" : "hsl(var(--muted-foreground) / 0.92)",
                 }}
                 transition={{ duration: 0.5 }}
               >
@@ -186,7 +186,7 @@ const Landing = () => {
                   className="absolute inset-0 rounded-2xl"
                   style={{
                     background: "hsl(240 5% 7% / 0.75)",
-                    border: "1px solid hsl(0 0% 100% / 0.12)",
+                    border: "1px solid hsl(0 0% 100% / 0.18)",
                   }}
                   transition={{ type: "spring", stiffness: 400, damping: 30 }}
                 />

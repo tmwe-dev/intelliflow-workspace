@@ -169,7 +169,7 @@ const Architecture = () => {
             <div className="text-center">
               <div className="text-[9px] text-muted-foreground/60 tracking-[0.2em] uppercase mb-2 font-mono">SUPERFICIE</div>
               <div className="text-[13px] text-foreground/90 font-light">Prompt · Assistant · Canvas</div>
-              <div className="text-[9px] text-muted-foreground/60 mt-1">L'utente vede solo questo</div>
+              <div className="text-[10px] text-muted-foreground/78 mt-1">L'utente vede solo questo</div>
             </div>
             <div className="flex flex-col items-center gap-1">
               <div className="w-px h-6 bg-gradient-to-b from-muted-foreground/20 to-primary/30" />
@@ -179,7 +179,7 @@ const Architecture = () => {
             <div className="text-center">
               <div className="text-[9px] text-muted-foreground/60 tracking-[0.2em] uppercase mb-2 font-mono">MOTORE</div>
               <div className="text-[13px] text-foreground/90 font-light">10 layer · 13 tool · 9 moduli</div>
-              <div className="text-[9px] text-muted-foreground/60 mt-1">L'utente non lo vede mai</div>
+              <div className="text-[10px] text-muted-foreground/78 mt-1">L'utente non lo vede mai</div>
             </div>
           </motion.div>
         </motion.div>
@@ -215,7 +215,7 @@ const Architecture = () => {
           >
             <div className="flex items-center gap-2">
               <div className="w-12 h-px bg-gradient-to-r from-transparent to-primary/25" />
-              <span className="text-[8px] text-muted-foreground/60 font-mono">loop continuo</span>
+              <span className="text-[9px] text-muted-foreground/78 font-mono">loop continuo</span>
               <div className="w-12 h-px bg-gradient-to-r from-primary/25 to-transparent" />
             </div>
           </motion.div>
@@ -252,7 +252,7 @@ const Architecture = () => {
                     <div className="flex flex-wrap gap-1.5 mb-2">
                       {layer.items.map((item) => (
                         <span key={item} className="text-[9px] px-2.5 py-1 rounded-lg font-light"
-                          style={{ color: `hsl(${layer.color} / 0.7)`, background: `hsl(${layer.color} / 0.05)`, border: `1px solid hsl(${layer.color} / 0.08)` }}
+                          style={{ color: `hsl(${layer.color} / 0.92)`, background: `hsl(${layer.color} / 0.14)`, border: `1px solid hsl(${layer.color} / 0.22)` }}
                         >
                           {item}
                         </span>
@@ -263,7 +263,7 @@ const Architecture = () => {
                     <div className="flex items-center gap-1.5">
                       <span className="text-[7px] text-muted-foreground/55 font-mono tracking-widest">CAPABILITIES</span>
                       {layer.capabilities.map((cap) => (
-                        <span key={cap} className="text-[7px] text-muted-foreground/60 font-mono">{cap}</span>
+                        <span key={cap} className="text-[8px] text-muted-foreground/78 font-mono">{cap}</span>
                       ))}
                     </div>
                   </div>
@@ -288,7 +288,7 @@ const Architecture = () => {
           className="mb-24"
         >
           <div className="text-[9px] text-muted-foreground/60 tracking-[0.3em] uppercase text-center mb-3 font-mono">TOOL CONTRACTS</div>
-          <p className="text-[12px] text-muted-foreground/70 font-light text-center mb-8 max-w-md mx-auto">
+          <p className="text-[13px] text-foreground/78 font-light text-center mb-8 max-w-lg mx-auto">
             Ogni azione dell'assistente passa attraverso un tool contract definito.
             Il sistema non improvvisa — attiva capability precise.
           </p>
@@ -296,7 +296,7 @@ const Architecture = () => {
           <div className="rounded-2xl overflow-hidden" style={{ background: "hsl(240 5% 6% / 0.65)", border: "1px solid hsl(0 0% 100% / 0.1)" }}>
             {/* Header */}
             <div className="flex items-center px-5 py-3 border-b border-border/[0.12]">
-              <span className="text-[8px] text-muted-foreground/60 font-mono tracking-wider flex-1">TOOL</span>
+              <span className="text-[9px] text-muted-foreground/82 font-mono tracking-wider flex-1">TOOL</span>
               <span className="text-[8px] text-muted-foreground/60 font-mono tracking-wider w-32 text-right">LAYER</span>
               <span className="text-[8px] text-muted-foreground/60 font-mono tracking-wider w-20 text-right">TYPE</span>
             </div>
@@ -439,7 +439,7 @@ const Architecture = () => {
             <br />
             Dietro, una macchina enterprise pronta a costruire.
           </p>
-          <p className="text-[9px] text-muted-foreground/60 font-mono tracking-widest">
+          <p className="text-[10px] text-muted-foreground/82 font-mono tracking-widest">
             10 LAYER · 13 TOOL CONTRACTS · 9 MODULI OPERATIVI · 14 SORGENTI
           </p>
         </motion.div>
