@@ -133,7 +133,7 @@ const Landing = () => {
                 onFocus={() => setInputFocused(true)}
                 onBlur={() => setInputFocused(false)}
                 onKeyDown={(e) => e.key === "Enter" && handleSubmit()}
-                className="flex-1 bg-transparent text-[15px] outline-none placeholder:text-muted-foreground/60 font-light text-foreground"
+                className="flex-1 bg-transparent text-[15px] outline-none placeholder:text-muted-foreground/50 font-light text-foreground"
               />
               <div className="flex items-center gap-2">
                 <div className="flex items-center gap-1 text-muted-foreground/60">

@@ -42,7 +42,7 @@ const AuditLog = () => {
       <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.2 }} className="w-full max-w-2xl mb-6 relative z-10">
         <div className="float-panel-subtle px-4 py-3 flex items-center gap-3">
           <Search className="w-3.5 h-3.5 text-muted-foreground/70" />
-          <input type="text" placeholder="Cerca..." className="bg-transparent text-sm outline-none flex-1 placeholder:text-muted-foreground/70 font-light" />
+          <input type="text" placeholder="Cerca..." className="bg-transparent text-sm outline-none flex-1 placeholder:text-muted-foreground/50 font-light" />
         </div>
       </motion.div>
 
