@@ -25,8 +25,8 @@ export const TableCanvas = ({
           className="p-4 rounded-xl text-center"
           style={{ background: "hsl(240 5% 7% / 0.7)", border: "1px solid hsl(0 0% 100% / 0.1)" }}
         >
-          <div className="text-2xl font-extralight tracking-tight text-foreground/95">{kpi.value}</div>
-          <div className="text-[9px] text-muted-foreground/90 mt-1.5 tracking-wider uppercase">{kpi.label}</div>
+          <div className="text-2xl font-extralight tracking-tight text-foreground/100">{kpi.value}</div>
+          <div className="text-[9px] text-muted-foreground/97 mt-1.5 tracking-wider uppercase">{kpi.label}</div>
         </motion.div>
       ))}
     </div>
@@ -38,13 +38,13 @@ export const TableCanvas = ({
       transition={{ delay: 0.3 }}
       className="flex items-center gap-3 mb-4 px-1"
     >
-      <span className="text-[8px] text-muted-foreground/88 tracking-[0.2em] uppercase font-mono">FONTE</span>
-      <span className="text-[9px] text-muted-foreground/88 font-light">Partner DB · Contact Import · Activity Engine · ML Scoring</span>
+      <span className="text-[8px] text-muted-foreground/100 tracking-[0.2em] uppercase font-mono">FONTE</span>
+      <span className="text-[9px] text-muted-foreground/100 font-light">Partner DB · Contact Import · Activity Engine · ML Scoring</span>
     </motion.div>
 
     <table className="w-full">
       <thead>
-        <tr className="text-[9px] text-muted-foreground/90 font-mono tracking-wider">
+        <tr className="text-[9px] text-muted-foreground/97 font-mono tracking-wider">
           <th className="text-left pb-3 font-normal">PARTNER</th>
           <th className="text-left pb-3 font-normal">SETTORE</th>
           <th className="text-right pb-3 font-normal">REVENUE</th>
@@ -62,13 +62,13 @@ export const TableCanvas = ({
             className="border-t border-border/[0.12] group cursor-pointer"
           >
             <td className="py-3 text-[13px] font-light text-foreground/100 group-hover:text-primary/96 transition-colors duration-500">{row.name}</td>
-            <td className="py-3 text-[11px] text-muted-foreground/90">{row.sector}</td>
-            <td className="py-3 text-[13px] text-right font-mono text-muted-foreground/96">{row.revenue}</td>
-            <td className="py-3 text-[12px] text-right text-muted-foreground/90">{row.days} gg</td>
+            <td className="py-3 text-[11px] text-muted-foreground/97">{row.sector}</td>
+            <td className="py-3 text-[13px] text-right font-mono text-muted-foreground/100">{row.revenue}</td>
+            <td className="py-3 text-[12px] text-right text-muted-foreground/97">{row.days} gg</td>
             <td className="py-3 text-right">
               <span className={`text-[11px] font-mono px-2 py-0.5 rounded-lg ${
                 row.churn >= 85 ? "text-destructive/75 bg-destructive/[0.06]"
-                : row.churn >= 70 ? "text-warning/75 bg-warning/[0.06]"
+                : row.churn >= 70 ? "text-warning/96 bg-warning/[0.06]"
                 : "text-success/95 bg-success/[0.06]"
               }`}>{row.churn}</span>
             </td>
@@ -98,7 +98,7 @@ export const CampaignCanvas = ({ onClose }: { onClose: () => void }) => (
           className="p-3.5 rounded-xl"
           style={{ background: "hsl(240 5% 7% / 0.7)", border: "1px solid hsl(0 0% 100% / 0.1)" }}
         >
-          <div className="text-[9px] text-muted-foreground/90 tracking-wider uppercase mb-1">{item.label}</div>
+          <div className="text-[9px] text-muted-foreground/97 tracking-wider uppercase mb-1">{item.label}</div>
           <div className="text-[13px] font-light text-foreground/100">{item.value}</div>
         </motion.div>
       ))}
@@ -113,8 +113,8 @@ export const CampaignCanvas = ({ onClose }: { onClose: () => void }) => (
       style={{ background: "hsl(240 5% 8% / 0.75)", border: "1px solid hsl(0 0% 100% / 0.1)" }}
     >
       <div className="flex items-center justify-between mb-3">
-        <span className="text-[9px] text-muted-foreground/90 tracking-wider uppercase">ANTEPRIMA BOZZA · 1 DI 50</span>
-        <span className="text-[8px] text-muted-foreground/96 font-mono">Email Draft #2847</span>
+        <span className="text-[9px] text-muted-foreground/97 tracking-wider uppercase">ANTEPRIMA BOZZA · 1 DI 50</span>
+        <span className="text-[8px] text-muted-foreground/100 font-mono">Email Draft #2847</span>
       </div>
       <div className="text-[11px] text-primary/92 mb-3 font-mono">A: marco.bianchi@techbridge.jp</div>
       <div className="text-[11px] text-foreground/100 mb-3 font-mono">Oggetto: È passato un po', Marco — aggiornamenti per TechBridge</div>
@@ -122,7 +122,7 @@ export const CampaignCanvas = ({ onClose }: { onClose: () => void }) => (
         <p>Gentile Marco,</p>
         <p>Sono passati 98 giorni dal nostro ultimo contatto. Nel frattempo, il settore Technology in Asia ha visto sviluppi significativi che potrebbero interessare TechBridge Japan.</p>
         <p>Sulla base del vostro storico di acquisti nel segmento infrastrutture cloud, abbiamo preparato un'analisi dedicata che vorremmo condividere.</p>
-        <p className="text-muted-foreground/88 italic">— Bozza generata da Communication Agent · Dati da Contact Memory + Activity Engine</p>
+        <p className="text-muted-foreground/100 italic">— Bozza generata da Communication Agent · Dati da Contact Memory + Activity Engine</p>
       </div>
     </motion.div>
 
@@ -134,7 +134,7 @@ export const CampaignCanvas = ({ onClose }: { onClose: () => void }) => (
       className="rounded-xl p-4 mb-4"
       style={{ background: "hsl(240 5% 7% / 0.65)", border: "1px solid hsl(0 0% 100% / 0.1)" }}
     >
-      <div className="text-[9px] text-muted-foreground/90 tracking-wider uppercase mb-3">PIANO DI INVIO</div>
+      <div className="text-[9px] text-muted-foreground/97 tracking-wider uppercase mb-3">PIANO DI INVIO</div>
       <div className="space-y-2">
         {[
           { wave: "Wave 1", count: "17 email", time: "Immediato", targets: "Score ≥85 · Priorità alta" },
@@ -144,11 +144,11 @@ export const CampaignCanvas = ({ onClose }: { onClose: () => void }) => (
           <div key={w.wave} className="flex items-center justify-between text-[11px]">
             <div className="flex items-center gap-3">
               <span className="text-foreground/100 font-light">{w.wave}</span>
-              <span className="text-muted-foreground/88 font-mono text-[9px]">{w.count}</span>
+              <span className="text-muted-foreground/100 font-mono text-[9px]">{w.count}</span>
             </div>
             <div className="flex items-center gap-3">
-              <span className="text-muted-foreground/96 text-[9px]">{w.targets}</span>
-              <span className="text-muted-foreground/88 font-mono text-[9px]">{w.time}</span>
+              <span className="text-muted-foreground/100 text-[9px]">{w.targets}</span>
+              <span className="text-muted-foreground/100 font-mono text-[9px]">{w.time}</span>
             </div>
           </div>
         ))}
@@ -157,7 +157,7 @@ export const CampaignCanvas = ({ onClose }: { onClose: () => void }) => (
 
     <div className="flex items-start gap-3 mt-2">
       <Wand2 className="w-3 h-3 text-primary/92 mt-0.5 flex-shrink-0" />
-      <p className="text-[11px] text-muted-foreground/90 leading-relaxed font-light">
+      <p className="text-[11px] text-muted-foreground/97 leading-relaxed font-light">
         Ogni email generata dal Communication Agent usando dati da Contact Memory, Activity Engine e Template Library. Governance check completato.
       </p>
     </div>
@@ -175,9 +175,9 @@ export const ReportCanvas = ({ onClose }: { onClose: () => void }) => (
       transition={{ delay: 0.3, ease }}
       className="mb-8"
     >
-      <div className="text-[9px] text-muted-foreground/88 tracking-wider uppercase mb-4">PARTNER PERFORMANCE · ASIA PACIFIC · Q1 2026</div>
-      <h3 className="text-xl font-extralight tracking-tight text-foreground/95 mb-1">Executive Summary</h3>
-      <p className="text-[12px] text-muted-foreground/92 font-light">
+      <div className="text-[9px] text-muted-foreground/100 tracking-wider uppercase mb-4">PARTNER PERFORMANCE · ASIA PACIFIC · Q1 2026</div>
+      <h3 className="text-xl font-extralight tracking-tight text-foreground/100 mb-1">Executive Summary</h3>
+      <p className="text-[12px] text-muted-foreground/98 font-light">
         Generato da Data Analyst Agent · Fonti: Partner DB, Activity Engine, Campaign History
       </p>
     </motion.div>
@@ -198,7 +198,7 @@ export const ReportCanvas = ({ onClose }: { onClose: () => void }) => (
           style={{ background: "hsl(240 5% 7% / 0.7)", border: "1px solid hsl(0 0% 100% / 0.1)" }}
         >
           <div className="text-lg font-extralight text-foreground/100">{kpi.value}</div>
-          <div className="text-[8px] text-muted-foreground/88 mt-1 tracking-wider uppercase">{kpi.label}</div>
+          <div className="text-[8px] text-muted-foreground/100 mt-1 tracking-wider uppercase">{kpi.label}</div>
         </motion.div>
       ))}
     </div>
@@ -215,7 +215,7 @@ export const ReportCanvas = ({ onClose }: { onClose: () => void }) => (
         transition={{ delay: 0.8 + i * 0.15, ease }}
         className="mb-6"
       >
-        <div className="text-[10px] text-primary/65 tracking-wider uppercase mb-2 font-mono">{section.title}</div>
+        <div className="text-[10px] text-primary/96 tracking-wider uppercase mb-2 font-mono">{section.title}</div>
         <p className="text-[12px] text-foreground/100 leading-[1.8] font-light">{section.body}</p>
       </motion.div>
     ))}
@@ -315,7 +315,7 @@ export const ResultCanvas = ({ onClose, scenarioKey }: ResultCanvasProps) => {
           <ThumbsUp className="w-5 h-5 text-success/95" />
         </motion.div>
         <div className="text-lg font-extralight text-foreground/100 mb-2">{config.title}</div>
-        <p className="text-[12px] text-muted-foreground/90 font-light">{config.subtitle}</p>
+        <p className="text-[12px] text-muted-foreground/97 font-light">{config.subtitle}</p>
       </motion.div>
 
       <div className="grid grid-cols-3 gap-3 mt-4 mb-6">
@@ -329,7 +329,7 @@ export const ResultCanvas = ({ onClose, scenarioKey }: ResultCanvasProps) => {
             style={{ background: "hsl(240 5% 7% / 0.7)", border: "1px solid hsl(0 0% 100% / 0.1)" }}
           >
             <div className="text-lg font-extralight text-foreground/100">{s.value}</div>
-            <div className="text-[9px] text-muted-foreground/88 mt-1 tracking-wider uppercase">{s.label}</div>
+            <div className="text-[9px] text-muted-foreground/100 mt-1 tracking-wider uppercase">{s.label}</div>
           </motion.div>
         ))}
       </div>
@@ -342,14 +342,14 @@ export const ResultCanvas = ({ onClose, scenarioKey }: ResultCanvasProps) => {
         className="px-4 py-3 rounded-xl mb-4"
         style={{ background: "hsl(240 5% 7% / 0.65)", border: "1px solid hsl(0 0% 100% / 0.1)" }}
       >
-        <div className="text-[9px] text-muted-foreground/88 tracking-wider uppercase mb-2">AUDIT TRAIL</div>
+        <div className="text-[9px] text-muted-foreground/100 tracking-wider uppercase mb-2">AUDIT TRAIL</div>
         <div className="space-y-1">
           {config.audit.map((log) => (
             <div key={log.action} className="flex items-center justify-between text-[10px]">
-              <span className="text-foreground/95 font-light">{log.action}</span>
+              <span className="text-foreground/100 font-light">{log.action}</span>
               <div className="flex items-center gap-2">
-                <span className="text-muted-foreground/96 font-mono text-[9px]">{log.agent}</span>
-                <span className="text-muted-foreground/96 font-mono text-[9px]">{log.time}</span>
+                <span className="text-muted-foreground/100 font-mono text-[9px]">{log.agent}</span>
+                <span className="text-muted-foreground/100 font-mono text-[9px]">{log.time}</span>
               </div>
             </div>
           ))}
@@ -372,17 +372,17 @@ const CanvasShell = ({ children, onClose, title }: { children: React.ReactNode; 
     <div className="flex items-center justify-between mb-6">
       <div className="flex items-center gap-3">
         <motion.div
-          className="w-1.5 h-1.5 rounded-full bg-primary/60"
+          className="w-1.5 h-1.5 rounded-full bg-primary/95"
           animate={{ opacity: [0.5, 0.85, 0.5] }}
           transition={{ duration: 2, repeat: Infinity }}
         />
-        <span className="text-[10px] text-muted-foreground/90 font-mono tracking-wider">{title}</span>
+        <span className="text-[10px] text-muted-foreground/97 font-mono tracking-wider">{title}</span>
       </div>
       <div className="flex items-center gap-1.5">
-        <button className="text-muted-foreground/96 hover:text-muted-foreground/92 transition-colors duration-500 p-1.5">
+        <button className="text-muted-foreground/100 hover:text-muted-foreground/98 transition-colors duration-500 p-1.5">
           <Download className="w-3 h-3" />
         </button>
-        <button onClick={onClose} className="text-muted-foreground/96 hover:text-muted-foreground/92 transition-colors duration-500 p-1.5">
+        <button onClick={onClose} className="text-muted-foreground/100 hover:text-muted-foreground/98 transition-colors duration-500 p-1.5">
           <X className="w-3.5 h-3.5" />
         </button>
       </div>
