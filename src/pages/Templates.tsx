@@ -22,9 +22,9 @@ const Templates = () => {
       </div>
 
       <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8, ease }} className="text-center mb-16 relative z-10">
-        <LayoutTemplate className="w-5 h-5 text-primary/70 mx-auto mb-4" strokeWidth={1.5} />
+        <LayoutTemplate className="w-5 h-5 text-primary/92 mx-auto mb-4" strokeWidth={1.5} />
         <h1 className="text-2xl font-light tracking-tight mb-2">Template</h1>
-        <p className="text-sm text-muted-foreground/70 font-light">Viste, report e flussi salvati</p>
+        <p className="text-sm text-muted-foreground/92 font-light">Viste, report e flussi salvati</p>
       </motion.div>
 
       <div className="w-full max-w-3xl grid md:grid-cols-2 gap-3 relative z-10">
@@ -41,8 +41,8 @@ const Templates = () => {
               {t.starred && <Star className="w-3 h-3 text-warning/40 fill-warning/40" />}
             </div>
             <h3 className="text-sm font-medium mb-1 group-hover:text-primary transition-colors duration-300">{t.name}</h3>
-            <p className="text-[11px] text-muted-foreground/55">{t.category}</p>
-            <div className="flex items-center gap-3 mt-4 text-[10px] text-muted-foreground/70">
+            <p className="text-[11px] text-muted-foreground/96">{t.category}</p>
+            <div className="flex items-center gap-3 mt-4 text-[10px] text-muted-foreground/92">
               <span className="flex items-center gap-1"><Clock className="w-2.5 h-2.5" /> {t.time}</span>
               <span>{t.uses} utilizzi</span>
             </div>

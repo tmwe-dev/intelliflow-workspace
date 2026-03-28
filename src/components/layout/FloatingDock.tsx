@@ -31,14 +31,14 @@ const FloatingDock = () => {
           return (
             <NavLink key={item.to} to={item.to} className="relative">
               <div className={`p-2.5 rounded-xl transition-all duration-300 ${
-                isActive ? "text-primary bg-primary/15" : "text-muted-foreground/70 hover:text-muted-foreground/90"
+                isActive ? "text-primary bg-primary/30" : "text-muted-foreground/96 hover:text-foreground"
               }`}>
                 <item.icon className="w-4 h-4" strokeWidth={1.5} />
               </div>
               {isActive && (
                 <motion.div
                   layoutId="dock-dot"
-                  className="absolute -bottom-1 left-1/2 -translate-x-1/2 w-1 h-1 bg-primary/60 rounded-full"
+                  className="absolute -bottom-1 left-1/2 -translate-x-1/2 w-1.5 h-1.5 bg-primary/90 rounded-full"
                   transition={{ type: "spring", stiffness: 300, damping: 30 }}
                 />
               )}

@@ -68,9 +68,9 @@ const Connections = () => {
       </div>
 
       <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8, ease }} className="text-center mb-16 relative z-10">
-        <Plug className="w-5 h-5 text-primary/70 mx-auto mb-4" strokeWidth={1.5} />
+        <Plug className="w-5 h-5 text-primary/92 mx-auto mb-4" strokeWidth={1.5} />
         <h1 className="text-2xl font-light tracking-tight mb-2">Sorgenti & Connessioni</h1>
-        <p className="text-sm text-muted-foreground/60 font-light">Multi-source intelligence · 14 origini attive · 1.8M record unificati</p>
+        <p className="text-sm text-muted-foreground/100 font-light">Multi-source intelligence · 14 origini attive · 1.8M record unificati</p>
       </motion.div>
 
       {/* Source groups */}
@@ -82,7 +82,7 @@ const Connections = () => {
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.2 + gi * 0.15, ease }}
           >
-            <div className="text-[9px] text-muted-foreground/65 tracking-[0.3em] uppercase mb-3 px-1">{group.title}</div>
+            <div className="text-[9px] text-muted-foreground/97 tracking-[0.3em] uppercase mb-3 px-1">{group.title}</div>
             <div className="space-y-1.5">
               {group.sources.map((src, si) => (
                 <motion.div
@@ -92,10 +92,10 @@ const Connections = () => {
                   transition={{ delay: 0.3 + gi * 0.15 + si * 0.05, ease }}
                   className="float-panel-interactive px-5 py-4 flex items-center gap-4 group"
                 >
-                  <div className={`w-1.5 h-1.5 rounded-full flex-shrink-0 ${src.status === "live" ? "bg-success/60" : "bg-muted-foreground/30"}`} />
+                  <div className={`w-1.5 h-1.5 rounded-full flex-shrink-0 ${src.status === "live" ? "bg-success/90" : "bg-muted-foreground/70"}`} />
                   <div className="flex-1 min-w-0">
-                    <span className="text-sm font-medium text-foreground/90">{src.name}</span>
-                    <span className="text-xs text-muted-foreground/65 ml-2">{src.records}</span>
+                    <span className="text-sm font-medium text-foreground/100">{src.name}</span>
+                    <span className="text-xs text-muted-foreground/97 ml-2">{src.records}</span>
                   </div>
                   <div className="flex items-center gap-1 opacity-0 group-hover:opacity-100 transition-opacity duration-500">
                     {src.capabilities.slice(0, 3).map((cap) => (
@@ -125,8 +125,8 @@ const Connections = () => {
         transition={{ delay: 1.2 }}
         className="text-center max-w-md relative z-10 mb-16"
       >
-        <div className="text-[9px] text-muted-foreground/60 tracking-[0.3em] uppercase mb-3">SOURCE UNIFICATION</div>
-        <p className="text-[12px] text-muted-foreground/70 font-light leading-relaxed">
+        <div className="text-[9px] text-muted-foreground/100 tracking-[0.3em] uppercase mb-3">SOURCE UNIFICATION</div>
+        <p className="text-[12px] text-muted-foreground/98 font-light leading-relaxed">
           Ogni sorgente viene acquisita, pulita, deduplicata, arricchita e normalizzata
           dal Source Unification Layer prima di diventare operativa per gli agenti AI.
         </p>
@@ -134,7 +134,7 @@ const Connections = () => {
 
       {/* Legacy connectors */}
       <div className="w-full max-w-2xl relative z-10">
-        <div className="text-[9px] text-muted-foreground/60 tracking-[0.3em] uppercase mb-3 px-1">CONNETTORI INFRASTRUTTURA</div>
+        <div className="text-[9px] text-muted-foreground/100 tracking-[0.3em] uppercase mb-3 px-1">CONNETTORI INFRASTRUTTURA</div>
         <div className="space-y-1.5">
           {connections.map((conn, i) => (
             <motion.div
@@ -144,14 +144,14 @@ const Connections = () => {
               transition={{ delay: 1.4 + i * 0.04, ease }}
               className="float-panel-interactive px-5 py-3.5 flex items-center gap-4 group"
             >
-              <conn.icon className={`w-3.5 h-3.5 flex-shrink-0 ${conn.status === "connected" ? "text-primary/60" : "text-warning/70"}`} strokeWidth={1.5} />
+              <conn.icon className={`w-3.5 h-3.5 flex-shrink-0 ${conn.status === "connected" ? "text-primary/96" : "text-warning/92"}`} strokeWidth={1.5} />
               <div className="flex-1 min-w-0">
-                <span className="text-[13px] font-light text-foreground/90">{conn.name}</span>
-                <span className="text-[10px] text-muted-foreground/60 ml-2">{conn.desc}</span>
+                <span className="text-[13px] font-light text-foreground/100">{conn.name}</span>
+                <span className="text-[10px] text-muted-foreground/100 ml-2">{conn.desc}</span>
               </div>
               <div className="flex items-center gap-3">
-                {conn.records && <span className="text-[9px] text-muted-foreground/60 font-mono">{conn.records}</span>}
-                <div className={`w-1.5 h-1.5 rounded-full ${conn.status === "connected" ? "bg-success/60" : "bg-warning/50"}`} />
+                {conn.records && <span className="text-[9px] text-muted-foreground/100 font-mono">{conn.records}</span>}
+                <div className={`w-1.5 h-1.5 rounded-full ${conn.status === "connected" ? "bg-success/90" : "bg-warning/50"}`} />
               </div>
             </motion.div>
           ))}

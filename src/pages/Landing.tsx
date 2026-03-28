@@ -51,13 +51,13 @@ const Landing = () => {
       >
         <div className="flex items-center gap-2.5">
           <div className="w-6 h-6 rounded-lg bg-gradient-to-br from-primary/25 to-accent/15 flex items-center justify-center">
-            <div className="w-2 h-2 rounded-full bg-primary/60" />
+            <div className="w-2 h-2 rounded-full bg-primary/95" />
           </div>
-          <span className="text-sm font-medium tracking-tight text-foreground/90">Adaptive</span>
+          <span className="text-sm font-medium tracking-tight text-foreground/100">Adaptive</span>
         </div>
         <button
           onClick={() => navigate("/dashboard")}
-          className="text-xs text-muted-foreground/60 hover:text-foreground transition-colors duration-700"
+          className="text-xs text-muted-foreground/100 hover:text-foreground transition-colors duration-700"
         >
           Entra
         </button>
@@ -91,7 +91,7 @@ const Landing = () => {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 0.9, duration: 1.2 }}
-          className="text-[15px] text-muted-foreground/70 text-center max-w-md mb-16 leading-relaxed font-light"
+          className="text-[15px] text-muted-foreground/98 text-center max-w-md mb-16 leading-relaxed font-light"
         >
           Un'intelligenza operativa costruita su moduli reali.
           Fonti multiple. Tool concreti. Tu chiedi, il sistema esegue.
@@ -115,7 +115,7 @@ const Landing = () => {
             style={{
               background: "hsl(240 5% 6% / 0.7)",
               backdropFilter: "blur(40px) saturate(1.1)",
-              border: "1px solid hsl(0 0% 100% / 0.12)",
+              border: "1px solid hsl(0 0% 100% / 0.26)",
             }}
           >
             <div className="flex items-center px-5 py-4 gap-4">
@@ -133,10 +133,10 @@ const Landing = () => {
                 onFocus={() => setInputFocused(true)}
                 onBlur={() => setInputFocused(false)}
                 onKeyDown={(e) => e.key === "Enter" && handleSubmit()}
-                className="flex-1 bg-transparent text-[15px] outline-none placeholder:text-muted-foreground/50 font-light text-foreground"
+                className="flex-1 bg-transparent text-[15px] outline-none placeholder:text-muted-foreground/80 font-light text-foreground"
               />
               <div className="flex items-center gap-2">
-                <div className="flex items-center gap-1 text-muted-foreground/60">
+                <div className="flex items-center gap-1 text-muted-foreground/100">
                   <Command className="w-3 h-3" />
                   <span className="text-[10px] font-mono">K</span>
                 </div>
@@ -144,7 +144,7 @@ const Landing = () => {
                   onClick={handleSubmit}
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
-                  className="w-8 h-8 rounded-xl flex items-center justify-center bg-primary/15 text-primary/70 hover:bg-primary/20 hover:text-primary transition-all duration-500"
+                  className="w-8 h-8 rounded-xl flex items-center justify-center bg-primary/15 text-primary/92 hover:bg-primary/20 hover:text-primary transition-all duration-500"
                 >
                   <ArrowRight className="w-3.5 h-3.5" />
                 </motion.button>
@@ -174,7 +174,7 @@ const Landing = () => {
               <motion.span
                 className="relative z-10"
                 animate={{
-                  color: hoveredPrompt === i ? "hsl(0 0% 90%)" : "hsl(0 0% 55%)",
+                  color: hoveredPrompt === i ? "hsl(var(--foreground) / 0.98)" : "hsl(var(--muted-foreground) / 0.92)",
                 }}
                 transition={{ duration: 0.5 }}
               >
@@ -186,7 +186,7 @@ const Landing = () => {
                   className="absolute inset-0 rounded-2xl"
                   style={{
                     background: "hsl(240 5% 7% / 0.75)",
-                    border: "1px solid hsl(0 0% 100% / 0.12)",
+                    border: "1px solid hsl(0 0% 100% / 0.26)",
                   }}
                   transition={{ type: "spring", stiffness: 400, damping: 30 }}
                 />
@@ -207,7 +207,7 @@ const Landing = () => {
           {["Partner Network", "Contact Import", "Campaign Engine", "Deep Search", "Voice AI", "Audit"].map((s, i) => (
             <motion.span
               key={s}
-              className="text-[10px] text-muted-foreground/60 font-light tracking-wider"
+              className="text-[10px] text-muted-foreground/100 font-light tracking-wider"
               animate={{ opacity: [0.5, 0.8, 0.5] }}
               transition={{ duration: 3, repeat: Infinity, delay: i * 0.5 }}
             >
@@ -216,7 +216,7 @@ const Landing = () => {
           ))}
         </div>
         <motion.span
-          className="text-[8px] text-muted-foreground/55 font-mono tracking-widest"
+          className="text-[8px] text-muted-foreground/100 font-mono tracking-widest"
           animate={{ opacity: [0.45, 0.7, 0.45] }}
           transition={{ duration: 5, repeat: Infinity }}
         >
