@@ -227,7 +227,7 @@ const ToolActivationBar = ({ scenarioKey, visible, phase = "active", chainHighli
                   {revealed && phase === "activating" && i === revealedCount - 1 && (
                     <motion.div
                       className="absolute inset-0 rounded-lg"
-                      initial={{ boxShadow: `0 0 12px hsl(${tool.color} / 0.2)` }}
+                      initial={{ boxShadow: `0 0 12px hsl(${tool.color} / 0.7)` }}
                       animate={{ boxShadow: `0 0 0px hsl(${tool.color} / 0)` }}
                       transition={{ duration: 0.8 }}
                     />
@@ -249,7 +249,7 @@ const ToolActivationBar = ({ scenarioKey, visible, phase = "active", chainHighli
                   animate={{ opacity: 1 }}
                   transition={{ delay: 0.3 + i * 0.08 }}
                   className="text-[8px] px-2 py-1 rounded-lg font-mono"
-                  style={{ color: `hsl(${src.color} / 0.55)`, background: `hsl(${src.color} / 0.05)`, border: `1px solid hsl(${src.color} / 0.08)` }}
+                  style={{ color: `hsl(${src.color} / 0.7)`, background: `hsl(${src.color} / 0.05)`, border: `1px solid hsl(${src.color} / 0.08)` }}
                 >
                   {src.name}
                 </motion.span>

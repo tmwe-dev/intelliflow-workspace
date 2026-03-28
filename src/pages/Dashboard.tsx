@@ -64,8 +64,8 @@ const Dashboard = () => {
         >
           <div className="flex items-center gap-4">
             <motion.div
-              className="w-2 h-2 rounded-full bg-primary/50 flex-shrink-0"
-              animate={{ opacity: [0.4, 0.8, 0.4] }}
+              className="w-2 h-2 rounded-full bg-primary/60 flex-shrink-0"
+              animate={{ opacity: [0.5, 0.85, 0.5] }}
               transition={{ duration: 2.5, repeat: Infinity }}
             />
             <span className="text-[14px] text-muted-foreground/70 group-hover:text-muted-foreground/75 transition-colors duration-700 flex-1 font-light">
@@ -93,7 +93,7 @@ const Dashboard = () => {
             animate={{ opacity: 1 }}
             transition={{ delay: 0.9 + i * 0.1 }}
             onClick={() => navigate("/workspace")}
-            className="text-[12px] px-3.5 py-2 rounded-2xl text-muted-foreground/65 hover:text-muted-foreground/75 hover:bg-secondary/30 transition-all duration-700"
+            className="text-[12px] px-3.5 py-2 rounded-2xl text-muted-foreground/65 hover:text-muted-foreground/75 hover:bg-secondary/40 transition-all duration-700"
           >
             {s}
           </motion.button>
@@ -116,7 +116,7 @@ const Dashboard = () => {
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 1.1 + i * 0.08, ease }}
               onClick={() => navigate("/workspace")}
-              className="group cursor-pointer px-5 py-4 rounded-2xl hover:bg-secondary/[0.06] transition-all duration-500"
+              className="group cursor-pointer px-5 py-4 rounded-2xl hover:bg-secondary/[0.1] transition-all duration-500"
             >
               <div className="flex items-center gap-4">
                 <div className="flex-1 min-w-0">

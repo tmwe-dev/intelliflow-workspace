@@ -38,7 +38,7 @@ const FloatingDock = () => {
               {isActive && (
                 <motion.div
                   layoutId="dock-dot"
-                  className="absolute -bottom-1 left-1/2 -translate-x-1/2 w-1 h-1 bg-primary/50 rounded-full"
+                  className="absolute -bottom-1 left-1/2 -translate-x-1/2 w-1 h-1 bg-primary/60 rounded-full"
                   transition={{ type: "spring", stiffness: 300, damping: 30 }}
                 />
               )}

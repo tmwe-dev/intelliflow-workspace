@@ -23,7 +23,7 @@ export const TableCanvas = ({
           animate={{ opacity: 1, y: 0, scale: 1 }}
           transition={{ delay: 0.4 + i * 0.1, duration: 0.5, ease }}
           className="p-4 rounded-xl text-center"
-          style={{ background: "hsl(240 5% 7% / 0.5)", border: "1px solid hsl(0 0% 100% / 0.06)" }}
+          style={{ background: "hsl(240 5% 7% / 0.7)", border: "1px solid hsl(0 0% 100% / 0.06)" }}
         >
           <div className="text-2xl font-extralight tracking-tight text-foreground/95">{kpi.value}</div>
           <div className="text-[9px] text-muted-foreground/65 mt-1.5 tracking-wider uppercase">{kpi.label}</div>
@@ -59,7 +59,7 @@ export const TableCanvas = ({
             initial={{ opacity: 0, x: -6 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ delay: 0.7 + i * 0.06, duration: 0.35, ease }}
-            className="border-t border-border/[0.08] group cursor-pointer"
+            className="border-t border-border/[0.12] group cursor-pointer"
           >
             <td className="py-3 text-[13px] font-light text-foreground/90 group-hover:text-primary/80 transition-colors duration-500">{row.name}</td>
             <td className="py-3 text-[11px] text-muted-foreground/65">{row.sector}</td>
@@ -96,7 +96,7 @@ export const CampaignCanvas = ({ onClose }: { onClose: () => void }) => (
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.4 + i * 0.08, ease }}
           className="p-3.5 rounded-xl"
-          style={{ background: "hsl(240 5% 7% / 0.5)", border: "1px solid hsl(0 0% 100% / 0.06)" }}
+          style={{ background: "hsl(240 5% 7% / 0.7)", border: "1px solid hsl(0 0% 100% / 0.06)" }}
         >
           <div className="text-[9px] text-muted-foreground/65 tracking-wider uppercase mb-1">{item.label}</div>
           <div className="text-[13px] font-light text-foreground/90">{item.value}</div>
@@ -110,7 +110,7 @@ export const CampaignCanvas = ({ onClose }: { onClose: () => void }) => (
       animate={{ opacity: 1, y: 0 }}
       transition={{ delay: 0.8, ease }}
       className="rounded-xl p-5 mb-4"
-      style={{ background: "hsl(240 5% 8% / 0.6)", border: "1px solid hsl(0 0% 100% / 0.06)" }}
+      style={{ background: "hsl(240 5% 8% / 0.75)", border: "1px solid hsl(0 0% 100% / 0.06)" }}
     >
       <div className="flex items-center justify-between mb-3">
         <span className="text-[9px] text-muted-foreground/65 tracking-wider uppercase">ANTEPRIMA BOZZA · 1 DI 50</span>
@@ -132,7 +132,7 @@ export const CampaignCanvas = ({ onClose }: { onClose: () => void }) => (
       animate={{ opacity: 1, y: 0 }}
       transition={{ delay: 1, ease }}
       className="rounded-xl p-4 mb-4"
-      style={{ background: "hsl(240 5% 7% / 0.4)", border: "1px solid hsl(0 0% 100% / 0.06)" }}
+      style={{ background: "hsl(240 5% 7% / 0.65)", border: "1px solid hsl(0 0% 100% / 0.06)" }}
     >
       <div className="text-[9px] text-muted-foreground/65 tracking-wider uppercase mb-3">PIANO DI INVIO</div>
       <div className="space-y-2">
@@ -195,7 +195,7 @@ export const ReportCanvas = ({ onClose }: { onClose: () => void }) => (
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.5 + i * 0.08, ease }}
           className="p-3 rounded-xl text-center"
-          style={{ background: "hsl(240 5% 7% / 0.5)", border: "1px solid hsl(0 0% 100% / 0.06)" }}
+          style={{ background: "hsl(240 5% 7% / 0.7)", border: "1px solid hsl(0 0% 100% / 0.06)" }}
         >
           <div className="text-lg font-extralight text-foreground/90">{kpi.value}</div>
           <div className="text-[8px] text-muted-foreground/60 mt-1 tracking-wider uppercase">{kpi.label}</div>
@@ -326,7 +326,7 @@ export const ResultCanvas = ({ onClose, scenarioKey }: ResultCanvasProps) => {
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.8 + i * 0.1, ease }}
             className="p-3 rounded-xl text-center"
-            style={{ background: "hsl(240 5% 7% / 0.5)", border: "1px solid hsl(0 0% 100% / 0.06)" }}
+            style={{ background: "hsl(240 5% 7% / 0.7)", border: "1px solid hsl(0 0% 100% / 0.06)" }}
           >
             <div className="text-lg font-extralight text-foreground/90">{s.value}</div>
             <div className="text-[9px] text-muted-foreground/60 mt-1 tracking-wider uppercase">{s.label}</div>
@@ -340,7 +340,7 @@ export const ResultCanvas = ({ onClose, scenarioKey }: ResultCanvasProps) => {
         animate={{ opacity: 1 }}
         transition={{ delay: 1.2 }}
         className="px-4 py-3 rounded-xl mb-4"
-        style={{ background: "hsl(240 5% 7% / 0.4)", border: "1px solid hsl(0 0% 100% / 0.06)" }}
+        style={{ background: "hsl(240 5% 7% / 0.65)", border: "1px solid hsl(0 0% 100% / 0.06)" }}
       >
         <div className="text-[9px] text-muted-foreground/60 tracking-wider uppercase mb-2">AUDIT TRAIL</div>
         <div className="space-y-1">
@@ -364,16 +364,16 @@ export const ResultCanvas = ({ onClose, scenarioKey }: ResultCanvasProps) => {
 /* ── Shell ── */
 const CanvasShell = ({ children, onClose, title }: { children: React.ReactNode; onClose: () => void; title: string }) => (
   <div className="h-full flex flex-col rounded-2xl p-6" style={{
-    background: "hsl(240 5% 6% / 0.6)",
+    background: "hsl(240 5% 6% / 0.75)",
     backdropFilter: "blur(40px) saturate(1.1)",
     border: "1px solid hsl(0 0% 100% / 0.08)",
-    boxShadow: "0 0 80px hsl(210 100% 66% / 0.03), 0 30px 60px -20px hsl(0 0% 0% / 0.4)",
+    boxShadow: "0 0 80px hsl(210 100% 66% / 0.03), 0 30px 60px -20px hsl(0 0% 0% / 0.65)",
   }}>
     <div className="flex items-center justify-between mb-6">
       <div className="flex items-center gap-3">
         <motion.div
-          className="w-1.5 h-1.5 rounded-full bg-primary/50"
-          animate={{ opacity: [0.4, 0.8, 0.4] }}
+          className="w-1.5 h-1.5 rounded-full bg-primary/60"
+          animate={{ opacity: [0.5, 0.85, 0.5] }}
           transition={{ duration: 2, repeat: Infinity }}
         />
         <span className="text-[10px] text-muted-foreground/65 font-mono tracking-wider">{title}</span>

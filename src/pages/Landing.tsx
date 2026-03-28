@@ -107,8 +107,8 @@ const Landing = () => {
           <motion.div
             animate={{
               boxShadow: inputFocused
-                ? "0 0 0 1px hsl(210 100% 66% / 0.15), 0 0 80px hsl(210 100% 66% / 0.06), 0 20px 60px -15px hsl(0 0% 0% / 0.5)"
-                : "0 0 0 0.5px hsl(0 0% 0% / 0.3), 0 20px 60px -15px hsl(0 0% 0% / 0.5)",
+                ? "0 0 0 1px hsl(210 100% 66% / 0.15), 0 0 80px hsl(210 100% 66% / 0.06), 0 20px 60px -15px hsl(0 0% 0% / 0.7)"
+                : "0 0 0 0.5px hsl(0 0% 0% / 0.7), 0 20px 60px -15px hsl(0 0% 0% / 0.7)",
             }}
             transition={{ duration: 0.5 }}
             className="relative rounded-2xl overflow-hidden"
@@ -121,7 +121,7 @@ const Landing = () => {
             <div className="flex items-center px-5 py-4 gap-4">
               <motion.div
                 className="w-2.5 h-2.5 rounded-full flex-shrink-0"
-                style={{ background: "radial-gradient(circle, hsl(210 100% 70% / 0.7), hsl(210 100% 66% / 0.3))" }}
+                style={{ background: "radial-gradient(circle, hsl(210 100% 70% / 0.7), hsl(210 100% 66% / 0.7))" }}
                 animate={{ scale: [1, 1.2, 1], opacity: [0.5, 1, 0.5] }}
                 transition={{ duration: 2.5, repeat: Infinity, ease: "easeInOut" }}
               />
@@ -185,7 +185,7 @@ const Landing = () => {
                   layoutId="prompt-highlight"
                   className="absolute inset-0 rounded-2xl"
                   style={{
-                    background: "hsl(240 5% 7% / 0.6)",
+                    background: "hsl(240 5% 7% / 0.75)",
                     border: "1px solid hsl(0 0% 100% / 0.08)",
                   }}
                   transition={{ type: "spring", stiffness: 400, damping: 30 }}
@@ -208,7 +208,7 @@ const Landing = () => {
             <motion.span
               key={s}
               className="text-[10px] text-muted-foreground/60 font-light tracking-wider"
-              animate={{ opacity: [0.3, 0.6, 0.3] }}
+              animate={{ opacity: [0.5, 0.8, 0.5] }}
               transition={{ duration: 3, repeat: Infinity, delay: i * 0.5 }}
             >
               {s}
@@ -217,7 +217,7 @@ const Landing = () => {
         </div>
         <motion.span
           className="text-[8px] text-muted-foreground/55 font-mono tracking-widest"
-          animate={{ opacity: [0.2, 0.4, 0.2] }}
+          animate={{ opacity: [0.45, 0.7, 0.45] }}
           transition={{ duration: 5, repeat: Infinity }}
         >
           FONDATO SU MODULI OPERATIVI GIÀ ESISTENTI

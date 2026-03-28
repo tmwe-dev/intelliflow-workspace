@@ -56,7 +56,7 @@ const AuditLog = () => {
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 transition={{ delay: 0.1 + i * 0.03 }}
-                className="flex items-center gap-4 px-4 py-3 rounded-xl hover:bg-secondary/5 transition-colors duration-300 cursor-pointer group"
+                className="flex items-center gap-4 px-4 py-3 rounded-xl hover:bg-secondary/10 transition-colors duration-300 cursor-pointer group"
               >
                 <span className="text-[10px] font-mono text-muted-foreground/70 w-10">{entry.time}</span>
                 <Icon className={`w-3.5 h-3.5 ${statusColor[entry.status]} flex-shrink-0`} strokeWidth={1.5} />

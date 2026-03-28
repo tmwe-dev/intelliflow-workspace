@@ -51,7 +51,7 @@ const Automations = () => {
                       auto.status === "completed" ? "bg-success/40"
                       : auto.status === "approval" ? "bg-warning/40"
                       : auto.status === "paused" ? "bg-muted-foreground/20"
-                      : "bg-primary/30"
+                      : "bg-primary/60"
                     }`}
                   />
                 </div>

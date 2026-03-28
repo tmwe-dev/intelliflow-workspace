@@ -197,7 +197,7 @@ const Architecture = () => {
               <motion.div key={step} className="flex items-center gap-1" initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 1 + i * 0.1, ease }}>
                 <span
                   className="text-[10px] text-muted-foreground/55 px-3 py-2 rounded-xl font-mono tracking-wide"
-                  style={{ background: "hsl(240 5% 7% / 0.6)", border: "1px solid hsl(0 0% 100% / 0.06)" }}
+                  style={{ background: "hsl(240 5% 7% / 0.75)", border: "1px solid hsl(0 0% 100% / 0.06)" }}
                 >
                   {step}
                 </span>
@@ -232,18 +232,18 @@ const Architecture = () => {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.2 + li * 0.06, duration: 0.5, ease }}
                 className="rounded-2xl overflow-hidden group"
-                style={{ background: "hsl(240 5% 6% / 0.5)", border: "1px solid hsl(0 0% 100% / 0.06)" }}
+                style={{ background: "hsl(240 5% 6% / 0.7)", border: "1px solid hsl(0 0% 100% / 0.06)" }}
               >
                 <div className="p-5 flex items-start gap-4">
                   {/* Layer number */}
                   <div className="w-8 h-8 rounded-xl flex items-center justify-center flex-shrink-0 font-mono text-[11px]"
-                    style={{ background: `hsl(${layer.color} / 0.08)`, color: `hsl(${layer.color} / 0.5)` }}
+                    style={{ background: `hsl(${layer.color} / 0.08)`, color: `hsl(${layer.color} / 0.7)` }}
                   >
                     {String(li + 1).padStart(2, "0")}
                   </div>
                   <div className="flex-1 min-w-0">
                     <div className="flex items-center gap-3 mb-1">
-                      <layer.icon className="w-3.5 h-3.5 flex-shrink-0" style={{ color: `hsl(${layer.color} / 0.6)` }} strokeWidth={1.5} />
+                      <layer.icon className="w-3.5 h-3.5 flex-shrink-0" style={{ color: `hsl(${layer.color} / 0.75)` }} strokeWidth={1.5} />
                       <h3 className="text-[14px] font-light text-foreground/90">{layer.title}</h3>
                     </div>
                     <p className="text-[11px] text-muted-foreground/70 font-light mb-3">{layer.subtitle}</p>
@@ -252,7 +252,7 @@ const Architecture = () => {
                     <div className="flex flex-wrap gap-1.5 mb-2">
                       {layer.items.map((item) => (
                         <span key={item} className="text-[9px] px-2.5 py-1 rounded-lg font-light"
-                          style={{ color: `hsl(${layer.color} / 0.55)`, background: `hsl(${layer.color} / 0.05)`, border: `1px solid hsl(${layer.color} / 0.08)` }}
+                          style={{ color: `hsl(${layer.color} / 0.7)`, background: `hsl(${layer.color} / 0.05)`, border: `1px solid hsl(${layer.color} / 0.08)` }}
                         >
                           {item}
                         </span>
@@ -293,9 +293,9 @@ const Architecture = () => {
             Il sistema non improvvisa — attiva capability precise.
           </p>
 
-          <div className="rounded-2xl overflow-hidden" style={{ background: "hsl(240 5% 6% / 0.4)", border: "1px solid hsl(0 0% 100% / 0.06)" }}>
+          <div className="rounded-2xl overflow-hidden" style={{ background: "hsl(240 5% 6% / 0.65)", border: "1px solid hsl(0 0% 100% / 0.06)" }}>
             {/* Header */}
-            <div className="flex items-center px-5 py-3 border-b border-border/[0.08]">
+            <div className="flex items-center px-5 py-3 border-b border-border/[0.12]">
               <span className="text-[8px] text-muted-foreground/60 font-mono tracking-wider flex-1">TOOL</span>
               <span className="text-[8px] text-muted-foreground/60 font-mono tracking-wider w-32 text-right">LAYER</span>
               <span className="text-[8px] text-muted-foreground/60 font-mono tracking-wider w-20 text-right">TYPE</span>
@@ -306,15 +306,15 @@ const Architecture = () => {
                 initial={{ opacity: 0, x: -8 }}
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ delay: 0.8 + i * 0.04, ease }}
-                className="flex items-center px-5 py-2.5 border-b border-border/[0.04] last:border-b-0 hover:bg-secondary/[0.04] transition-colors duration-500"
+                className="flex items-center px-5 py-2.5 border-b border-border/[0.12] last:border-b-0 hover:bg-secondary/[0.08] transition-colors duration-500"
               >
                 <div className="flex items-center gap-2 flex-1">
-                  <div className="w-1.5 h-1.5 rounded-full" style={{ background: `hsl(${directionColors[tool.direction]} / 0.6)` }} />
+                  <div className="w-1.5 h-1.5 rounded-full" style={{ background: `hsl(${directionColors[tool.direction]} / 0.75)` }} />
                   <span className="text-[11px] text-foreground/90 font-light">{tool.name}</span>
                 </div>
                 <span className="text-[9px] text-muted-foreground/60 font-mono w-32 text-right">{tool.layer}</span>
                 <span className="text-[8px] font-mono w-20 text-right px-2 py-0.5 rounded-md"
-                  style={{ color: `hsl(${directionColors[tool.direction]} / 0.6)`, background: `hsl(${directionColors[tool.direction]} / 0.06)` }}
+                  style={{ color: `hsl(${directionColors[tool.direction]} / 0.75)`, background: `hsl(${directionColors[tool.direction]} / 0.06)` }}
                 >
                   {tool.direction}
                 </span>
@@ -333,7 +333,7 @@ const Architecture = () => {
           <div className="text-[9px] text-muted-foreground/60 tracking-[0.3em] uppercase text-center mb-8 font-mono">DUALISMO ARCHITETTURALE</div>
           <div className="grid grid-cols-2 gap-4">
             {/* Surface */}
-            <div className="rounded-2xl p-6" style={{ background: "hsl(240 5% 6% / 0.4)", border: "1px solid hsl(210 100% 66% / 0.08)" }}>
+            <div className="rounded-2xl p-6" style={{ background: "hsl(240 5% 6% / 0.65)", border: "1px solid hsl(210 100% 66% / 0.08)" }}>
               <div className="text-[10px] text-primary/70 tracking-[0.2em] uppercase mb-4 font-mono">CIÒ CHE L'UTENTE VEDE</div>
               <div className="space-y-3">
                 {[
@@ -344,14 +344,14 @@ const Architecture = () => {
                   "Risultati immediati e azionabili",
                 ].map((item, i) => (
                   <motion.div key={i} initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 1 + i * 0.1 }} className="flex items-start gap-2">
-                    <div className="w-1 h-1 rounded-full bg-primary/40 mt-1.5 flex-shrink-0" />
+                    <div className="w-1 h-1 rounded-full bg-primary/55 mt-1.5 flex-shrink-0" />
                     <span className="text-[11px] text-foreground/90 font-light leading-relaxed">{item}</span>
                   </motion.div>
                 ))}
               </div>
             </div>
             {/* Engine */}
-            <div className="rounded-2xl p-6" style={{ background: "hsl(240 5% 6% / 0.4)", border: "1px solid hsl(270 60% 62% / 0.08)" }}>
+            <div className="rounded-2xl p-6" style={{ background: "hsl(240 5% 6% / 0.65)", border: "1px solid hsl(270 60% 62% / 0.08)" }}>
               <div className="text-[10px] text-accent/70 tracking-[0.2em] uppercase mb-4 font-mono">CIÒ CHE IL SISTEMA FA</div>
               <div className="space-y-3">
                 {[
@@ -362,7 +362,7 @@ const Architecture = () => {
                   "Esegue job, registra audit, salva in memoria",
                 ].map((item, i) => (
                   <motion.div key={i} initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 1.2 + i * 0.1 }} className="flex items-start gap-2">
-                    <div className="w-1 h-1 rounded-full bg-accent/40 mt-1.5 flex-shrink-0" />
+                    <div className="w-1 h-1 rounded-full bg-accent/55 mt-1.5 flex-shrink-0" />
                     <span className="text-[11px] text-foreground/90 font-light leading-relaxed">{item}</span>
                   </motion.div>
                 ))}
@@ -391,7 +391,7 @@ const Architecture = () => {
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ delay: 1 + i * 0.1, ease }}
                 className="rounded-2xl p-5"
-                style={{ background: "hsl(240 5% 6% / 0.45)", border: "1px solid hsl(0 0% 100% / 0.06)" }}
+                style={{ background: "hsl(240 5% 6% / 0.7)", border: "1px solid hsl(0 0% 100% / 0.06)" }}
               >
                 <div className="flex items-center justify-between mb-2">
                   <div className="flex items-center gap-3">
@@ -416,10 +416,10 @@ const Architecture = () => {
                       className="h-full rounded-full"
                       style={{
                         background: level.status === "live"
-                          ? "linear-gradient(90deg, hsl(152 60% 45% / 0.6), hsl(152 60% 45% / 0.4))"
+                          ? "linear-gradient(90deg, hsl(152 60% 45% / 0.75), hsl(152 60% 45% / 0.65))"
                           : level.status === "building"
-                          ? "linear-gradient(90deg, hsl(210 100% 66% / 0.5), hsl(210 100% 66% / 0.3))"
-                          : "linear-gradient(90deg, hsl(0 0% 50% / 0.3), hsl(0 0% 50% / 0.15))",
+                          ? "linear-gradient(90deg, hsl(210 100% 66% / 0.7), hsl(210 100% 66% / 0.7))"
+                          : "linear-gradient(90deg, hsl(0 0% 50% / 0.7), hsl(0 0% 50% / 0.15))",
                       }}
                       initial={{ width: 0 }}
                       animate={{ width: `${level.percent}%` }}

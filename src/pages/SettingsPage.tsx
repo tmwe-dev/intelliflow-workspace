@@ -44,7 +44,7 @@ const SettingsPage = () => {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 0.15 + i * 0.03 }}
-            className="flex items-center gap-4 px-4 py-3.5 rounded-xl hover:bg-secondary/5 transition-colors duration-300 cursor-pointer group"
+            className="flex items-center gap-4 px-4 py-3.5 rounded-xl hover:bg-secondary/10 transition-colors duration-300 cursor-pointer group"
           >
             <item.icon className="w-4 h-4 text-muted-foreground/70 group-hover:text-primary/70 transition-colors duration-300" strokeWidth={1.5} />
             <div className="flex-1">

@@ -95,7 +95,7 @@ const ApprovalPanel = ({ visible, title, description, details, governance, onApp
               whileHover={{ scale: 1.02 }}
               whileTap={{ scale: 0.98 }}
               onClick={onModify}
-              className="text-[11px] px-4 py-2 rounded-xl text-muted-foreground/65 hover:text-muted-foreground/65 hover:bg-secondary/[0.06] transition-all duration-500 flex items-center gap-1.5"
+              className="text-[11px] px-4 py-2 rounded-xl text-muted-foreground/65 hover:text-muted-foreground/65 hover:bg-secondary/[0.1] transition-all duration-500 flex items-center gap-1.5"
             >
               <Pencil className="w-3 h-3" /> Modifica
             </motion.button>

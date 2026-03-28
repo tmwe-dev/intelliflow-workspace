@@ -414,7 +414,7 @@ const Workspace = () => {
       {/* Top bar */}
       <div className="flex items-center justify-between px-6 py-3 relative z-10 flex-shrink-0">
         <div className="flex items-center gap-3">
-          <motion.div className="w-1.5 h-1.5 rounded-full bg-primary/50" animate={{ opacity: [0.4, 0.8, 0.4] }} transition={{ duration: 3, repeat: Infinity }} />
+          <motion.div className="w-1.5 h-1.5 rounded-full bg-primary/60" animate={{ opacity: [0.5, 0.85, 0.5] }} transition={{ duration: 3, repeat: Infinity }} />
           <span className="text-[11px] text-muted-foreground/70 font-light tracking-wide">Sessione attiva</span>
           {flowPhase !== "idle" && flowPhase !== "done" && (
             <motion.span initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="text-[9px] text-primary/70 font-mono ml-2">
@@ -427,8 +427,8 @@ const Workspace = () => {
             {agentDots.map((a) => (
               <motion.div
                 key={a.agent}
-                className={`w-1.5 h-1.5 rounded-full ${a.status === "done" ? "bg-success/45" : a.status === "running" ? "bg-primary/50" : "bg-muted-foreground/20"}`}
-                animate={a.status === "running" ? { opacity: [0.4, 0.9, 0.4] } : {}}
+                className={`w-1.5 h-1.5 rounded-full ${a.status === "done" ? "bg-success/60" : a.status === "running" ? "bg-primary/60" : "bg-muted-foreground/20"}`}
+                animate={a.status === "running" ? { opacity: [0.55, 0.9, 0.55] } : {}}
                 transition={{ duration: 1.5, repeat: Infinity }}
                 title={a.agent}
               />
@@ -462,7 +462,7 @@ const Workspace = () => {
                     transition={{ delay: 1 + i * 0.1, ease }}
                     onClick={() => sendMessage(p)}
                     whileHover={{ x: 4 }}
-                    className="text-[12px] px-4 py-2.5 rounded-2xl text-muted-foreground/65 hover:text-muted-foreground/70 hover:bg-secondary/[0.06] transition-all duration-700 text-left"
+                    className="text-[12px] px-4 py-2.5 rounded-2xl text-muted-foreground/65 hover:text-muted-foreground/70 hover:bg-secondary/[0.1] transition-all duration-700 text-left"
                   >
                     → {p}
                   </motion.button>
@@ -471,7 +471,7 @@ const Workspace = () => {
               {/* Capability hint */}
               <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 1.8 }} className="flex flex-wrap justify-center gap-x-4 gap-y-1 mt-12">
                 {["Source Unification", "Search Contacts", "Parse Cards", "Create Draft", "Send Batch", "Read Aloud", "Audit Action"].map((cap, i) => (
-                  <motion.span key={cap} className="text-[9px] text-muted-foreground/55 font-light" animate={{ opacity: [0.2, 0.45, 0.2] }} transition={{ duration: 4, repeat: Infinity, delay: i * 0.5 }}>
+                  <motion.span key={cap} className="text-[9px] text-muted-foreground/55 font-light" animate={{ opacity: [0.4, 0.7, 0.4] }} transition={{ duration: 4, repeat: Infinity, delay: i * 0.5 }}>
                     {cap}
                   </motion.span>
                 ))}
@@ -494,7 +494,7 @@ const Workspace = () => {
                         <div className="flex-shrink-0 mt-1"><AiEntity size="sm" /></div>
                         <div className="flex items-center gap-2 px-5 py-4">
                           {[0, 1, 2].map((dot) => (
-                            <motion.div key={dot} className="w-1.5 h-1.5 rounded-full bg-primary/30" animate={{ opacity: [0.2, 0.7, 0.2], scale: [0.8, 1.1, 0.8] }} transition={{ duration: 1.2, repeat: Infinity, delay: dot * 0.2 }} />
+                            <motion.div key={dot} className="w-1.5 h-1.5 rounded-full bg-primary/60" animate={{ opacity: [0.2, 0.7, 0.2], scale: [0.8, 1.1, 0.8] }} transition={{ duration: 1.2, repeat: Infinity, delay: dot * 0.2 }} />
                           ))}
                           <span className="text-[11px] text-muted-foreground/60 ml-2 font-light">Attivo tool operativi...</span>
                         </div>
@@ -512,10 +512,10 @@ const Workspace = () => {
                         <motion.div
                           className={`max-w-[85%] relative ${msg.role === "user" ? "px-5 py-4 rounded-2xl rounded-br-lg" : "px-5 py-4 rounded-2xl rounded-bl-lg"}`}
                           style={{
-                            background: msg.role === "assistant" ? "hsl(240 5% 6% / 0.7)" : "hsl(240 5% 8% / 0.4)",
+                            background: msg.role === "assistant" ? "hsl(240 5% 6% / 0.7)" : "hsl(240 5% 8% / 0.65)",
                             border: `1px solid hsl(0 0% 100% / ${msg.role === "assistant" ? "0.05" : "0.03"})`,
                             backdropFilter: "blur(40px)",
-                            boxShadow: msg.role === "assistant" ? "0 0 60px hsl(210 100% 66% / 0.03), 0 20px 50px -20px hsl(0 0% 0% / 0.4)" : "none",
+                            boxShadow: msg.role === "assistant" ? "0 0 60px hsl(210 100% 66% / 0.03), 0 20px 50px -20px hsl(0 0% 0% / 0.65)" : "none",
                           }}
                         >
                           {msg.agentName && (
@@ -531,14 +531,14 @@ const Workspace = () => {
                             )}
                           </div>
                           {msg.meta && (
-                            <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.4 }} className="flex items-center gap-2 mt-3 pt-2 border-t border-border/[0.08]">
+                            <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.4 }} className="flex items-center gap-2 mt-3 pt-2 border-t border-border/[0.12]">
                               <Wand2 className="w-2.5 h-2.5 text-primary/70" />
                               <span className="text-[9px] text-muted-foreground/60 font-light font-mono">{msg.meta}</span>
                             </motion.div>
                           )}
                           {msg.governance && (
                             <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.6 }} className="flex items-center gap-2 mt-1.5">
-                              <div className="w-1 h-1 rounded-full bg-success/45" />
+                              <div className="w-1 h-1 rounded-full bg-success/60" />
                               <span className="text-[8px] text-muted-foreground/60 font-mono">{msg.governance}</span>
                             </motion.div>
                           )}
@@ -581,7 +581,7 @@ const Workspace = () => {
                 animate={{ boxShadow: inputFocused ? "0 0 0 1px hsl(210 100% 66% / 0.08), 0 0 60px hsl(210 100% 66% / 0.03)" : "0 0 0 0.5px hsl(0 0% 0% / 0.15)" }}
                 transition={{ duration: 0.6 }}
                 className="flex items-center gap-3 rounded-2xl px-4 py-3"
-                style={{ background: "hsl(240 5% 6% / 0.6)", backdropFilter: "blur(40px)", border: "1px solid hsl(0 0% 100% / 0.06)" }}
+                style={{ background: "hsl(240 5% 6% / 0.75)", backdropFilter: "blur(40px)", border: "1px solid hsl(0 0% 100% / 0.06)" }}
               >
                 <motion.button
                   onClick={() => { setMicActive(!micActive); setVoiceSpeaking(false); }}

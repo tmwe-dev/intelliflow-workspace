@@ -82,7 +82,7 @@ const Capabilities = () => {
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.6, ease }}
           className="mb-16 rounded-2xl p-5"
-          style={{ background: "hsl(240 5% 6% / 0.4)", border: "1px solid hsl(0 0% 100% / 0.06)" }}
+          style={{ background: "hsl(240 5% 6% / 0.65)", border: "1px solid hsl(0 0% 100% / 0.06)" }}
         >
           <div className="flex items-center gap-2.5 mb-4">
             <Box className="w-3.5 h-3.5 text-muted-foreground/60" strokeWidth={1.5} />
@@ -119,12 +119,12 @@ const Capabilities = () => {
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.3 + i * 0.06, duration: 0.5, ease }}
               className="group cursor-default rounded-2xl p-5 transition-all duration-700"
-              style={{ background: "hsl(240 5% 6% / 0.5)", border: "1px solid hsl(0 0% 100% / 0.06)" }}
+              style={{ background: "hsl(240 5% 6% / 0.7)", border: "1px solid hsl(0 0% 100% / 0.06)" }}
               whileHover={{ borderColor: `hsl(${cap.color} / 0.12)`, boxShadow: `0 0 40px hsl(${cap.color} / 0.05)` }}
             >
               <div className="flex items-start gap-4">
                 <div className="w-9 h-9 rounded-xl flex items-center justify-center flex-shrink-0 transition-all duration-700" style={{ background: `hsl(${cap.color} / 0.08)` }}>
-                  <cap.icon className="w-4 h-4 transition-colors duration-500" style={{ color: `hsl(${cap.color} / 0.6)` }} strokeWidth={1.5} />
+                  <cap.icon className="w-4 h-4 transition-colors duration-500" style={{ color: `hsl(${cap.color} / 0.75)` }} strokeWidth={1.5} />
                 </div>
                 <div className="flex-1 min-w-0">
                   <div className="text-[13px] font-light text-foreground/90 mb-1">{cap.label}</div>
@@ -143,7 +143,7 @@ const Capabilities = () => {
               <motion.span
                 key={src}
                 className="text-[10px] text-muted-foreground/60 font-light"
-                animate={{ opacity: [0.3, 0.55, 0.3] }}
+                animate={{ opacity: [0.5, 0.8, 0.5] }}
                 transition={{ duration: 4, repeat: Infinity, delay: i * 0.5 }}
               >
                 {src}

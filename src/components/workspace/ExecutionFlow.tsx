@@ -25,7 +25,7 @@ const ExecutionFlow = ({ visible, steps, progress }: ExecutionFlowProps) => (
         transition={{ duration: 0.5, ease }}
         className="rounded-2xl p-5 mt-4"
         style={{
-          background: "hsl(240 5% 6% / 0.6)",
+          background: "hsl(240 5% 6% / 0.75)",
           backdropFilter: "blur(40px)",
           border: "1px solid hsl(0 0% 100% / 0.06)",
         }}
@@ -35,7 +35,7 @@ const ExecutionFlow = ({ visible, steps, progress }: ExecutionFlowProps) => (
             <div className="h-[2px] rounded-full bg-secondary/25 overflow-hidden">
               <motion.div
                 className="h-full rounded-full"
-                style={{ background: "linear-gradient(90deg, hsl(210 100% 66% / 0.5), hsl(270 60% 62% / 0.4))" }}
+                style={{ background: "linear-gradient(90deg, hsl(210 100% 66% / 0.7), hsl(270 60% 62% / 0.65))" }}
                 initial={{ width: 0 }}
                 animate={{ width: `${progress}%` }}
                 transition={{ duration: 0.8, ease }}

@@ -92,7 +92,7 @@ const Connections = () => {
                   transition={{ delay: 0.3 + gi * 0.15 + si * 0.05, ease }}
                   className="float-panel-interactive px-5 py-4 flex items-center gap-4 group"
                 >
-                  <div className={`w-1.5 h-1.5 rounded-full flex-shrink-0 ${src.status === "live" ? "bg-success/50" : "bg-muted-foreground/30"}`} />
+                  <div className={`w-1.5 h-1.5 rounded-full flex-shrink-0 ${src.status === "live" ? "bg-success/60" : "bg-muted-foreground/30"}`} />
                   <div className="flex-1 min-w-0">
                     <span className="text-sm font-medium text-foreground/90">{src.name}</span>
                     <span className="text-xs text-muted-foreground/65 ml-2">{src.records}</span>
@@ -103,7 +103,7 @@ const Connections = () => {
                         key={cap}
                         className="text-[8px] px-1.5 py-0.5 rounded-md font-mono"
                         style={{
-                          color: `hsl(${capabilityColors[cap] || "210 100% 66%"} / 0.6)`,
+                          color: `hsl(${capabilityColors[cap] || "210 100% 66%"} / 0.75)`,
                           background: `hsl(${capabilityColors[cap] || "210 100% 66%"} / 0.08)`,
                         }}
                       >
@@ -151,7 +151,7 @@ const Connections = () => {
               </div>
               <div className="flex items-center gap-3">
                 {conn.records && <span className="text-[9px] text-muted-foreground/60 font-mono">{conn.records}</span>}
-                <div className={`w-1.5 h-1.5 rounded-full ${conn.status === "connected" ? "bg-success/45" : "bg-warning/50"}`} />
+                <div className={`w-1.5 h-1.5 rounded-full ${conn.status === "connected" ? "bg-success/60" : "bg-warning/50"}`} />
               </div>
             </motion.div>
           ))}
