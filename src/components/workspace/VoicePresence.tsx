@@ -25,8 +25,8 @@ const VoicePresence = ({ active, speaking = false, listening = false }: VoicePre
           animate={{ opacity: [0.6, 1, 0.6] }}
           transition={{ duration: 2, repeat: Infinity }}
         >
-          <div className={`w-2 h-2 rounded-full ${speaking ? "bg-accent/60" : "bg-primary/50"}`} />
-          <span className="text-[10px] text-muted-foreground/50 tracking-[0.15em] uppercase font-mono">
+          <div className={`w-2 h-2 rounded-full ${speaking ? "bg-accent/60" : "bg-primary/60"}`} />
+          <span className="text-[10px] text-muted-foreground/70 tracking-[0.15em] uppercase font-mono">
             {speaking ? "ASSISTENTE PARLA" : listening ? "IN ASCOLTO" : "VOCE ATTIVA"}
           </span>
         </motion.div>
@@ -35,7 +35,7 @@ const VoicePresence = ({ active, speaking = false, listening = false }: VoicePre
           {Array.from({ length: 48 }).map((_, i) => (
             <motion.div
               key={i}
-              className={`w-[1px] rounded-full ${speaking ? "bg-accent/35" : "bg-primary/30"}`}
+              className={`w-[1px] rounded-full ${speaking ? "bg-accent/55" : "bg-primary/60"}`}
               animate={{
                 height: speaking
                   ? [2, Math.random() * 28 + 4, 2]
@@ -52,7 +52,7 @@ const VoicePresence = ({ active, speaking = false, listening = false }: VoicePre
           ))}
         </div>
 
-        <span className="text-[8px] text-muted-foreground/25 tracking-wider font-mono">ELEVENLABS · VOICE AI</span>
+        <span className="text-[8px] text-muted-foreground/70 tracking-wider font-mono">ELEVENLABS · VOICE AI</span>
       </div>
     </motion.div>
   );

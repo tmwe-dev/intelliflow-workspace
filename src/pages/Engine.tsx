@@ -152,8 +152,8 @@ const Engine = () => {
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ delay: 0.7 + i * 0.08 }}
-              className={step === "→" ? "text-[10px] text-muted-foreground/30" : "text-[10px] text-muted-foreground/50 px-2.5 py-1.5 rounded-lg font-mono tracking-wider"}
-              style={step !== "→" ? { background: "hsl(240 5% 7% / 0.6)", border: "1px solid hsl(0 0% 100% / 0.06)" } : {}}
+              className={step === "→" ? "text-[10px] text-muted-foreground/55" : "text-[10px] text-muted-foreground/70 px-2.5 py-1.5 rounded-lg font-mono tracking-wider"}
+              style={step !== "→" ? { background: "hsl(240 5% 7% / 0.75)", border: "1px solid hsl(0 0% 100% / 0.1)" } : {}}
             >
               {step}
             </motion.span>
@@ -168,41 +168,41 @@ const Engine = () => {
           className="mb-16"
         >
           <div className="flex items-center gap-3 mb-6">
-            <Box className="w-4 h-4 text-muted-foreground/40" strokeWidth={1.5} />
+            <Box className="w-4 h-4 text-muted-foreground/60" strokeWidth={1.5} />
             <div>
-              <h2 className="text-[15px] font-light text-foreground/80">Operational Foundations</h2>
-              <p className="text-[11px] text-muted-foreground/50 font-light">Moduli operativi già esistenti e maturi su cui il prodotto si fonda</p>
+              <h2 className="text-[15px] font-light text-foreground/90">Operational Foundations</h2>
+              <p className="text-[11px] text-muted-foreground/70 font-light">Moduli operativi già esistenti e maturi su cui il prodotto si fonda</p>
             </div>
           </div>
 
-          <div className="rounded-2xl overflow-hidden" style={{ background: "hsl(240 5% 6% / 0.5)", border: "1px solid hsl(0 0% 100% / 0.06)" }}>
+          <div className="rounded-2xl overflow-hidden" style={{ background: "hsl(240 5% 6% / 0.7)", border: "1px solid hsl(0 0% 100% / 0.1)" }}>
             {foundations.map((f, i) => (
               <motion.div
                 key={f.name}
                 initial={{ opacity: 0, x: -10 }}
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ delay: 0.8 + i * 0.06, duration: 0.4, ease }}
-                className="flex items-center gap-4 px-5 py-3.5 border-b border-border/[0.06] last:border-b-0"
+                className="flex items-center gap-4 px-5 py-3.5 border-b border-border/[0.1] last:border-b-0"
               >
                 <div className="flex-1 min-w-0">
-                  <div className="text-[12px] font-light text-foreground/75">{f.name}</div>
-                  <div className="text-[9px] text-muted-foreground/40 font-mono mt-0.5">{f.records}</div>
+                  <div className="text-[12px] font-light text-foreground/90">{f.name}</div>
+                  <div className="text-[9px] text-muted-foreground/60 font-mono mt-0.5">{f.records}</div>
                 </div>
                 <div className="flex items-center gap-3 flex-shrink-0">
                   {/* Maturity bar */}
                   <div className="w-16 h-[3px] rounded-full bg-secondary/20 overflow-hidden">
                     <motion.div
                       className="h-full rounded-full"
-                      style={{ background: f.maturity >= 90 ? "hsl(152 60% 45% / 0.6)" : f.maturity >= 80 ? "hsl(210 100% 66% / 0.5)" : "hsl(38 90% 50% / 0.45)" }}
+                      style={{ background: f.maturity >= 90 ? "hsl(152 60% 45% / 0.75)" : f.maturity >= 80 ? "hsl(210 100% 66% / 0.7)" : "hsl(38 90% 50% / 0.7)" }}
                       initial={{ width: 0 }}
                       animate={{ width: `${f.maturity}%` }}
                       transition={{ delay: 1 + i * 0.08, duration: 0.8, ease }}
                     />
                   </div>
-                  <span className="text-[8px] text-muted-foreground/40 font-mono w-7 text-right">{f.maturity}%</span>
+                  <span className="text-[8px] text-muted-foreground/60 font-mono w-7 text-right">{f.maturity}%</span>
                   <motion.div
-                    className="w-1.5 h-1.5 rounded-full bg-success/50"
-                    animate={{ opacity: [0.4, 0.8, 0.4] }}
+                    className="w-1.5 h-1.5 rounded-full bg-success/60"
+                    animate={{ opacity: [0.5, 0.85, 0.5] }}
                     transition={{ duration: 2.5, repeat: Infinity, delay: i * 0.3 }}
                   />
                 </div>
@@ -216,8 +216,8 @@ const Engine = () => {
             transition={{ delay: 1.5 }}
             className="flex items-center gap-2 mt-3 px-1"
           >
-            <Radio className="w-2.5 h-2.5 text-success/40" />
-            <span className="text-[9px] text-muted-foreground/40 font-light">9 fondamenta operative attive · Maturity media 84% · Tutti i moduli già in uso</span>
+            <Radio className="w-2.5 h-2.5 text-success/65" />
+            <span className="text-[9px] text-muted-foreground/60 font-light">9 fondamenta operative attive · Maturity media 84% · Tutti i moduli già in uso</span>
           </motion.div>
         </motion.div>
 
@@ -227,9 +227,9 @@ const Engine = () => {
           animate={{ opacity: 1 }}
           transition={{ delay: 1.2 }}
           className="mb-16 rounded-2xl p-6"
-          style={{ background: "hsl(240 5% 6% / 0.4)", border: "1px solid hsl(0 0% 100% / 0.06)" }}
+          style={{ background: "hsl(240 5% 6% / 0.65)", border: "1px solid hsl(0 0% 100% / 0.1)" }}
         >
-          <div className="text-[10px] text-muted-foreground/50 tracking-[0.2em] uppercase mb-4 font-mono">COME FUNZIONA</div>
+          <div className="text-[10px] text-muted-foreground/70 tracking-[0.2em] uppercase mb-4 font-mono">COME FUNZIONA</div>
           <div className="space-y-3">
             {[
               "Il prodotto non ricostruisce ogni funzione da zero. Integra e orchestra moduli operativi già esistenti.",
@@ -243,8 +243,8 @@ const Engine = () => {
                 transition={{ delay: 1.4 + i * 0.12 }}
                 className="flex items-start gap-3"
               >
-                <div className="w-1 h-1 rounded-full bg-primary/40 mt-1.5 flex-shrink-0" />
-                <p className="text-[12px] text-foreground/60 font-light leading-relaxed">{text}</p>
+                <div className="w-1 h-1 rounded-full bg-primary/55 mt-1.5 flex-shrink-0" />
+                <p className="text-[12px] text-foreground/90 font-light leading-relaxed">{text}</p>
               </motion.div>
             ))}
           </div>
@@ -259,15 +259,15 @@ const Engine = () => {
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.3 + li * 0.08, duration: 0.6, ease }}
               className="rounded-2xl overflow-hidden"
-              style={{ background: "hsl(240 5% 6% / 0.5)", border: "1px solid hsl(0 0% 100% / 0.06)" }}
+              style={{ background: "hsl(240 5% 6% / 0.7)", border: "1px solid hsl(0 0% 100% / 0.1)" }}
             >
               <div className="p-6 flex items-start gap-4">
                 <div className="w-10 h-10 rounded-xl flex items-center justify-center flex-shrink-0" style={{ background: `hsl(${layer.color} / 0.08)` }}>
-                  <layer.icon className="w-4.5 h-4.5" style={{ color: `hsl(${layer.color} / 0.6)` }} strokeWidth={1.5} />
+                  <layer.icon className="w-4.5 h-4.5" style={{ color: `hsl(${layer.color} / 0.75)` }} strokeWidth={1.5} />
                 </div>
                 <div>
-                  <h2 className="text-[15px] font-light text-foreground/85 mb-0.5">{layer.title}</h2>
-                  <p className="text-[11px] text-muted-foreground/50 font-light">{layer.subtitle}</p>
+                  <h2 className="text-[15px] font-light text-foreground/95 mb-0.5">{layer.title}</h2>
+                  <p className="text-[11px] text-muted-foreground/70 font-light">{layer.subtitle}</p>
                 </div>
               </div>
               <div className="px-6 pb-5 grid grid-cols-1 md:grid-cols-2 gap-2">
@@ -278,10 +278,10 @@ const Engine = () => {
                     animate={{ opacity: 1 }}
                     transition={{ delay: 0.5 + li * 0.08 + mi * 0.03 }}
                     className="px-4 py-3 rounded-xl"
-                    style={{ background: "hsl(240 5% 7% / 0.4)", border: "1px solid hsl(0 0% 100% / 0.04)" }}
+                    style={{ background: "hsl(240 5% 7% / 0.65)", border: "1px solid hsl(0 0% 100% / 0.1)" }}
                   >
-                    <div className="text-[11px] text-foreground/65 font-light mb-0.5">{mod.name}</div>
-                    <div className="text-[9px] text-muted-foreground/40 leading-relaxed">{mod.detail}</div>
+                    <div className="text-[11px] text-foreground/90 font-light mb-0.5">{mod.name}</div>
+                    <div className="text-[9px] text-muted-foreground/60 leading-relaxed">{mod.detail}</div>
                   </motion.div>
                 ))}
               </div>
@@ -290,12 +290,12 @@ const Engine = () => {
         </div>
 
         <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 2.5 }} className="mt-20 text-center">
-          <p className="text-[12px] text-muted-foreground/45 font-light leading-relaxed max-w-md mx-auto mb-6">
+          <p className="text-[12px] text-muted-foreground/65 font-light leading-relaxed max-w-md mx-auto mb-6">
             Fondamenta operative già mature. Moduli già in produzione.
             <br />
             L'AI workspace non inventa le capacità — le unifica, le amplifica, le rende conversazionali.
           </p>
-          <a href="/architecture" className="inline-flex items-center gap-2 text-[11px] text-primary/50 hover:text-primary/70 transition-colors duration-500 font-light">
+          <a href="/architecture" className="inline-flex items-center gap-2 text-[11px] text-primary/70 hover:text-primary/70 transition-colors duration-500 font-light">
             Esplora l'architettura completa del prodotto →
           </a>
         </motion.div>

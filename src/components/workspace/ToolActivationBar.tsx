@@ -188,7 +188,7 @@ const ToolActivationBar = ({ scenarioKey, visible, phase = "active", chainHighli
                 <div key={step} className="flex items-center gap-1">
                   <motion.span
                     className={`text-[7px] tracking-[0.15em] font-mono transition-all duration-500 ${
-                      isCurrent ? "text-primary/70" : isActive ? "text-muted-foreground/45" : "text-muted-foreground/20"
+                      isCurrent ? "text-primary/70" : isActive ? "text-muted-foreground/65" : "text-muted-foreground/70"
                     }`}
                     animate={isCurrent ? { opacity: [0.5, 0.9, 0.5] } : {}}
                     transition={{ duration: 1.5, repeat: Infinity }}
@@ -196,7 +196,7 @@ const ToolActivationBar = ({ scenarioKey, visible, phase = "active", chainHighli
                     {step}
                   </motion.span>
                   {i < chainSteps.length - 1 && (
-                    <span className={`text-[7px] ${isActive ? "text-muted-foreground/30" : "text-muted-foreground/12"}`}>→</span>
+                    <span className={`text-[7px] ${isActive ? "text-muted-foreground/55" : "text-muted-foreground/30"}`}>→</span>
                   )}
                 </div>
               );
@@ -205,7 +205,7 @@ const ToolActivationBar = ({ scenarioKey, visible, phase = "active", chainHighli
 
           {/* Operational Tools */}
           <div className="flex items-center gap-1 py-2 px-1 flex-wrap">
-            <span className="text-[8px] text-muted-foreground/35 tracking-[0.2em] uppercase mr-2 font-mono">TOOLS</span>
+            <span className="text-[8px] text-muted-foreground/60 tracking-[0.2em] uppercase mr-2 font-mono">TOOLS</span>
             {tools.map((tool, i) => {
               const revealed = i < revealedCount;
               return (
@@ -227,7 +227,7 @@ const ToolActivationBar = ({ scenarioKey, visible, phase = "active", chainHighli
                   {revealed && phase === "activating" && i === revealedCount - 1 && (
                     <motion.div
                       className="absolute inset-0 rounded-lg"
-                      initial={{ boxShadow: `0 0 12px hsl(${tool.color} / 0.2)` }}
+                      initial={{ boxShadow: `0 0 12px hsl(${tool.color} / 0.7)` }}
                       animate={{ boxShadow: `0 0 0px hsl(${tool.color} / 0)` }}
                       transition={{ duration: 0.8 }}
                     />
@@ -241,7 +241,7 @@ const ToolActivationBar = ({ scenarioKey, visible, phase = "active", chainHighli
           {/* Sources */}
           {sources.length > 0 && (
             <div className="flex items-center gap-1 py-1 px-1 flex-wrap">
-              <span className="text-[8px] text-muted-foreground/35 tracking-[0.2em] uppercase mr-2 font-mono">FONTI</span>
+              <span className="text-[8px] text-muted-foreground/60 tracking-[0.2em] uppercase mr-2 font-mono">FONTI</span>
               {sources.map((src, i) => (
                 <motion.span
                   key={src.name}
@@ -249,7 +249,7 @@ const ToolActivationBar = ({ scenarioKey, visible, phase = "active", chainHighli
                   animate={{ opacity: 1 }}
                   transition={{ delay: 0.3 + i * 0.08 }}
                   className="text-[8px] px-2 py-1 rounded-lg font-mono"
-                  style={{ color: `hsl(${src.color} / 0.55)`, background: `hsl(${src.color} / 0.05)`, border: `1px solid hsl(${src.color} / 0.08)` }}
+                  style={{ color: `hsl(${src.color} / 0.7)`, background: `hsl(${src.color} / 0.05)`, border: `1px solid hsl(${src.color} / 0.08)` }}
                 >
                   {src.name}
                 </motion.span>

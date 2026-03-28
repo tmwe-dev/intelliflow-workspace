@@ -25,9 +25,9 @@ const ExecutionFlow = ({ visible, steps, progress }: ExecutionFlowProps) => (
         transition={{ duration: 0.5, ease }}
         className="rounded-2xl p-5 mt-4"
         style={{
-          background: "hsl(240 5% 6% / 0.6)",
+          background: "hsl(240 5% 6% / 0.75)",
           backdropFilter: "blur(40px)",
-          border: "1px solid hsl(0 0% 100% / 0.06)",
+          border: "1px solid hsl(0 0% 100% / 0.1)",
         }}
       >
         {progress !== undefined && (
@@ -35,13 +35,13 @@ const ExecutionFlow = ({ visible, steps, progress }: ExecutionFlowProps) => (
             <div className="h-[2px] rounded-full bg-secondary/25 overflow-hidden">
               <motion.div
                 className="h-full rounded-full"
-                style={{ background: "linear-gradient(90deg, hsl(210 100% 66% / 0.5), hsl(270 60% 62% / 0.4))" }}
+                style={{ background: "linear-gradient(90deg, hsl(210 100% 66% / 0.7), hsl(270 60% 62% / 0.65))" }}
                 initial={{ width: 0 }}
                 animate={{ width: `${progress}%` }}
                 transition={{ duration: 0.8, ease }}
               />
             </div>
-            <div className="text-[9px] text-muted-foreground/40 mt-1.5 text-right font-mono">{progress}%</div>
+            <div className="text-[9px] text-muted-foreground/60 mt-1.5 text-right font-mono">{progress}%</div>
           </div>
         )}
 
@@ -56,9 +56,9 @@ const ExecutionFlow = ({ visible, steps, progress }: ExecutionFlowProps) => (
             >
               <div className="flex-shrink-0 w-4 flex justify-center">
                 {step.status === "done" ? (
-                  <CheckCircle2 className="w-3 h-3 text-success/55" />
+                  <CheckCircle2 className="w-3 h-3 text-success/80" />
                 ) : step.status === "running" ? (
-                  <Loader2 className="w-3 h-3 text-primary/55 animate-spin" />
+                  <Loader2 className="w-3 h-3 text-primary/70 animate-spin" />
                 ) : step.status === "error" ? (
                   <div className="w-2 h-2 rounded-full bg-destructive/50" />
                 ) : (
@@ -66,12 +66,12 @@ const ExecutionFlow = ({ visible, steps, progress }: ExecutionFlowProps) => (
                 )}
               </div>
               <span className={`text-[11px] font-light flex-1 ${
-                step.status === "done" ? "text-foreground/55" :
-                step.status === "running" ? "text-foreground/75" :
-                "text-muted-foreground/35"
+                step.status === "done" ? "text-foreground/90" :
+                step.status === "running" ? "text-foreground/90" :
+                "text-muted-foreground/60"
               }`}>{step.label}</span>
               {step.detail && (
-                <span className="text-[9px] text-muted-foreground/40 font-mono">{step.detail}</span>
+                <span className="text-[9px] text-muted-foreground/60 font-mono">{step.detail}</span>
               )}
             </motion.div>
           ))}

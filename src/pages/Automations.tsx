@@ -18,9 +18,9 @@ const Automations = () => {
       </div>
 
       <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8, ease }} className="text-center mb-16 relative z-10">
-        <Zap className="w-5 h-5 text-primary/30 mx-auto mb-4" strokeWidth={1.5} />
+        <Zap className="w-5 h-5 text-primary/70 mx-auto mb-4" strokeWidth={1.5} />
         <h1 className="text-2xl font-light tracking-tight mb-2">Automazioni</h1>
-        <p className="text-sm text-muted-foreground/50 font-light">Operazioni in corso e completate</p>
+        <p className="text-sm text-muted-foreground/70 font-light">Operazioni in corso e completate</p>
       </motion.div>
 
       <div className="w-full max-w-2xl space-y-3 relative z-10">
@@ -34,14 +34,14 @@ const Automations = () => {
           >
             <div className="flex items-start gap-4">
               <div className="mt-0.5 flex-shrink-0">
-                {auto.status === "running" ? <Loader2 className="w-4 h-4 text-primary/40 animate-spin" />
-                : auto.status === "completed" ? <CheckCircle2 className="w-4 h-4 text-success/40" />
+                {auto.status === "running" ? <Loader2 className="w-4 h-4 text-primary/60 animate-spin" />
+                : auto.status === "completed" ? <CheckCircle2 className="w-4 h-4 text-success/65" />
                 : auto.status === "approval" ? <ThumbsUp className="w-4 h-4 text-warning/40" />
-                : <Pause className="w-4 h-4 text-muted-foreground/30" />}
+                : <Pause className="w-4 h-4 text-muted-foreground/55" />}
               </div>
               <div className="flex-1">
                 <h3 className="text-sm font-medium mb-1">{auto.name}</h3>
-                <p className="text-[11px] text-muted-foreground/40 mb-3">{auto.detail}</p>
+                <p className="text-[11px] text-muted-foreground/60 mb-3">{auto.detail}</p>
                 <div className="h-1 bg-secondary rounded-full overflow-hidden mb-2">
                   <motion.div
                     initial={{ width: 0 }}
@@ -51,13 +51,13 @@ const Automations = () => {
                       auto.status === "completed" ? "bg-success/40"
                       : auto.status === "approval" ? "bg-warning/40"
                       : auto.status === "paused" ? "bg-muted-foreground/20"
-                      : "bg-primary/30"
+                      : "bg-primary/60"
                     }`}
                   />
                 </div>
                 <div className="flex items-center justify-between">
-                  <span className="text-[10px] text-muted-foreground/25 font-mono">{auto.progress}%</span>
-                  <span className="text-[10px] text-muted-foreground/20">{auto.agents}</span>
+                  <span className="text-[10px] text-muted-foreground/70 font-mono">{auto.progress}%</span>
+                  <span className="text-[10px] text-muted-foreground/70">{auto.agents}</span>
                 </div>
               </div>
             </div>

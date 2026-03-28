@@ -53,7 +53,7 @@ const Landing = () => {
           <div className="w-6 h-6 rounded-lg bg-gradient-to-br from-primary/25 to-accent/15 flex items-center justify-center">
             <div className="w-2 h-2 rounded-full bg-primary/60" />
           </div>
-          <span className="text-sm font-medium tracking-tight text-foreground/80">Adaptive</span>
+          <span className="text-sm font-medium tracking-tight text-foreground/90">Adaptive</span>
         </div>
         <button
           onClick={() => navigate("/dashboard")}
@@ -107,21 +107,21 @@ const Landing = () => {
           <motion.div
             animate={{
               boxShadow: inputFocused
-                ? "0 0 0 1px hsl(210 100% 66% / 0.15), 0 0 80px hsl(210 100% 66% / 0.06), 0 20px 60px -15px hsl(0 0% 0% / 0.5)"
-                : "0 0 0 0.5px hsl(0 0% 0% / 0.3), 0 20px 60px -15px hsl(0 0% 0% / 0.5)",
+                ? "0 0 0 1px hsl(210 100% 66% / 0.15), 0 0 80px hsl(210 100% 66% / 0.06), 0 20px 60px -15px hsl(0 0% 0% / 0.7)"
+                : "0 0 0 0.5px hsl(0 0% 0% / 0.7), 0 20px 60px -15px hsl(0 0% 0% / 0.7)",
             }}
             transition={{ duration: 0.5 }}
             className="relative rounded-2xl overflow-hidden"
             style={{
               background: "hsl(240 5% 6% / 0.7)",
               backdropFilter: "blur(40px) saturate(1.1)",
-              border: "1px solid hsl(0 0% 100% / 0.08)",
+              border: "1px solid hsl(0 0% 100% / 0.12)",
             }}
           >
             <div className="flex items-center px-5 py-4 gap-4">
               <motion.div
                 className="w-2.5 h-2.5 rounded-full flex-shrink-0"
-                style={{ background: "radial-gradient(circle, hsl(210 100% 70% / 0.7), hsl(210 100% 66% / 0.3))" }}
+                style={{ background: "radial-gradient(circle, hsl(210 100% 70% / 0.7), hsl(210 100% 66% / 0.7))" }}
                 animate={{ scale: [1, 1.2, 1], opacity: [0.5, 1, 0.5] }}
                 transition={{ duration: 2.5, repeat: Infinity, ease: "easeInOut" }}
               />
@@ -133,10 +133,10 @@ const Landing = () => {
                 onFocus={() => setInputFocused(true)}
                 onBlur={() => setInputFocused(false)}
                 onKeyDown={(e) => e.key === "Enter" && handleSubmit()}
-                className="flex-1 bg-transparent text-[15px] outline-none placeholder:text-muted-foreground/40 font-light text-foreground"
+                className="flex-1 bg-transparent text-[15px] outline-none placeholder:text-muted-foreground/50 font-light text-foreground"
               />
               <div className="flex items-center gap-2">
-                <div className="flex items-center gap-1 text-muted-foreground/35">
+                <div className="flex items-center gap-1 text-muted-foreground/60">
                   <Command className="w-3 h-3" />
                   <span className="text-[10px] font-mono">K</span>
                 </div>
@@ -185,8 +185,8 @@ const Landing = () => {
                   layoutId="prompt-highlight"
                   className="absolute inset-0 rounded-2xl"
                   style={{
-                    background: "hsl(240 5% 7% / 0.6)",
-                    border: "1px solid hsl(0 0% 100% / 0.08)",
+                    background: "hsl(240 5% 7% / 0.75)",
+                    border: "1px solid hsl(0 0% 100% / 0.12)",
                   }}
                   transition={{ type: "spring", stiffness: 400, damping: 30 }}
                 />
@@ -207,8 +207,8 @@ const Landing = () => {
           {["Partner Network", "Contact Import", "Campaign Engine", "Deep Search", "Voice AI", "Audit"].map((s, i) => (
             <motion.span
               key={s}
-              className="text-[10px] text-muted-foreground/40 font-light tracking-wider"
-              animate={{ opacity: [0.3, 0.6, 0.3] }}
+              className="text-[10px] text-muted-foreground/60 font-light tracking-wider"
+              animate={{ opacity: [0.5, 0.8, 0.5] }}
               transition={{ duration: 3, repeat: Infinity, delay: i * 0.5 }}
             >
               {s}
@@ -216,8 +216,8 @@ const Landing = () => {
           ))}
         </div>
         <motion.span
-          className="text-[8px] text-muted-foreground/30 font-mono tracking-widest"
-          animate={{ opacity: [0.2, 0.4, 0.2] }}
+          className="text-[8px] text-muted-foreground/55 font-mono tracking-widest"
+          animate={{ opacity: [0.45, 0.7, 0.45] }}
           transition={{ duration: 5, repeat: Infinity }}
         >
           FONDATO SU MODULI OPERATIVI GIÀ ESISTENTI
