@@ -415,9 +415,9 @@ const Workspace = () => {
       <div className="flex items-center justify-between px-6 py-3 relative z-10 flex-shrink-0">
         <div className="flex items-center gap-3">
           <motion.div className="w-1.5 h-1.5 rounded-full bg-primary/60" animate={{ opacity: [0.5, 0.85, 0.5] }} transition={{ duration: 3, repeat: Infinity }} />
-          <span className="text-[11px] text-muted-foreground/70 font-light tracking-wide">Sessione attiva</span>
+          <span className="text-[11px] text-muted-foreground/92 font-light tracking-wide">Sessione attiva</span>
           {flowPhase !== "idle" && flowPhase !== "done" && (
-            <motion.span initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="text-[9px] text-primary/70 font-mono ml-2">
+            <motion.span initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="text-[9px] text-primary/92 font-mono ml-2">
               {flowPhase === "thinking" ? "ELABORAZIONE" : flowPhase === "proposal" ? "PROPOSTA" : flowPhase === "approval" ? "IN ATTESA" : "ESECUZIONE"}
             </motion.span>
           )}
@@ -434,7 +434,7 @@ const Workspace = () => {
               />
             ))}
           </div>
-          <span className="text-[8px] text-muted-foreground/55 font-mono tracking-wider">14 fonti · 12.8k contatti · 234 partner · 7 agenti</span>
+          <span className="text-[8px] text-muted-foreground/96 font-mono tracking-wider">14 fonti · 12.8k contatti · 234 partner · 7 agenti</span>
         </div>
       </div>
 
@@ -450,7 +450,7 @@ const Workspace = () => {
               <motion.h2 initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.3, ease }} className="text-2xl font-extralight tracking-tight text-foreground/95 mb-2">
                 Cosa vuoi ottenere?
               </motion.h2>
-              <motion.p initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.6 }} className="text-[13px] text-muted-foreground/70 font-light mb-10 text-center max-w-sm">
+              <motion.p initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.6 }} className="text-[13px] text-muted-foreground/92 font-light mb-10 text-center max-w-sm">
                 14 sorgenti unificate · 12.847 contatti · 234 partner WCA · 1.420 business card
               </motion.p>
               <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.9 }} className="flex flex-col items-center gap-2">
@@ -462,7 +462,7 @@ const Workspace = () => {
                     transition={{ delay: 1 + i * 0.1, ease }}
                     onClick={() => sendMessage(p)}
                     whileHover={{ x: 4 }}
-                    className="text-[12px] px-4 py-2.5 rounded-2xl text-muted-foreground/65 hover:text-muted-foreground/70 hover:bg-secondary/[0.1] transition-all duration-700 text-left"
+                    className="text-[12px] px-4 py-2.5 rounded-2xl text-muted-foreground/90 hover:text-muted-foreground/92 hover:bg-secondary/[0.1] transition-all duration-700 text-left"
                   >
                     → {p}
                   </motion.button>
@@ -471,7 +471,7 @@ const Workspace = () => {
               {/* Capability hint */}
               <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 1.8 }} className="flex flex-wrap justify-center gap-x-4 gap-y-1 mt-12">
                 {["Source Unification", "Search Contacts", "Parse Cards", "Create Draft", "Send Batch", "Read Aloud", "Audit Action"].map((cap, i) => (
-                  <motion.span key={cap} className="text-[9px] text-muted-foreground/80 font-light" animate={{ opacity: [0.4, 0.7, 0.4] }} transition={{ duration: 4, repeat: Infinity, delay: i * 0.5 }}>
+                  <motion.span key={cap} className="text-[9px] text-muted-foreground/96 font-light" animate={{ opacity: [0.4, 0.7, 0.4] }} transition={{ duration: 4, repeat: Infinity, delay: i * 0.5 }}>
                     {cap}
                   </motion.span>
                 ))}
@@ -496,7 +496,7 @@ const Workspace = () => {
                           {[0, 1, 2].map((dot) => (
                             <motion.div key={dot} className="w-1.5 h-1.5 rounded-full bg-primary/60" animate={{ opacity: [0.2, 0.7, 0.2], scale: [0.8, 1.1, 0.8] }} transition={{ duration: 1.2, repeat: Infinity, delay: dot * 0.2 }} />
                           ))}
-                          <span className="text-[11px] text-muted-foreground/60 ml-2 font-light">Attivo tool operativi...</span>
+                          <span className="text-[11px] text-muted-foreground/88 ml-2 font-light">Attivo tool operativi...</span>
                         </div>
                       </motion.div>
                     ) : (
@@ -515,34 +515,34 @@ const Workspace = () => {
                             background: msg.role === "assistant" ? "hsl(240 5% 6% / 0.7)" : "hsl(240 5% 8% / 0.65)",
                             border: `1px solid hsl(0 0% 100% / ${msg.role === "assistant" ? "0.16" : "0.12"})`,
                             backdropFilter: "blur(40px)",
-                            boxShadow: msg.role === "assistant" ? "0 0 60px hsl(210 100% 66% / 0.1), 0 20px 50px -20px hsl(0 0% 0% / 0.72)" : "none",
+                            boxShadow: msg.role === "assistant" ? "0 0 60px hsl(210 100% 66% / 0.1), 0 20px 50px -20px hsl(0 0% 0% / 0.94)" : "none",
                           }}
                         >
                           {msg.agentName && (
-                            <motion.div initial={{ opacity: 0, x: -8 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: 0.15 }} className="text-[10px] text-primary/85 font-mono mb-2.5 tracking-[0.2em] uppercase">
+                            <motion.div initial={{ opacity: 0, x: -8 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: 0.15 }} className="text-[10px] text-primary/100 font-mono mb-2.5 tracking-[0.2em] uppercase">
                               {msg.agentName}
                             </motion.div>
                           )}
                           <div className="text-[14px] leading-[1.7] whitespace-pre-line font-light text-foreground/95">
                             {msg.content.split(/(\*\*[^*]+\*\*)/).map((part, i) =>
                               part.startsWith("**") && part.endsWith("**")
-                                ? <span key={i} className="text-primary/70 font-mono text-[12px]">{part.slice(2, -2)}</span>
+                                ? <span key={i} className="text-primary/92 font-mono text-[12px]">{part.slice(2, -2)}</span>
                                 : <span key={i}>{part}</span>
                             )}
                           </div>
                           {msg.meta && (
                             <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.4 }} className="flex items-center gap-2 mt-3 pt-2 border-t border-border/[0.16]">
-                              <Wand2 className="w-2.5 h-2.5 text-primary/70" />
-                              <span className="text-[10px] text-muted-foreground/82 font-light font-mono">{msg.meta}</span>
+                              <Wand2 className="w-2.5 h-2.5 text-primary/92" />
+                              <span className="text-[10px] text-muted-foreground/96 font-light font-mono">{msg.meta}</span>
                             </motion.div>
                           )}
                           {msg.governance && (
                             <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.6 }} className="flex items-center gap-2 mt-1.5">
                               <div className="w-1 h-1 rounded-full bg-success/60" />
-                              <span className="text-[9px] text-muted-foreground/80 font-mono">{msg.governance}</span>
+                              <span className="text-[9px] text-muted-foreground/96 font-mono">{msg.governance}</span>
                             </motion.div>
                           )}
-                          <span className="text-[10px] text-muted-foreground/75 mt-2 block">{msg.timestamp}</span>
+                          <span className="text-[10px] text-muted-foreground/95 mt-2 block">{msg.timestamp}</span>
                         </motion.div>
                       </motion.div>
                     )}
@@ -586,7 +586,7 @@ const Workspace = () => {
                 <motion.button
                   onClick={() => { setMicActive(!micActive); setVoiceSpeaking(false); }}
                   whileTap={{ scale: 0.9 }}
-                  className={`w-9 h-9 rounded-xl flex items-center justify-center transition-all duration-500 flex-shrink-0 ${micActive ? "bg-primary/12 text-primary/70" : "text-muted-foreground/82 hover:text-foreground/95"}`}
+                  className={`w-9 h-9 rounded-xl flex items-center justify-center transition-all duration-500 flex-shrink-0 ${micActive ? "bg-primary/12 text-primary/92" : "text-muted-foreground/96 hover:text-foreground/95"}`}
                 >
                   {micActive ? <MicOff className="w-4 h-4" /> : <Mic className="w-4 h-4" />}
                 </motion.button>
@@ -598,17 +598,17 @@ const Workspace = () => {
                   onKeyDown={(e) => e.key === "Enter" && sendMessage()}
                   onFocus={() => setInputFocused(true)}
                   onBlur={() => setInputFocused(false)}
-                  className="flex-1 bg-transparent text-[14px] outline-none placeholder:text-muted-foreground/50 font-light text-foreground/90"
+                  className="flex-1 bg-transparent text-[14px] outline-none placeholder:text-muted-foreground/80 font-light text-foreground/100"
                 />
                 <motion.button
                   onClick={() => setVoiceSpeaking(!voiceSpeaking)}
                   whileTap={{ scale: 0.9 }}
-                  className={`w-9 h-9 rounded-xl flex items-center justify-center transition-all duration-500 flex-shrink-0 ${voiceSpeaking ? "bg-accent/12 text-accent/70" : "text-muted-foreground/70 hover:text-muted-foreground/65"}`}
+                  className={`w-9 h-9 rounded-xl flex items-center justify-center transition-all duration-500 flex-shrink-0 ${voiceSpeaking ? "bg-accent/12 text-accent/92" : "text-muted-foreground/92 hover:text-muted-foreground/90"}`}
                   title="Lettura vocale"
                 >
                   {voiceSpeaking ? <VolumeX className="w-4 h-4" /> : <Volume2 className="w-4 h-4" />}
                 </motion.button>
-                <motion.button onClick={() => sendMessage()} disabled={!input.trim()} whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.9 }} className="w-9 h-9 rounded-xl flex items-center justify-center bg-primary/10 text-primary/70 hover:bg-primary/15 hover:text-primary/80 transition-all duration-500 disabled:opacity-20">
+                <motion.button onClick={() => sendMessage()} disabled={!input.trim()} whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.9 }} className="w-9 h-9 rounded-xl flex items-center justify-center bg-primary/10 text-primary/92 hover:bg-primary/15 hover:text-primary/96 transition-all duration-500 disabled:opacity-20">
                   <Send className="w-3.5 h-3.5" />
                 </motion.button>
               </motion.div>

@@ -33,16 +33,16 @@ const AuditLog = () => {
       </div>
 
       <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8, ease }} className="text-center mb-12 relative z-10">
-        <Shield className="w-5 h-5 text-primary/70 mx-auto mb-4" strokeWidth={1.5} />
+        <Shield className="w-5 h-5 text-primary/92 mx-auto mb-4" strokeWidth={1.5} />
         <h1 className="text-2xl font-light tracking-tight mb-2">Audit & Governance</h1>
-        <p className="text-sm text-muted-foreground/70 font-light">Ogni azione tracciata</p>
+        <p className="text-sm text-muted-foreground/92 font-light">Ogni azione tracciata</p>
       </motion.div>
 
       {/* Search */}
       <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.2 }} className="w-full max-w-2xl mb-6 relative z-10">
         <div className="float-panel-subtle px-4 py-3 flex items-center gap-3">
-          <Search className="w-3.5 h-3.5 text-muted-foreground/70" />
-          <input type="text" placeholder="Cerca..." className="bg-transparent text-sm outline-none flex-1 placeholder:text-muted-foreground/50 font-light" />
+          <Search className="w-3.5 h-3.5 text-muted-foreground/92" />
+          <input type="text" placeholder="Cerca..." className="bg-transparent text-sm outline-none flex-1 placeholder:text-muted-foreground/80 font-light" />
         </div>
       </motion.div>
 
@@ -58,10 +58,10 @@ const AuditLog = () => {
                 transition={{ delay: 0.1 + i * 0.03 }}
                 className="flex items-center gap-4 px-4 py-3 rounded-xl hover:bg-secondary/10 transition-colors duration-300 cursor-pointer group"
               >
-                <span className="text-[10px] font-mono text-muted-foreground/70 w-10">{entry.time}</span>
+                <span className="text-[10px] font-mono text-muted-foreground/92 w-10">{entry.time}</span>
                 <Icon className={`w-3.5 h-3.5 ${statusColor[entry.status]} flex-shrink-0`} strokeWidth={1.5} />
-                <span className="text-sm font-light flex-1 text-secondary-foreground/85 group-hover:text-foreground transition-colors duration-300">{entry.action}</span>
-                <span className="text-[10px] text-muted-foreground/70">{entry.agent}</span>
+                <span className="text-sm font-light flex-1 text-secondary-foreground/100 group-hover:text-foreground transition-colors duration-300">{entry.action}</span>
+                <span className="text-[10px] text-muted-foreground/92">{entry.agent}</span>
               </motion.div>
             );
           })}

@@ -31,7 +31,7 @@ const FloatingDock = () => {
           return (
             <NavLink key={item.to} to={item.to} className="relative">
               <div className={`p-2.5 rounded-xl transition-all duration-300 ${
-                isActive ? "text-primary bg-primary/22" : "text-muted-foreground/82 hover:text-foreground"
+                isActive ? "text-primary bg-primary/30" : "text-muted-foreground/96 hover:text-foreground"
               }`}>
                 <item.icon className="w-4 h-4" strokeWidth={1.5} />
               </div>
